@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary;
+package com.rzm.commonlibrary.stack;
 
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import com.rzm.commonlibrary.R;
 
 /**
  * extends  this Activity to facilitate the management of multiple fragment instances

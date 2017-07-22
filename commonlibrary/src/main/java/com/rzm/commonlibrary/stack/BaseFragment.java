@@ -1,5 +1,6 @@
-package com.rzm.commonlibrary;
+package com.rzm.commonlibrary.stack;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.support.v4.app.FragmentActivity;
  * Time: 18:19
  */
 public abstract class BaseFragment extends Fragment implements OnNewIntent {
+
+    public Context mContext;
 
     /**
      * open a new Fragment
@@ -108,6 +111,12 @@ public abstract class BaseFragment extends Fragment implements OnNewIntent {
         } else {
             onNextShow();
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
     }
 
     @Override

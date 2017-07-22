@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary;
+package com.rzm.commonlibrary.stack;
 
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import com.rzm.commonlibrary.R;
 
 /**
  * Fragment task stack manager

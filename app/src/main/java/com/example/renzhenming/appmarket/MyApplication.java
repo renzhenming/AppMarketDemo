@@ -9,11 +9,20 @@ import android.app.Application;
 public class MyApplication extends Application {
 
     private static MyApplication context;
+    private Thread.UncaughtExceptionHandler mHandler = new Thread.UncaughtExceptionHandler() {
+        @Override
+        public void uncaughtException(Thread thread, Throwable throwable) {
+            System.out.print("Exception in thread \""
+                    + throwable.getMessage() + "\" ");
+
+        }
+    };
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
+        Thread.setDefaultUncaughtExceptionHandler(mHandler);
     }
 
     public static MyApplication getContext(){
