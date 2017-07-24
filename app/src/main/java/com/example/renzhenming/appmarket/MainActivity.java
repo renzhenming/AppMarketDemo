@@ -1,23 +1,23 @@
 package com.example.renzhenming.appmarket;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.example.renzhenming.appmarket.vm.fragment.HomeFragment;
+import com.example.renzhenming.appmarket.vm.fragment.MainFragment;
+import com.example.renzhenming.appmarket.vm.fragment.Other1Fragment;
+import com.example.renzhenming.appmarket.vm.fragment.Other2Fragment;
+import com.example.renzhenming.appmarket.vm.fragment.Other3Fragment;
 import com.rzm.commonlibrary.stack.BaseActivity;
 import com.rzm.commonlibrary.stack.BaseFragment;
 
-public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener{
+public class MainActivity extends BaseActivity implements MainFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener,Other1Fragment.OnFragmentInteractionListener,Other2Fragment.OnFragmentInteractionListener,Other3Fragment.OnFragmentInteractionListener{
 
     @NonNull
     @Override
     protected BaseFragment getRootFragment() {
-        return new HomeFragment();
+        return new MainFragment();
     }
 
     @Override
