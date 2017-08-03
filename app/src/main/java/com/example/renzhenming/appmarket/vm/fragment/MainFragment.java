@@ -88,11 +88,11 @@ public class MainFragment extends BaseFragment {
 
     public void initView(View view){
         //toolbar
-        mToolbar = view.findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         mToolbar.setTitleTextColor(ContextCompat.getColor(mContext,R.color.white));
         mToolbar.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorPrimary));
         ((MainActivity)mContext).setSupportActionBar(mToolbar);
-        mDrawerLayout = view.findViewById(R.id.home_drawer);
+        mDrawerLayout = (DrawerLayout) view.findViewById(R.id.home_drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(((MainActivity)mContext),mDrawerLayout,mToolbar,R.string.open,R.string.close){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -110,9 +110,9 @@ public class MainFragment extends BaseFragment {
         mDrawerLayout.addDrawerListener(toggle);
 
         //tablayout
-        mTabLayout = view.findViewById(R.id.home_tablayout);
+        mTabLayout = (TabLayout) view.findViewById(R.id.home_tablayout);
         //viewpager
-        mViewPager = view.findViewById(R.id.home_viewpager);
+        mViewPager = (ViewPager) view.findViewById(R.id.home_viewpager);
         HomeAdapter mAdapter = new HomeAdapter(((MainActivity) mContext).getSupportFragmentManager(),this);
         mViewPager.setAdapter(mAdapter);
 

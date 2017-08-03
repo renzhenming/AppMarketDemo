@@ -25,11 +25,11 @@ public class MainActivity extends BaseActivity implements MainFragment.OnFragmen
         super.onCreateNow(savedInstanceState);
         setAnim(R.anim.next_in, R.anim.next_out, R.anim.quit_in, R.anim.quit_out);
     }
-
+/*
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
+    }*/
 
     @Override
     public void onFragmentInteraction(Uri uri) {
