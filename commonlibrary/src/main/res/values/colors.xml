@@ -11,4 +11,11 @@
     <color name="button_normal">#FF6039</color>
     <color name="button_disable">#CCCCCC</color>
     <color name="grey_normal">#CFCFCF</color>
+    <color name="webview_start_bg">#C8C8C8</color>
+    <color name="webview_center_bg">#E3E3E3</color>
+    <color name="webview_end_bg">#E6E6E6</color>
+    <color name="webview_start">#00bc12</color>
+    <color name="webview_center">#afdd22</color>
+    <color name="webview_end">#96ce54</color>
+
 </resources>
