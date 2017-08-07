@@ -4,8 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+
+import com.rzm.commonlibrary.stack.presenter.IPresenter;
+import com.rzm.commonlibrary.stack.view.IView;
 
 /**
  * extends this Fragment to facilitate the management of multiple fragment instances
@@ -13,9 +17,38 @@ import android.support.v4.app.FragmentActivity;
  * Date: 2016-01-18
  * Time: 18:19
  */
-public abstract class BaseFragment extends Fragment implements OnNewIntent {
+public abstract class BaseFragment<V extends IView,P extends IPresenter<V>> extends Fragment implements OnNewIntent {
 
     public Context mContext;
+    private P presenter;
+    private V view;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (presenter == null){
+            presenter = createPresenter();
+        }
+        if (view == null){
+            view = createView();
+        }
+        if (presenter != null && view != null){
+            presenter.attachView(view);
+        }
+    }
+
+    /**
+     * 如果使用到了mvp，重写这两个方法即可，否则不做处理
+     * @return
+     */
+    protected V createView(){
+        return null;
+    }
+
+    public P createPresenter() {
+        return null;
+    }
+
 
     /**
      * open a new Fragment
@@ -159,5 +192,16 @@ public abstract class BaseFragment extends Fragment implements OnNewIntent {
     public void onNewIntent() {
     }
 
+    /**
+     * 解除presenter的绑定
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (presenter != null){
+            presenter.detachView();
+            presenter = null;
+        }
+    }
 
 }

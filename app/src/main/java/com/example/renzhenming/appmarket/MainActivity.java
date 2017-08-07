@@ -16,7 +16,7 @@ public class MainActivity extends BaseActivity implements MainFragment.OnFragmen
 
     @NonNull
     @Override
-    protected BaseFragment getRootFragment() {
+    public BaseFragment getRootFragment() {
         return new MainFragment();
     }
 
