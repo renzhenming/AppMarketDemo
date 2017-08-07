@@ -42,15 +42,17 @@ public abstract class BaseActivity<V extends IView,P extends IPresenter<V>> exte
     }
 
     protected void initFragmentStack(@Nullable Bundle savedInstanceState){
-        FrameLayout frameLayout = new FrameLayout(this);
-        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        frameLayout.setId(R.id.framLayoutId);
-        setContentView(frameLayout);
         BaseFragment fragment = getRootFragment();
-        if (fragment != null){
-            manager = new StackManager(this);
-            manager.setFragment(fragment);
-            onCreateNow(savedInstanceState);
+        if(fragment != null){
+            FrameLayout frameLayout = new FrameLayout(this);
+            frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            frameLayout.setId(R.id.framLayoutId);
+            setContentView(frameLayout);
+            if (fragment != null){
+                manager = new StackManager(this);
+                manager.setFragment(fragment);
+                onCreateNow(savedInstanceState);
+            }
         }
     }
 
