@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import com.example.renzhenming.appmarket.MainActivity;
 import com.example.renzhenming.appmarket.R;
 import com.example.renzhenming.appmarket.adapter.HomeAdapter;
-import com.rzm.commonlibrary.stack.BaseFragment;
+import com.rzm.commonlibrary.stack.fragment.BaseFragment;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 /**

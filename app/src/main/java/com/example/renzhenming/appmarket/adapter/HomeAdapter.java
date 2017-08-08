@@ -7,8 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.renzhenming.appmarket.R;
 import com.example.renzhenming.appmarket.utils.UIUtils;
 import com.example.renzhenming.appmarket.vm.fragment.FragmentFactory;
-import com.example.renzhenming.appmarket.vm.fragment.MainFragment;
-import com.rzm.commonlibrary.stack.BaseFragment;
+import com.rzm.commonlibrary.stack.fragment.BaseFragment;
 
 /**
  * Created by renzhenming on 2017/7/22.

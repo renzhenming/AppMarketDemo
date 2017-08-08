@@ -2,14 +2,15 @@ package com.example.renzhenming.appmarket.vm.fragment;
 
 import android.support.v4.app.Fragment;
 
-import com.rzm.commonlibrary.stack.BaseFragment;
+import com.rzm.commonlibrary.stack.fragment.BaseFragment;
+
 
 /**
  * Created by renzhenming on 2017/7/25.
  */
 
 public class FragmentFactory {
-    public static Fragment getFragment(BaseFragment base ,int position){
+    public static Fragment getFragment(BaseFragment base , int position){
         Fragment fragment = null;
         switch (position){
             case 0:

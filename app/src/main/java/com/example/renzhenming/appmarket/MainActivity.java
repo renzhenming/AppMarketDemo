@@ -9,8 +9,8 @@ import com.example.renzhenming.appmarket.vm.fragment.MainFragment;
 import com.example.renzhenming.appmarket.vm.fragment.Other1Fragment;
 import com.example.renzhenming.appmarket.vm.fragment.Other2Fragment;
 import com.example.renzhenming.appmarket.vm.fragment.Other3Fragment;
-import com.rzm.commonlibrary.stack.BaseActivity;
-import com.rzm.commonlibrary.stack.BaseFragment;
+import com.rzm.commonlibrary.stack.fragment.BaseActivity;
+import com.rzm.commonlibrary.stack.fragment.BaseFragment;
 
 public class MainActivity extends BaseActivity implements MainFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener,Other1Fragment.OnFragmentInteractionListener,Other2Fragment.OnFragmentInteractionListener,Other3Fragment.OnFragmentInteractionListener{
 

@@ -1,7 +1,9 @@
-package com.rzm.commonlibrary.stack.presenter;
+package com.rzm.commonlibrary.stack.mvp.presenter;
 
 import android.content.Context;
-import com.rzm.commonlibrary.stack.view.IView;
+
+import com.rzm.commonlibrary.stack.mvp.view.IView;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

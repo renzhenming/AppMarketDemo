@@ -2,7 +2,7 @@ package com.rzm.commonlibrary.stack.demo;
 
 import android.content.Context;
 
-import com.rzm.commonlibrary.stack.presenter.BasePresenter;
+import com.rzm.commonlibrary.stack.mvp.presenter.BasePresenter;
 
 /**
  * Created by renzhenming on 2017/8/5.

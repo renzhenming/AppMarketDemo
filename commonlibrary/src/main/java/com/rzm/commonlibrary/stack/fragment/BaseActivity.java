@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.stack;
+package com.rzm.commonlibrary.stack.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.rzm.commonlibrary.R;
-import com.rzm.commonlibrary.stack.presenter.IPresenter;
-import com.rzm.commonlibrary.stack.view.IView;
 
 /**
  * extends  this Activity to facilitate the management of multiple fragment instances
@@ -19,73 +17,23 @@ import com.rzm.commonlibrary.stack.view.IView;
  * Date: 2016-01-19
  * Time: 18:32
  */
-public abstract class BaseActivity<V extends IView,P extends IPresenter<V>> extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public StackManager manager;
     public KeyCallBack callBack;
-    private P presenter;
-    private V view;
 
 
     @Override
     protected final void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //初始化mvp架构相关
-        initPresenter();
-        //初始化fragment栈管理
-        initFragmentStack(savedInstanceState);
-        mOnCreate(savedInstanceState);
-    }
-
-    protected void mOnCreate(Bundle savedInstanceState){
-
-    }
-
-    protected void initFragmentStack(@Nullable Bundle savedInstanceState){
+        FrameLayout frameLayout = new FrameLayout(this);
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        frameLayout.setId(R.id.framLayoutId);
+        setContentView(frameLayout);
         BaseFragment fragment = getRootFragment();
-        if(fragment != null){
-            FrameLayout frameLayout = new FrameLayout(this);
-            frameLayout.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            frameLayout.setId(R.id.framLayoutId);
-            setContentView(frameLayout);
-            if (fragment != null){
-                manager = new StackManager(this);
-                manager.setFragment(fragment);
-                onCreateNow(savedInstanceState);
-            }
-        }
-    }
-
-    protected void initPresenter(){
-        if (presenter == null){
-            presenter = createPresenter();
-        }
-        if (view == null){
-            view = createView();
-        }
-        if (presenter != null && view != null){
-            presenter.attachView(view);
-        }
-    }
-
-    public V getView() {
-        return view;
-    }
-
-    public P getPresenter() {
-        return presenter;
-    }
-
-    /**
-     * 如果使用到了mvp，重写这两个方法即可，否则不做处理
-     * @return
-     */
-    protected V createView(){
-        return null;
-    }
-
-    public P createPresenter() {
-        return null;
+        manager = new StackManager(this);
+        manager.setFragment(fragment);
+        onCreateNow(savedInstanceState);
     }
 
     /**
@@ -93,9 +41,9 @@ public abstract class BaseActivity<V extends IView,P extends IPresenter<V>> exte
      *
      * @return fragment
      */
-    public BaseFragment getRootFragment(){
-        return null;
-    }
+    protected abstract
+    @NonNull
+    BaseFragment getRootFragment();
 
     /**
      * Set page switch animation
@@ -143,16 +91,5 @@ public abstract class BaseActivity<V extends IView,P extends IPresenter<V>> exte
         this.callBack = callBack;
     }
 
-    /**
-     * 解除presenter的绑定
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (presenter != null){
-            presenter.detachView();
-            presenter = null;
-        }
-    }
 
 }

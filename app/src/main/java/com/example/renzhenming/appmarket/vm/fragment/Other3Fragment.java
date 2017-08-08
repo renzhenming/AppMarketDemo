@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.renzhenming.appmarket.R;
-import com.rzm.commonlibrary.stack.BaseFragment;
+import com.rzm.commonlibrary.stack.fragment.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.

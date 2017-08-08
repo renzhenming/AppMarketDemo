@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.stack;
+package com.rzm.commonlibrary.stack.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.AnimRes;

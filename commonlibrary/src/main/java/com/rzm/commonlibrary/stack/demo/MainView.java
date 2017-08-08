@@ -1,6 +1,6 @@
 package com.rzm.commonlibrary.stack.demo;
 
-import com.rzm.commonlibrary.stack.view.IView;
+import com.rzm.commonlibrary.stack.mvp.view.IView;
 
 /**
  * Created by renzhenming on 2017/8/5.

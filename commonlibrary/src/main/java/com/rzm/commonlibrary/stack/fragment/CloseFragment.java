@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.stack;
+package com.rzm.commonlibrary.stack.fragment;
 
 /**
  * close this fragment
