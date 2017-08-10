@@ -21,7 +21,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         ViewBind.inject(this);
         mText.setText("注入的值");
-        int a = 1/0;
+        //int a = 1/0;
     }
 
     @OnClick({R.id.click,R.id.click2})
