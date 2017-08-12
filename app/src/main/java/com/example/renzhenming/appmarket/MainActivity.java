@@ -1,5 +1,6 @@
 package com.example.renzhenming.appmarket;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -33,6 +34,6 @@ public class MainActivity extends BaseActivity implements MainFragment.OnFragmen
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        startActivity(new Intent());
     }
 }

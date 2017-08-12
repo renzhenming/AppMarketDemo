@@ -2,6 +2,7 @@ package com.rzm.commonlibrary.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
@@ -57,5 +58,16 @@ public class AppUtils
 	{
 		Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
 		context.startActivity(intent);
+	}
+
+	public static String getVersionName(Context context){
+		PackageManager packageManager = context.getPackageManager();
+		try {
+			PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+			return packageInfo.versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

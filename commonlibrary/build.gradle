@@ -30,6 +30,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //alibaba hot fix
+    compile 'com.alipay.euler:andfix:0.5.0@aar'
 }
 // 指定编码
 tasks.withType(JavaCompile) {

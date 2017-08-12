@@ -1,15 +1,19 @@
 package com.example.renzhenming.appmarket;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.CheckNet;
 import com.rzm.commonlibrary.inject.OnClick;
 import com.rzm.commonlibrary.inject.ViewBind;
+
+import java.io.File;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -21,7 +25,25 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         ViewBind.inject(this);
         mText.setText("注入的值");
-        //int a = 1/0;
+
+
+
+        fixDex();
+    }
+
+    private void fixDex() {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"fix.dex");
+        if (file.exists()){
+            FixDexManager manager = new FixDexManager(this);
+            try {
+                manager.fixDex(file.getAbsolutePath());
+                Toast.makeText(getApplicationContext(),"修复bug成功",Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"修复bug失败",Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @OnClick({R.id.click,R.id.click2})
