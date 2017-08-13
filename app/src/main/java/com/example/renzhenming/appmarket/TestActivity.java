@@ -23,12 +23,22 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),2/0+"click",Toast.LENGTH_SHORT).show();
+            }
+        });
         ViewBind.inject(this);
         mText.setText("注入的值");
 
 
-
-        fixDex();
+        /**
+         * 在这里修复遇到一个问题，就是第一次启动无法达到修复的效果，只有再次启动才可以，我想大概
+         * 是调用的时机不对，于是把这行代码放在了application中，果然修复成功，目前这个问题不确定是不是
+         * 机型的问题，因为别人好像在activity中调用修复就没问题
+         */
+       // fixDex();
     }
 
     private void fixDex() {
@@ -46,17 +56,4 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.click,R.id.click2})
-    @CheckNet
-    public void OnClick(View view){
-        switch (view.getId()){
-            case R.id.click:
-                Toast.makeText(getApplicationContext(),"click",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.click2:
-                Toast.makeText(getApplicationContext(),"click2",Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-    }
 }

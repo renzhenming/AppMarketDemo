@@ -27,7 +27,31 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initExceptionHandler();
-        initAlibabaHotFix();
+        //initAlibabaHotFix();
+        initMyHotFix();
+    }
+
+    private void initMyHotFix() {
+        FixDexManager manager = new FixDexManager(this);
+        //加载所有修复的dex包，第一次的时候会从服务器上下载到修复的dex包并放在我们制定的目录下，
+        //第二次进入的时候，直接读取保存的文件进行修复
+        try {
+            manager.loadFixDex();
+
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"fix.dex");
+            if (file.exists()){
+                try {
+                    manager.fixDex(file.getAbsolutePath());
+                    Toast.makeText(getApplicationContext(),"修复bug成功",Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),"修复bug失败",Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initAlibabaHotFix() {
