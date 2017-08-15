@@ -26,9 +26,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initExceptionHandler();
+        //initExceptionHandler();
         //initAlibabaHotFix();
-        initMyHotFix();
+        //initMyHotFix();
     }
 
     private void initMyHotFix() {

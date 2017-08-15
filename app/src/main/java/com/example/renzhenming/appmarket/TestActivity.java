@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rzm.commonlibrary.general.FixDexManager;
+import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.CheckNet;
 import com.rzm.commonlibrary.inject.OnClick;
@@ -26,7 +27,15 @@ public class TestActivity extends AppCompatActivity {
         findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),2/0+"click",Toast.LENGTH_SHORT).show();
+                CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
+                        .setContentView(R.layout.dialog)
+                        .setOnClickListener(R.id.toast, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(getApplicationContext(),"dialog",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
             }
         });
         ViewBind.inject(this);
