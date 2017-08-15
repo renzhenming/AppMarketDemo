@@ -58,7 +58,7 @@ class CommonViewHelper {
      * @param viewId
      * @return
      */
-    private <T extends View>T getView(int viewId) {
+    public <T extends View>T getView(int viewId) {
         WeakReference<View> viewWeakReference = mViewArray.get(viewId);
         View view = null;
         if (viewWeakReference != null){

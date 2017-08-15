@@ -4,6 +4,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,15 +30,22 @@ public class TestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
                         .setContentView(R.layout.dialog)
-                        .setOnClickListener(R.id.toast, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(getApplicationContext(),"dialog",Toast.LENGTH_SHORT).show();
-                            }
-                        })
+                        .setText(R.id.toast,"我是新的dialog")
+                        .fullWidth()
+                        .alignBottom(true)
                         .show();
+
+                //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
+                /*final EditText mEditText = dialog.getView(输入框的id);
+                dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });*/
             }
         });
+
         ViewBind.inject(this);
         mText.setText("注入的值");
 

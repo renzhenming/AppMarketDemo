@@ -7,9 +7,27 @@ import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.rzm.commonlibrary.R;
-import com.rzm.commonlibrary.recyclerview.ItemDecoration.DividerDecoration;
+
+/*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View view) {
+        CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
+        .setContentView(R.layout.dialog)
+        .setText(R.id.toast,"我是新的dialog")
+        .fullWidth()
+        .alignBottom(true)
+        .show();
+
+        //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
+        // *//*final EditText mEditText = dialog.getView(输入框的id);
+        dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
+        }
+        });*//*
+}});*/
 
 /**
  * Created by renzhenming on 2017/8/14.
@@ -172,5 +190,34 @@ public class CommonDialog extends Dialog {
             dialog.show();
             return dialog;
         }
+    }
+
+    /////////////////////////////////为了获取输入框文字而添加的/////////////////////////////////////
+
+    /**
+     * 设置文本
+     * @param viewId
+     * @param charSequence
+     */
+    public void setText(int viewId, CharSequence charSequence) {
+        mAlert.setText(viewId,charSequence);
+    }
+
+    /**
+     * 点击事件
+     * @param viewId
+     * @param listener
+     */
+    public void setOnClickListener(int viewId, View.OnClickListener listener) {
+        mAlert.setOnClickListener(viewId,listener);
+    }
+
+    /**
+     * 获取view,先获取缓存，没有再findViewById
+     * @param viewId
+     * @return
+     */
+    public <T extends View>T getView(int viewId) {
+        return mAlert.getView(viewId);
     }
 }
