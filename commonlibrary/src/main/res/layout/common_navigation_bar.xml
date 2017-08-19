@@ -13,9 +13,17 @@
     android:titleTextAppearance="@style/ToolbarTitleStyle"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+        <ImageView
+            android:layout_gravity = "start"
+            android:id="@+id/left_icon"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
         <TextView
-            android:background="@android:color/transparent"
-            android:id="@+id/left"
+            android:id="@+id/left_text"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_gravity = "start"
             android:layout_height="match_parent"
@@ -27,22 +35,30 @@
         <TextView
             android:id="@+id/center"
             android:layout_width="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_height="match_parent"
             android:layout_gravity = "center"
             android:gravity="center"
+            android:visibility="gone"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_gravity = "end"
+            android:id="@+id/right_icon"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
         <TextView
-            android:background="@android:color/transparent"
-            android:id="@+id/right"
+            android:id="@+id/right_text"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity = "end"
             android:gravity="center"
-            android:paddingRight="10dp"
+            android:padding="10dp"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 

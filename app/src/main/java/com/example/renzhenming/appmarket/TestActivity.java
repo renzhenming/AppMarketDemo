@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity {
         CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
                 .setToolbarEnable(true)
                 .setTitle("个人中心")
-                .setRightText("编辑")
+                .setRightIcon(R.drawable.search)
                 .setRightClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

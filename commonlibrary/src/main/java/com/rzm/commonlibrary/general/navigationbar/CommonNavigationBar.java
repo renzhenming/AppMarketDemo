@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rzm.commonlibrary.R;
@@ -32,25 +33,43 @@ public class CommonNavigationBar extends AbsNavigationBar<CommonNavigationBar.Bu
         //默认使用中间的title布局，如果设置了toolbar则使用toolbar
         if (getParams().mToolbarEnable){
             initToolbar(R.id.toolbar,getParams().mTitle);
-            setOnToolbarBackClickListener(R.id.toolbar,getParams().mToolbarListener);
+            setOnToolbarClickListener(R.id.toolbar,getParams().mToolbarListener);
         }else{
             setText(R.id.center,getParams().mTitle);
         }
-        setText(R.id.right,getParams().mRightText);
-        setOnClickListener(R.id.right,getParams().mRightListener);
-        //左边写一个默认的finish
-        setOnClickListener(R.id.left,getParams().mLeftListener);
+        setText(R.id.right_text,getParams().mRightText);
+        setIcon(R.id.right_icon,getParams().mRightIcon);
+        setOnClickListener(R.id.right_text,getParams().mRightListener);
+        setOnClickListener(R.id.right_icon,getParams().mRightListener);
 
+        setText(R.id.left_text,getParams().mLeftText);
+        setIcon(R.id.left_icon,getParams().mLeftIcon);
+        setOnClickListener(R.id.left_text,getParams().mLeftListener);
+        setOnClickListener(R.id.left_icon,getParams().mLeftListener);
+
+        //左边写一个默认的finish
+        setOnClickListener(R.id.left_text,getParams().mLeftListener);
+
+    }
+
+    private void setIcon(int viewId, int mRightIcon) {
+        ImageView iv = findViewById(viewId);
+        if (mRightIcon != -1 && iv != null){
+            iv.setVisibility(View.VISIBLE);
+            iv.setImageResource(mRightIcon);
+        }
     }
 
     private void initToolbar(int toolbarId, String mTitle) {
         Toolbar toolbar = mNavigationView.findViewById(toolbarId);
-        AppCompatActivity activity = (AppCompatActivity) getParams().mContext;
-        activity.setSupportActionBar(toolbar);
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        toolbar.setTitle(mTitle);
+        if (toolbar != null && !TextUtils.isEmpty(mTitle)){
+            AppCompatActivity activity = (AppCompatActivity) getParams().mContext;
+            activity.setSupportActionBar(toolbar);
+            ActionBar actionBar = activity.getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            toolbar.setTitle(mTitle);
+        }
     }
 
     private void setText(int viewId, String mTitle) {
@@ -63,12 +82,12 @@ public class CommonNavigationBar extends AbsNavigationBar<CommonNavigationBar.Bu
 
     private void setOnClickListener(int viewId,View.OnClickListener listener){
         View view = findViewById(viewId);
-        if (view != null)
+        if (view != null && listener != null)
             view.setOnClickListener(listener);
     }
-    private void setOnToolbarBackClickListener(int viewId,View.OnClickListener listener){
+    private void setOnToolbarClickListener(int viewId,View.OnClickListener listener){
         Toolbar view = (Toolbar)findViewById(viewId);
-        if (view != null)
+        if (view != null  && listener != null)
             view.setNavigationOnClickListener(listener);
     }
 
@@ -149,7 +168,7 @@ public class CommonNavigationBar extends AbsNavigationBar<CommonNavigationBar.Bu
 
             public String mTitle;
             public String mRightText;
-            public int mRightIcon;
+            public int mRightIcon = -1;
             public String mLeftText;
             public int mLeftIcon;
             public boolean mToolbarEnable;
