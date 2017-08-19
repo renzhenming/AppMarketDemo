@@ -4,12 +4,15 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
+import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.CheckNet;
 import com.rzm.commonlibrary.inject.OnClick;
@@ -25,11 +28,28 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        new StatusBarManager.builder(this)
+                .setTintType(StatusBarManager.TintType.PURECOLOR)
+                .setStatusBarColor(R.color.colorPrimary)
+                .build();
+        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
+                .setToolbarEnable(true)
+                .setTitle("个人中心")
+                .setRightText("编辑")
+                .setRightClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(),"编辑",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+
         findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
                         .setContentView(R.layout.dialog)
+
                         .setText(R.id.toast,"我是新的dialog")
                         .fullWidth()
                         .alignBottom(true)

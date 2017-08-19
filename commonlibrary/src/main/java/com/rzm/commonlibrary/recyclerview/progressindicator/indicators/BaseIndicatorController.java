@@ -47,7 +47,7 @@ public abstract class BaseIndicatorController {
     public abstract void draw(Canvas canvas,Paint paint);
 
     /**
-     * create animation or animations
+     * build animation or animations
      */
     public abstract List<Animator> createAnimation();
 

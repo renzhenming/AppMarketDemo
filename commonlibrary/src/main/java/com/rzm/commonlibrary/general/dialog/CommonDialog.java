@@ -156,7 +156,7 @@ public class CommonDialog extends Dialog {
          * <p>
          * Calling this method does not display the dialog. If no additional
          * processing is needed, {@link #show()} may be called instead to both
-         * create and display the dialog.
+         * build and display the dialog.
          */
         public CommonDialog create() {
             // We can't use Dialog's 3-arg constructor with the createThemeContextWrapper param,
@@ -181,7 +181,7 @@ public class CommonDialog extends Dialog {
          * <p>
          * Calling this method is functionally identical to:
          * <pre>
-         *     AlertDialog dialog = builder.create();
+         *     AlertDialog dialog = builder.build();
          *     dialog.show();
          * </pre>
          */

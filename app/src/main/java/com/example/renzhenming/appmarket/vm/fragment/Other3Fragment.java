@@ -17,7 +17,7 @@ import com.rzm.commonlibrary.stack.fragment.BaseFragment;
  * {@link Other3Fragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link Other3Fragment#newInstance} factory method to
- * create an instance of this fragment.
+ * build an instance of this fragment.
  */
 public class Other3Fragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -36,7 +36,7 @@ public class Other3Fragment extends BaseFragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
+     * Use this factory method to build a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.

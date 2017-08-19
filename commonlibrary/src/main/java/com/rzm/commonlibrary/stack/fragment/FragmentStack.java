@@ -58,7 +58,7 @@ public class FragmentStack {
     }
 
     /**
-     * singTask mode ,If the current task stack does not create and empty all of the upper instance
+     * singTask mode ,If the current task stack does not build and empty all of the upper instance
      *
      * @param fragment Added fragment
      * @return Whether to contain the current instance

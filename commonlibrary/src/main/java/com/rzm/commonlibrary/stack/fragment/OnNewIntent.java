@@ -9,7 +9,7 @@ package com.rzm.commonlibrary.stack.fragment;
  */
 public interface OnNewIntent {
     /**
-     * SingleTop mode,this fragment not be Re create
+     * SingleTop mode,this fragment not be Re build
      */
     void onNewIntent();
 }

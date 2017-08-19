@@ -60,7 +60,7 @@ public class GlideUtils {
 //            @Override
 //            protected void setResource(Bitmap resource) {
 //                RoundedBitmapDrawable circularBitmapDrawable =
-//                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                        RoundedBitmapDrawableFactory.build(context.getResources(), resource);
 //                circularBitmapDrawable.setCircular(true);
 //                imageView.setImageDrawable(circularBitmapDrawable);
 //                if (!TextUtils.equals(currentModifyTime,lastModifyTime)){
@@ -159,7 +159,7 @@ public class GlideUtils {
 //            @Override
 //            protected void setResource(Bitmap resource) {
 //                RoundedBitmapDrawable circularBitmapDrawable =
-//                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+//                        RoundedBitmapDrawableFactory.build(context.getResources(), resource);
 //                circularBitmapDrawable.setCircular(true);
 //                imageView.setImageDrawable(circularBitmapDrawable);
 //                //缓存详情的头像虚化效果
@@ -209,7 +209,7 @@ public class GlideUtils {
             super.setResource(resource);
             /*if (imageView != null) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.build(context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 imageView.setImageDrawable(circularBitmapDrawable);
                 //缓存详情的头像虚化效果

@@ -27,7 +27,7 @@ import com.rzm.commonlibrary.utils.LogUtils;
  * {@link MainFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * build an instance of this fragment.
  */
 public class MainFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -52,7 +52,7 @@ public class MainFragment extends BaseFragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
+     * Use this factory method to build a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.

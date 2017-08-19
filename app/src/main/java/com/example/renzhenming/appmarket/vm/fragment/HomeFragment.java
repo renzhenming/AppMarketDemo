@@ -20,7 +20,7 @@ import com.rzm.commonlibrary.stack.fragment.BaseFragment;
  * Activities that contain this fragment must implement the
  * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * create an instance of this fragment.
+ * build an instance of this fragment.
  */
 public class HomeFragment extends BaseFragment {
 
