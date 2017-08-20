@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * Created by renzhenming on 2017/8/20.
+ * 将各种网络引擎进行包装，后期如果需要跟换网络引擎，直接修改简单的代码就可以实现了
  */
 
 public class HttpUtils{
@@ -75,10 +76,10 @@ public class HttpUtils{
 
         //判断执行方法
         if (mType == POST_TYPE){
-            post(mUrl,mParams,callBack);
+            post(mContext,mUrl,mParams,callBack);
         }
         if (mType == GET_TYPE){
-            get(mUrl,mParams,callBack);
+            get(mContext,mUrl,mParams,callBack);
         }
         return this;
     }
@@ -105,11 +106,11 @@ public class HttpUtils{
      * @param params
      * @param callBack
      */
-    private void get(String url, Map<String, Object> params, EngineCallBack callBack) {
-        mHttpEngine.get(url,params,callBack);
+    private void get(Context context,String url, Map<String, Object> params, EngineCallBack callBack) {
+        mHttpEngine.get(context,url,params,callBack);
     }
 
-    private void post(String url, Map<String, Object> params, EngineCallBack callBack) {
-        mHttpEngine.post(url,params,callBack);
+    private void post(Context context,String url, Map<String, Object> params, EngineCallBack callBack) {
+        mHttpEngine.post(context,url,params,callBack);
     }
 }
