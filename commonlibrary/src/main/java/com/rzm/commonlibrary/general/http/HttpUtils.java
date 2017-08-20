@@ -1,6 +1,9 @@
 package com.rzm.commonlibrary.general.http;
 
 import android.content.Context;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +20,7 @@ public class HttpUtils{
 
     private static final int POST_TYPE = 0x0011;
 
-    private static final int GET_TYPE = 0x0011;
+    private static final int GET_TYPE = 0x0022;
 
     private Context mContext;
 
@@ -74,6 +77,8 @@ public class HttpUtils{
             callBack = EngineCallBack.DEFAULT_CALL_BACK;
         }
 
+        callBack.onPreExecute(mContext,mParams);
+
         //判断执行方法
         if (mType == POST_TYPE){
             post(mContext,mUrl,mParams,callBack);
@@ -96,8 +101,9 @@ public class HttpUtils{
      * 切换引擎
      * @param httpEngine
      */
-    public static void exchangeEngine(IHttpEngine httpEngine){
+    public HttpUtils exchangeEngine(IHttpEngine httpEngine){
         mHttpEngine = httpEngine;
+        return this;
     }
 
     /**
@@ -113,4 +119,42 @@ public class HttpUtils{
     private void post(Context context,String url, Map<String, Object> params, EngineCallBack callBack) {
         mHttpEngine.post(context,url,params,callBack);
     }
+
+    //--------------------------------  供外界调用 --------------------------------//
+
+    /**
+     * 拼接参数
+     */
+    public static String jointParams(String url, Map<String, Object> params) {
+        if (params == null || params.size() <= 0) {
+            return url;
+        }
+
+        StringBuffer stringBuffer = new StringBuffer(url);
+        if (!url.contains("?")) {
+            stringBuffer.append("?");
+        } else {
+            if (!url.endsWith("?")) {
+                stringBuffer.append("&");
+            }
+        }
+
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            stringBuffer.append(entry.getKey() + "=" + entry.getValue() + "&");
+        }
+
+        stringBuffer.deleteCharAt(stringBuffer.length() - 1);
+
+        return stringBuffer.toString();
+    }
+
+    /**
+     * 解析一个类上面的class信息
+     */
+    public static Class<?> analysisClazzInfo(Object object) {
+        Type genType = object.getClass().getGenericSuperclass();
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+        return (Class<?>) params[0];
+    }
+
 }

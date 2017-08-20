@@ -1,4 +1,6 @@
-package com.rzm.commonlibrary.stack.mvc;
+package com.example.mylibrary;
+
+import com.rzm.commonlibrary.stack.mvc.BaseActivity;
 
 /**
  * Created by renzhenming on 2017/8/8.

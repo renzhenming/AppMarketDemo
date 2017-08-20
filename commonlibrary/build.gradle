@@ -31,7 +31,7 @@ dependencies {
     compile 'com.android.support:design:26.+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     //okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.0.0'
+    //compile 'com.squareup.okhttp3:okhttp:3.0.0'
     //alibaba hot fix
     compile 'com.alipay.euler:andfix:0.5.0@aar'
 }
