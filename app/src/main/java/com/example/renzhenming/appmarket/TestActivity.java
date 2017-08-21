@@ -8,7 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylibrary.HttpCallBack;
+import com.example.renzhenming.appmarket.bean.Person;
 import com.rzm.commonlibrary.general.FixDexManager;
+import com.rzm.commonlibrary.general.db.DaoSupportFactory;
+import com.rzm.commonlibrary.general.db.IDaoSupport;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.http.HttpUtils;
 import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
@@ -84,6 +87,11 @@ public class TestActivity extends AppCompatActivity {
 
             }
         });
+
+        //数据库
+        IDaoSupport<Object> dao = DaoSupportFactory.getFactory().getDao(Person.class);
+        //面向对象的六大思想，最少的知识原则
+        dao.insert(new Person("rzm",26));
 
         ViewBind.inject(this);
         mText.setText("注入的值");

@@ -3,7 +3,6 @@ package com.example.mylibrary;
 import android.content.Context;
 
 import com.rzm.commonlibrary.general.http.EngineCallBack;
-import com.rzm.commonlibrary.general.http.HttpUtils;
 
 import java.util.Map;
 
@@ -40,9 +39,9 @@ public abstract class HttpCallBack<T>  implements EngineCallBack {
 
     @Override
     public void onSuccess(String result) {
-        Gson gson = new Gson();
+        /*Gson gson = new Gson();
         T objResult = gson.fromJson(result, HttpUtils.analysisClazzInfo(this));
-        onSuccess(objResult);
+        onSuccess(objResult);*/
     }
 
     //在执行成功数据解析之后再次执行success
