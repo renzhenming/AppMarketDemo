@@ -42,7 +42,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
                 //通过看源码我们知道DecorView是一个FrameLayout，是系统的一个ViewGroup，DecorView.getChildAt(0)位置得到的是一个LinearLayout
                 // 这样一来，我们的导航栏就跟我们自己的布局没有关系了，是位于凌驾于我们布局之上的系统布局中
 
-                //这样设置之后，发现导航栏和状态栏重叠，所以在导航栏布局中设置了一个MarginTop,防止交叉
+                //这样设置之后，发现导航栏和状态栏重叠，所以在导航栏布局中设置了一个MarginTop,防止交叉,在真机上似乎不交叉 ？？？
                 ViewGroup activityRoot = (ViewGroup) ((Activity) mParams.mContext).getWindow().getDecorView();
                 mParams.mParent = (ViewGroup)activityRoot.getChildAt(0);
             }else{

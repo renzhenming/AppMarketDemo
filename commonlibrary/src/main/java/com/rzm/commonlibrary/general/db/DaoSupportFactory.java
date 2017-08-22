@@ -7,6 +7,13 @@ import java.io.File;
 
 /**
  * Created by renzhenming on 2017/8/22.
+ *
+ * 1.为什么使用Factory目前的数据是在内存卡中 有时候我们需要放到系统目录 data/data/xxx/database中
+ * 获取不同的Factory，可以达到写入位置不同的效果，只需创建另一个Factory
+ *
+ * 2.面向接口编程，获取IDaoSupport 那么不需要关心实现，目前的实现是我们自己写的，方便以后使用第三方的
+ *
+ * 3.为了高扩展
  */
 
 public class DaoSupportFactory {
@@ -17,8 +24,6 @@ public class DaoSupportFactory {
     private static SQLiteDatabase mSqliteDabase;
 
     //持有外部数据库的引用
-
-
     private DaoSupportFactory(){
         //TODO 注意补充判断内存卡是否存在， 6.0 动态申请内存
         //把数据库放在内存卡

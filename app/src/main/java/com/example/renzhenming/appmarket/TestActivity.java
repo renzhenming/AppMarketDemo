@@ -3,6 +3,7 @@ package com.example.renzhenming.appmarket;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +19,11 @@ import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
 import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.ViewBind;
+import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -89,9 +93,20 @@ public class TestActivity extends AppCompatActivity {
         });
 
         //数据库
-        IDaoSupport<Object> dao = DaoSupportFactory.getFactory().getDao(Person.class);
+        IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
         //面向对象的六大思想，最少的知识原则
-        dao.insert(new Person("rzm",26));
+        //dao.insert(new Person("rzm",26));
+
+        //批量插入测试
+        List<Person> persons = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+             persons.add(new Person("rzm",26+i));
+        }
+
+        long start = System.currentTimeMillis();
+        dao.insert(persons);
+        long end = System.currentTimeMillis();
+        Log.e("TAG","time ->"+(end - start));
 
         ViewBind.inject(this);
         mText.setText("注入的值");
