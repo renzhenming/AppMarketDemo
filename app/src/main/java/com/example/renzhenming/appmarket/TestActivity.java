@@ -27,6 +27,7 @@ import java.util.List;
 
 public class TestActivity extends AppCompatActivity {
 
+    private static final String TAG = "TestActivity";
     @BindViewId(R.id.click)
     TextView mText;
     @Override
@@ -92,21 +93,33 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
+
+
         //数据库
-        IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
+        final IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
         //面向对象的六大思想，最少的知识原则
         //dao.insert(new Person("rzm",26));
 
         //批量插入测试
-        List<Person> persons = new ArrayList<>();
+        final List<Person> persons = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
              persons.add(new Person("rzm",26+i));
         }
 
-        long start = System.currentTimeMillis();
-        dao.insert(persons);
-        long end = System.currentTimeMillis();
-        Log.e("TAG","time ->"+(end - start));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long start = System.currentTimeMillis();
+                dao.insert(persons);
+                long end = System.currentTimeMillis();
+                LogUtils.d(TAG,"time ->"+(end - start));
+                List<Person> query = dao.query();
+                for (int i = 0; i < query.size(); i++) {
+                    LogUtils.e(TAG,"list ->"+query.get(i).getName()+","+query.get(i).getAge());
+                }
+            }
+        }).start();
 
         ViewBind.inject(this);
         mText.setText("注入的值");

@@ -1,13 +1,15 @@
 package com.rzm.commonlibrary.general.http;
 
-import java.util.Map;
-import android.content.Context;
-import android.util.Log;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import android.content.Context;
+
+import com.rzm.commonlibrary.utils.LogUtils;
+
 import java.net.FileNameMap;
 import java.net.URLConnection;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -17,6 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
 
 /**
  * Created by renzhenming on 2017/8/20.
@@ -28,7 +31,7 @@ public class OkHttpEngine implements IHttpEngine{
     public void post(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
 
         final String jointUrl = HttpUtils.jointParams(url,params);  //打印
-        Log.e("Post请求路径：",jointUrl);
+        LogUtils.e("Post请求路径：",jointUrl);
 
         // 了解 Okhhtp
         RequestBody requestBody = appendBody(params);
@@ -49,7 +52,7 @@ public class OkHttpEngine implements IHttpEngine{
                     public void onResponse(okhttp3.Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
                         String result = response.body().string();
-                        Log.e("Post返回结果：",jointUrl);
+                        LogUtils.e("Post返回结果：",jointUrl);
                         callBack.onSuccess(result);
                     }
                 }
@@ -115,7 +118,7 @@ public class OkHttpEngine implements IHttpEngine{
     public void get(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
         url = HttpUtils.jointParams(url, params);
 
-        Log.e("Get请求路径：", url);
+        LogUtils.e("Get请求路径：", url);
 
         Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
         //可以省略，默认是GET请求
@@ -131,7 +134,7 @@ public class OkHttpEngine implements IHttpEngine{
             public void onResponse(Call call, Response response) throws IOException {
                 String resultJson = response.body().string();
                 callBack.onSuccess(resultJson);
-                Log.e("Get返回结果：", resultJson);
+                LogUtils.e("Get返回结果：", resultJson);
             }
         });
     }

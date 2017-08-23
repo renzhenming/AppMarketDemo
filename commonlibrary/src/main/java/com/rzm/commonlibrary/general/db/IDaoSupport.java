@@ -17,4 +17,9 @@ public interface IDaoSupport<T> {
     //批量插入，检测性能
     void insert(List<T> data);
 
+    // 查询所有
+    List<T> query();
+
+    // 按照语句查询
+
 }
