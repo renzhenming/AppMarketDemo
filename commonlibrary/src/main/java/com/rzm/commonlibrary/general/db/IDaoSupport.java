@@ -20,6 +20,7 @@ public interface IDaoSupport<T> {
     // 查询所有
     List<T> query();
 
-    // 按照语句查询
+    int delete(String whereClause, String[] whereArgs);
 
+    int update(T obj, String whereClause, String... whereArgs);
 }

@@ -110,14 +110,18 @@ public class TestActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                long start = System.currentTimeMillis();
+                /*long start = System.currentTimeMillis();
                 dao.insert(persons);
                 long end = System.currentTimeMillis();
                 LogUtils.d(TAG,"time ->"+(end - start));
                 List<Person> query = dao.query();
                 for (int i = 0; i < query.size(); i++) {
                     LogUtils.e(TAG,"list ->"+query.get(i).getName()+","+query.get(i).getAge());
-                }
+                }*/
+                int delete = dao.delete("age=?", new String[]{"28"});
+                LogUtils.e(TAG,"delete ->>"+delete);
+                int haha = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
+                LogUtils.e(TAG,"delete ->>haha:"+haha);
             }
         }).start();
 

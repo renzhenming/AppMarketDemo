@@ -3,10 +3,7 @@ package com.rzm.commonlibrary.general.db;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.ArrayMap;
-
 import com.rzm.commonlibrary.utils.LogUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,6 +16,15 @@ import java.util.Map;
 /**
  * Created by renzhenming on 2017/8/22.
  */
+
+//使用方法：
+//数据库
+//final IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
+//面向对象的六大思想，最少的知识原则
+//dao.insert(new Person("rzm",26));
+//int delete = dao.delete("age=?", new String[]{"28"});
+//int update = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
+//List<Person> query = dao.query();
 
 public class DaoSupport<T> implements IDaoSupport<T> {
 
@@ -149,6 +155,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     /**
      * 删除
      */
+    @Override
     public int delete(String whereClause, String[] whereArgs) {
         return mSqliteDatabase.delete(DaoUtil.getTableName(mClazz), whereClause, whereArgs);
     }
@@ -156,6 +163,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     /**
      * 更新  这些你需要对  最原始的写法比较明了 extends
      */
+    @Override
     public int update(T obj, String whereClause, String... whereArgs) {
         ContentValues values = contentValueByObj(obj);
         return mSqliteDatabase.update(DaoUtil.getTableName(mClazz),
