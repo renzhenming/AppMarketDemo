@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:id="@+id/home_container"
     tools:context="com.example.renzhenming.appmarket.TestActivity">
@@ -19,6 +20,18 @@
         android:layout_width="wrap_content"
         android:text="点击2"
         android:id="@+id/click2"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:text="更换图片"
+        android:onClick="change"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:src="@drawable/girl"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

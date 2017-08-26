@@ -1,9 +1,13 @@
 package com.example.renzhenming.appmarket;
 
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +26,24 @@ import com.rzm.commonlibrary.inject.ViewBind;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.RunnableFuture;
 
 public class TestActivity extends AppCompatActivity {
 
     private static final String TAG = "TestActivity";
     @BindViewId(R.id.click)
     TextView mText;
+    private ImageView mImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        mImage = (ImageView) findViewById(R.id.image);
         new StatusBarManager.builder(this)
                 .setTintType(StatusBarManager.TintType.PURECOLOR)
                 .setStatusBarColor(R.color.colorPrimary)
@@ -87,11 +97,23 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Exception e) {
+            public void onError(final Exception e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
             @Override
-            public void onSuccess(String result) {
+            public void onSuccess(final String result) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
@@ -140,6 +162,36 @@ public class TestActivity extends AppCompatActivity {
          * 机型的问题，因为别人好像在activity中调用修复就没问题
          */
        // fixDex();
+    }
+
+    public void change(View view){
+        try {
+            //点击从手机中一个apk中获取图片资源并且设置给ImageView显示
+            //获取系统的两个参数
+            Resources superResources = getResources();
+            //创建assetManger(无法直接new因为被hide了，所以用反射)
+            AssetManager assetManager = AssetManager.class.newInstance();
+            //添加资源目录（addAssetPath也是一样被hide无法直接调用）
+            Method method = AssetManager.class.getDeclaredMethod("addAssetPath", String.class);
+            method.setAccessible(true);//如果是私有的，添上防止万一某一天他变成了私有的
+            method.invoke(assetManager,Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"red.skin");//注意你资源的名字要一致
+            Resources resources = new Resources(assetManager,superResources.getDisplayMetrics(),superResources.getConfiguration());
+            //用创建好的Resources获取资源(注意着三个参数，第一个是要获取资源的名字，我们设置的是girl，不要忘了，第二个参数代表这个资源在哪个文件夹中，第三个参数表示要获取资源的apk的包名，缺一不可)
+            int identifier = resources.getIdentifier("girl", "drawable", "com.example.myapplication");
+            if (identifier  != 0){
+                Drawable drawable = resources.getDrawable(identifier);
+                mImage.setImageDrawable(drawable);
+            }
+
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fixDex() {

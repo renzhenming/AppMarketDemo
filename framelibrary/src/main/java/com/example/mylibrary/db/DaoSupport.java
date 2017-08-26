@@ -88,78 +88,6 @@ public class DaoSupport<T> implements IDaoSupport<T> {
         return mQuerySupport;
     }
 
-    /*@Override
-    public List<T> query() {
-        Cursor cursor = mSqliteDatabase.query(DaoUtil.getTableName(mClazz), null, null, null, null, null, null);
-        return cursorToList(cursor);
-    }*/
-
-    /*private List<T> cursorToList(Cursor cursor) {
-        List<T> list = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                try {
-                    //必须提供空参构造
-                    T instance = mClazz.newInstance();
-                    Field[] fields = mClazz.getDeclaredFields();
-                    for (Field field : fields) {
-                        //遍历属性
-                        field.setAccessible(true);
-                        //获取该属性在cursor中的columnindex
-                        String name = field.getName();
-                        int columnIndex = cursor.getColumnIndex(name);
-                        if (columnIndex == -1) {
-                            continue;
-                        }
-
-                        // 通过反射获取 游标的方法  field.getType() -> 获取的类型
-                        //如：Person表中有一个name属性，我们要得到getName方法，然后反射注入获取到name的value
-                        //这样一来也就要求创建的bean必须提供setter getter方法
-                        Method cursorMethos = cursorMethod(field.getType());
-                        if (cursorMethos != null) {
-                            //通过反射获取value
-                            Object value = cursorMethos.invoke(cursor, columnIndex);
-                            if (value == null) {
-                                continue;
-                            }
-                            // 处理一些特殊的部分
-                            if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-                                if ("0".equals(String.valueOf(value))) {
-                                    value = false;
-                                } else if ("1".equals(String.valueOf(value))) {
-                                    value = true;
-                                }
-                            } else if (field.getType() == char.class || field.getType() == Character.class) {
-                                value = ((String) value).charAt(0);
-                            } else if (field.getType() == Date.class) {
-                                long date = (Long) value;
-                                if (date <= 0) {
-                                    value = null;
-                                } else {
-                                    value = new Date(date);
-                                }
-                            }
-                            // 通过反射注入
-                            field.set(instance, value);
-                        }
-                    }
-
-                    // 加入集合
-                    list.add(instance);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } while (cursor.moveToNext());
-
-        }
-        cursor.close();
-        return list;
-    }*/
-
     /**
      * 删除
      */
@@ -177,40 +105,6 @@ public class DaoSupport<T> implements IDaoSupport<T> {
         return mSqliteDatabase.update(DaoUtil.getTableName(mClazz),
                 values, whereClause, whereArgs);
     }
-
-    // 结合到
-    // 1. 网络引擎的缓存
-    // 2. 资源加载的源码NDK
-
-    /*private Method cursorMethod(Class<?> type) throws Exception {
-        String methodName = getColumnMethodName(type);
-        // type String getString(index); int getInt; boolean getBoolean
-        //因为cursor.getString(columnIndex) 等等都是根据index获取值的，这个index是int，所以后边传入int.class
-        Method method = Cursor.class.getMethod(methodName, int.class);
-        return method;
-    }*/
-
-    //cursor获取值的方法像 getString(columnInde) ...我们需要根据type类型（string int ..）得到这个方法
-    //fieldType ->>  String.class Int.class ...
-    /*private String getColumnMethodName(Class<?> fieldType) {
-        String typeName;
-        if (fieldType.isPrimitive()) {//确定是否在指定的Class对象表示一个基本类型
-            typeName = DaoUtil.capitalize(fieldType.getName());
-        } else {
-            typeName = fieldType.getSimpleName();
-        }
-        String methodName = "get" + typeName;
-        if ("getBoolean".equals(methodName)) {
-            methodName = "getInt";
-        } else if ("getChar".equals(methodName) || "getCharacter".equals(methodName)) {
-            methodName = "getString";
-        } else if ("getDate".equals(methodName)) {
-            methodName = "getLong";
-        } else if ("getInteger".equals(methodName)) {
-            methodName = "getInt";
-        }
-        return methodName;
-    }*/
 
     private ContentValues contentValueByObj(T t) {
         ContentValues contentValues = new ContentValues();
