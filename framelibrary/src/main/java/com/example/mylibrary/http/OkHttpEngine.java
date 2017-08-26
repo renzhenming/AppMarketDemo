@@ -1,15 +1,22 @@
-package com.rzm.commonlibrary.general.http;
+package com.example.mylibrary.http;
+
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.example.mylibrary.db.DaoSupportFactory;
+import com.example.mylibrary.db.IDaoSupport;
+import com.rzm.commonlibrary.general.http.EngineCallBack;
+import com.rzm.commonlibrary.general.http.HttpUtils;
+import com.rzm.commonlibrary.general.http.IHttpEngine;
+import com.rzm.commonlibrary.utils.EncryptUtil;
+import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import android.content.Context;
-
-import com.rzm.commonlibrary.utils.LogUtils;
-
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,14 +31,14 @@ import okhttp3.Response;
 /**
  * Created by renzhenming on 2017/8/20.
  */
-public class OkHttpEngine implements IHttpEngine{
+public class OkHttpEngine implements IHttpEngine {
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
 
     @Override
-    public void post(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
+    public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
 
-        final String jointUrl = HttpUtils.jointParams(url,params);  //打印
-        LogUtils.e("Post请求路径：",jointUrl);
+        final String jointUrl = HttpUtils.jointParams(url, params);  //打印
+        LogUtils.e("Post请求路径：", jointUrl);
 
         // 了解 Okhhtp
         RequestBody requestBody = appendBody(params);
@@ -44,15 +51,15 @@ public class OkHttpEngine implements IHttpEngine{
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(okhttp3.Call call, IOException e) {
+                    public void onFailure(Call call, IOException e) {
                         callBack.onError(e);
                     }
 
                     @Override
-                    public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                    public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
                         String result = response.body().string();
-                        LogUtils.e("Post返回结果：",jointUrl);
+                        LogUtils.e("Post返回结果：", jointUrl);
                         callBack.onSuccess(result);
                     }
                 }
@@ -70,7 +77,7 @@ public class OkHttpEngine implements IHttpEngine{
     }
 
     // 添加参数
-   private void addParams(MultipartBody.Builder builder, Map<String, Object> params) {
+    private void addParams(MultipartBody.Builder builder, Map<String, Object> params) {
         if (params != null && !params.isEmpty()) {
             for (String key : params.keySet()) {
                 builder.addFormDataPart(key, params.get(key) + "");
@@ -115,15 +122,23 @@ public class OkHttpEngine implements IHttpEngine{
     }
 
     @Override
-    public void get(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
+    public void get(final boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
         url = HttpUtils.jointParams(url, params);
-
         LogUtils.e("Get请求路径：", url);
 
+        if (cache) {
+            String cacheJson = CacheUtils.getCache(url);
+            if (!TextUtils.isEmpty(cacheJson)) {
+                LogUtils.e("TAG", "读取到缓存：" + cacheJson);
+                //获取到缓存，直接执行成功方法
+                callBack.onSuccess(cacheJson);
+            }
+        }
         Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
         //可以省略，默认是GET请求
         Request request = requestBuilder.build();
 
+        final String finalUrl = url;
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -133,8 +148,26 @@ public class OkHttpEngine implements IHttpEngine{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resultJson = response.body().string();
+
+                if (cache) {
+                    String finalCacheJson = CacheUtils.getCache(finalUrl);
+                    //2.每次获取到的结果，和上次的缓存进行比对
+                    if (!TextUtils.isEmpty(finalCacheJson)) {
+                        if (resultJson.equals(finalCacheJson)) {
+                            //内容相同，没有数据更新，不需要执行成功方法刷新界面了
+                            LogUtils.e("TAG", "数据和缓存相同，不需要更新");
+                            return;
+                        }
+                    }
+                }
+
                 callBack.onSuccess(resultJson);
                 LogUtils.e("Get返回结果：", resultJson);
+
+                if (cache) {
+                    long l = CacheUtils.setCache(finalUrl, resultJson);
+                    LogUtils.e("TAG", "insert -->> " + l);
+                }
             }
         });
     }

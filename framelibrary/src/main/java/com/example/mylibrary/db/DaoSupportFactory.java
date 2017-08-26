@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.db;
+package com.example.mylibrary.db;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;

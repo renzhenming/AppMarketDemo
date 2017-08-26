@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.navigationbar;
+package com.example.mylibrary.navigation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rzm.commonlibrary.R;
+import com.rzm.commonlibrary.general.navigationbar.AbsNavigationBar;
 
 /**
  * Created by renzhenming on 2017/8/17.

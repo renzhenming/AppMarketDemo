@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.db;
+package com.example.mylibrary.db;
 
 import android.text.TextUtils;
 

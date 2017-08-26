@@ -24,9 +24,11 @@ public class HttpUtils{
 
     private Context mContext;
 
-    private static IHttpEngine mHttpEngine = new OkHttpEngine();
+    private static IHttpEngine mHttpEngine = null;
 
     private Map<String,Object> mParams;
+
+    private boolean mCache = false;
 
     private HttpUtils(Context context){
         mContext = context;
@@ -68,6 +70,11 @@ public class HttpUtils{
         return this;
     }
 
+    //设置是否添加缓存
+    public HttpUtils cache(boolean cache){
+        mCache = cache;
+        return this;
+    }
     /**
      * 添加回掉 执行
      * @return
@@ -113,11 +120,11 @@ public class HttpUtils{
      * @param callBack
      */
     private void get(Context context,String url, Map<String, Object> params, EngineCallBack callBack) {
-        mHttpEngine.get(context,url,params,callBack);
+        mHttpEngine.get(mCache,context,url,params,callBack);
     }
 
     private void post(Context context,String url, Map<String, Object> params, EngineCallBack callBack) {
-        mHttpEngine.post(context,url,params,callBack);
+        mHttpEngine.post(mCache,context,url,params,callBack);
     }
 
     //--------------------------------  供外界调用 --------------------------------//

@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.db;
+package com.example.mylibrary.db;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -17,10 +17,10 @@ public interface IDaoSupport<T> {
     //批量插入，检测性能
     void insert(List<T> data);
 
-    // 查询所有
-    List<T> query();
+    //查询方法封装类
+    QuerySupport<T> querySupport();
 
-    int delete(String whereClause, String[] whereArgs);
+    int delete(String whereClause, String... whereArgs);
 
     int update(T obj, String whereClause, String... whereArgs);
 }

@@ -1,4 +1,4 @@
-package com.example.mylibrary;
+package com.example.mylibrary.http;
 
 import android.content.Context;
 

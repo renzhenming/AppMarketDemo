@@ -1,14 +1,13 @@
-package com.rzm.commonlibrary.general.db;
+package com.example.mylibrary.db;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
 import com.rzm.commonlibrary.utils.LogUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +27,14 @@ import java.util.Map;
 
 public class DaoSupport<T> implements IDaoSupport<T> {
 
-    private static final java.lang.String TAG = "DaoSupport";
+    private static final String TAG = "DaoSupport";
     private Class<T> mClazz;
     private SQLiteDatabase mSqliteDatabase;
     //缓存变量，这个只是为了显得规范，其实达不到提高效率的目的，这种写法是仿照AppCompatViewInflater写的
     private static final Object[] mPutMethodArgs = new Object[2];
     //缓存反射获取到的方法，这样如果数据量很大，那么就不需要反复的去执行反射获取方法了，达到提高效率的目的
     private static final Map<String, Method> mPutMethods = new HashMap<>();
+    private QuerySupport<T> mQuerySupport;
 
     @Override
     public void init(SQLiteDatabase sqLiteDatabase, Class<T> clazz) {
@@ -81,12 +81,20 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     }
 
     @Override
+    public QuerySupport<T> querySupport() {
+        if (mQuerySupport == null){
+            mQuerySupport = new QuerySupport<>(mSqliteDatabase,mClazz);
+        }
+        return mQuerySupport;
+    }
+
+    /*@Override
     public List<T> query() {
         Cursor cursor = mSqliteDatabase.query(DaoUtil.getTableName(mClazz), null, null, null, null, null, null);
         return cursorToList(cursor);
-    }
+    }*/
 
-    private List<T> cursorToList(Cursor cursor) {
+    /*private List<T> cursorToList(Cursor cursor) {
         List<T> list = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -150,7 +158,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
         }
         cursor.close();
         return list;
-    }
+    }*/
 
     /**
      * 删除
@@ -174,17 +182,17 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     // 1. 网络引擎的缓存
     // 2. 资源加载的源码NDK
 
-    private Method cursorMethod(Class<?> type) throws Exception {
+    /*private Method cursorMethod(Class<?> type) throws Exception {
         String methodName = getColumnMethodName(type);
         // type String getString(index); int getInt; boolean getBoolean
         //因为cursor.getString(columnIndex) 等等都是根据index获取值的，这个index是int，所以后边传入int.class
         Method method = Cursor.class.getMethod(methodName, int.class);
         return method;
-    }
+    }*/
 
     //cursor获取值的方法像 getString(columnInde) ...我们需要根据type类型（string int ..）得到这个方法
     //fieldType ->>  String.class Int.class ...
-    private String getColumnMethodName(Class<?> fieldType) {
+    /*private String getColumnMethodName(Class<?> fieldType) {
         String typeName;
         if (fieldType.isPrimitive()) {//确定是否在指定的Class对象表示一个基本类型
             typeName = DaoUtil.capitalize(fieldType.getName());
@@ -202,7 +210,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
             methodName = "getInt";
         }
         return methodName;
-    }
+    }*/
 
     private ContentValues contentValueByObj(T t) {
         ContentValues contentValues = new ContentValues();

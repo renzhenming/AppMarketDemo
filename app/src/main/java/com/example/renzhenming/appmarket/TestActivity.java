@@ -3,19 +3,19 @@ package com.example.renzhenming.appmarket;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylibrary.HttpCallBack;
+import com.example.mylibrary.db.DaoSupportFactory;
+import com.example.mylibrary.db.IDaoSupport;
+import com.example.mylibrary.http.HttpCallBack;
+import com.example.mylibrary.http.OkHttpEngine;
+import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.example.renzhenming.appmarket.bean.Person;
 import com.rzm.commonlibrary.general.FixDexManager;
-import com.rzm.commonlibrary.general.db.DaoSupportFactory;
-import com.rzm.commonlibrary.general.db.IDaoSupport;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.http.HttpUtils;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
 import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.ViewBind;
@@ -72,10 +72,13 @@ public class TestActivity extends AppCompatActivity {
         });
 
         //路径url参数都需要放到jni中，防止反编译被盗取到url
+        //（https无法被抓包，http可以）
         HttpUtils httpUtils = HttpUtils.with(this)
-                .get().url("http://www.baidu.com")
-                .addParams("name","zhangsan")
-                .addParams("sex","man")
+                .exchangeEngine(new OkHttpEngine())
+                .cache(true)
+                .url("http://is.snssdk.com/2/essay/discovery/v3/")
+                .addParams("iid","6152551759")
+                .addParams("aid","7")
                 .execute(new HttpCallBack<String>() {
 
             @Override
@@ -110,14 +113,16 @@ public class TestActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                /*long start = System.currentTimeMillis();
+                long start = System.currentTimeMillis();
                 dao.insert(persons);
                 long end = System.currentTimeMillis();
                 LogUtils.d(TAG,"time ->"+(end - start));
-                List<Person> query = dao.query();
-                for (int i = 0; i < query.size(); i++) {
-                    LogUtils.e(TAG,"list ->"+query.get(i).getName()+","+query.get(i).getAge());
-                }*/
+                //List<Person> query = dao.query();
+                List<Person> list = dao.querySupport().selection("age = ?").selectionArgs("33").query();
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e(TAG,"list ->"+list.get(i).getName()+","+list.get(i).getAge());
+                }
+
                 int delete = dao.delete("age=?", new String[]{"28"});
                 LogUtils.e(TAG,"delete ->>"+delete);
                 int haha = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
