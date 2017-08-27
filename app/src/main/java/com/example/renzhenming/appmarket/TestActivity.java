@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mylibrary.BaseSkinActivity;
 import com.example.mylibrary.db.DaoSupportFactory;
 import com.example.mylibrary.db.IDaoSupport;
 import com.example.mylibrary.http.HttpCallBack;
@@ -30,9 +31,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RunnableFuture;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends BaseSkinActivity {
 
     private static final String TAG = "TestActivity";
     @BindViewId(R.id.click)
@@ -40,9 +40,92 @@ public class TestActivity extends AppCompatActivity {
     private ImageView mImage;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+    protected void initData() {
+        //路径url参数都需要放到jni中，防止反编译被盗取到url
+        //（https无法被抓包，http可以）
+        HttpUtils httpUtils = HttpUtils.with(this)
+                .exchangeEngine(new OkHttpEngine())
+                .cache(true)
+                .url("http://is.snssdk.com/2/essay/discovery/v3/")
+                .addParams("iid","6152551759")
+                .addParams("aid","7")
+                .execute(new HttpCallBack<String>() {
+
+                    @Override
+                    protected void onPreExecute() {
+
+                    }
+
+                    @Override
+                    public void onError(final Exception e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                    @Override
+                    public void onSuccess(final String result) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+
+
+
+        //数据库
+        final IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
+        //面向对象的六大思想，最少的知识原则
+        //dao.insert(new Person("rzm",26));
+
+        //批量插入测试
+        final List<Person> persons = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            persons.add(new Person("rzm",26+i));
+        }
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long start = System.currentTimeMillis();
+                dao.insert(persons);
+                long end = System.currentTimeMillis();
+                LogUtils.d(TAG,"time ->"+(end - start));
+                //List<Person> query = dao.query();
+                List<Person> list = dao.querySupport().selection("age = ?").selectionArgs("33").query();
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e(TAG,"list ->"+list.get(i).getName()+","+list.get(i).getAge());
+                }
+
+                int delete = dao.delete("age=?", new String[]{"28"});
+                LogUtils.e(TAG,"delete ->>"+delete);
+                int haha = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
+                LogUtils.e(TAG,"delete ->>haha:"+haha);
+            }
+        }).start();
+
+        ViewBind.inject(this);
+        mText.setText("注入的值");
+
+
+        /**
+         * 在这里修复遇到一个问题，就是第一次启动无法达到修复的效果，只有再次启动才可以，我想大概
+         * 是调用的时机不对，于是把这行代码放在了application中，果然修复成功，目前这个问题不确定是不是
+         * 机型的问题，因为别人好像在activity中调用修复就没问题
+         */
+        // fixDex();
+    }
+
+    @Override
+    protected void initView() {
         mImage = (ImageView) findViewById(R.id.image);
         new StatusBarManager.builder(this)
                 .setTintType(StatusBarManager.TintType.PURECOLOR)
@@ -80,88 +163,16 @@ public class TestActivity extends AppCompatActivity {
                 });*/
             }
         });
+    }
 
-        //路径url参数都需要放到jni中，防止反编译被盗取到url
-        //（https无法被抓包，http可以）
-        HttpUtils httpUtils = HttpUtils.with(this)
-                .exchangeEngine(new OkHttpEngine())
-                .cache(true)
-                .url("http://is.snssdk.com/2/essay/discovery/v3/")
-                .addParams("iid","6152551759")
-                .addParams("aid","7")
-                .execute(new HttpCallBack<String>() {
+    @Override
+    protected void initTitle() {
 
-            @Override
-            protected void onPreExecute() {
+    }
 
-            }
-
-            @Override
-            public void onError(final Exception e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-            @Override
-            public void onSuccess(final String result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            }
-        });
-
-
-
-        //数据库
-        final IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
-        //面向对象的六大思想，最少的知识原则
-        //dao.insert(new Person("rzm",26));
-
-        //批量插入测试
-        final List<Person> persons = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
-             persons.add(new Person("rzm",26+i));
-        }
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long start = System.currentTimeMillis();
-                dao.insert(persons);
-                long end = System.currentTimeMillis();
-                LogUtils.d(TAG,"time ->"+(end - start));
-                //List<Person> query = dao.query();
-                List<Person> list = dao.querySupport().selection("age = ?").selectionArgs("33").query();
-                for (int i = 0; i < list.size(); i++) {
-                    LogUtils.e(TAG,"list ->"+list.get(i).getName()+","+list.get(i).getAge());
-                }
-
-                int delete = dao.delete("age=?", new String[]{"28"});
-                LogUtils.e(TAG,"delete ->>"+delete);
-                int haha = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
-                LogUtils.e(TAG,"delete ->>haha:"+haha);
-            }
-        }).start();
-
-        ViewBind.inject(this);
-        mText.setText("注入的值");
-
-
-        /**
-         * 在这里修复遇到一个问题，就是第一次启动无法达到修复的效果，只有再次启动才可以，我想大概
-         * 是调用的时机不对，于是把这行代码放在了application中，果然修复成功，目前这个问题不确定是不是
-         * 机型的问题，因为别人好像在activity中调用修复就没问题
-         */
-       // fixDex();
+    @Override
+    public void setContentView() {
+        setContentView(R.layout.activity_test);
     }
 
     public void change(View view){
