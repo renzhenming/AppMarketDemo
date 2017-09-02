@@ -6,16 +6,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.mylibrary.BaseSkinActivity;
 import com.example.mylibrary.skin.SkinManager;
 
 import java.io.File;
 
-public class TestSkinActivity extends AppCompatActivity {
+public class TestSkinActivity extends BaseSkinActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_skin);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initTitle() {
+
+    }
+
+    @Override
+    public void setContentView() {
+
     }
 
 

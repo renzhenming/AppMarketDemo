@@ -29,8 +29,8 @@ public class SkinResource {
             AssetManager assets = AssetManager.class.newInstance();
             Method method = AssetManager.class.getDeclaredMethod("addAssetPath", String.class);
             method.setAccessible(true);
-            //TODO 内存卡是否存在，如果不存在的处理方式，这里都需要考虑
-            method.invoke(assets, Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator+"red.skin");
+            //添加资源路径
+            method.invoke(assets, skinPath);
 
             mSkinResources = new Resources(assets,sysResources.getDisplayMetrics(),sysResources.getConfiguration());
             //获取skin apk包的包名

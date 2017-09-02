@@ -11,7 +11,7 @@ import com.example.mylibrary.skin.SkinResource;
 
 /**
  * Created by renzhenming on 2017/8/30.
- */
+ */ 
 
 public enum  SkinType {
 
@@ -28,7 +28,7 @@ public enum  SkinType {
                 textView.setTextColor(color);
             }
         }
-    },BACKGROUND("backGround") {
+    },BACKGROUND("background") {
         @Override
         public void skin(View view, String resourceName) {
             SkinResource skinResource = getSkinResource();

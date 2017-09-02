@@ -8,7 +8,7 @@ import android.view.View;
 
 public class SkinAttr {
 
-    private String mResourceName;
+    public String mResourceName;
     public SkinType mType;
 
     public SkinAttr(String resName, SkinType skinType) {

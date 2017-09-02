@@ -38,6 +38,7 @@ public abstract class BaseSkinActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
+        //安卓源码，因为Factory只能设置一次，所以要判断一下
         if (layoutInflater.getFactory() == null) {
             LayoutInflaterCompat.setFactory2(layoutInflater, this);
         }
@@ -52,30 +53,40 @@ public abstract class BaseSkinActivity extends BaseActivity {
     public final View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
 
         // If the Factory didn't handle it, let our createView() method try
+
+        //parent 指的是当前这个view的parent,所以最外层布局parent为null
+        LogUtils.e(TAG,"parent -> "+parent+"");
         View view = createView(parent, name, context, attrs);
         //一个activity布局对应多个SkinView
         if (view != null){
+            LogUtils.e(TAG,view+"");
+            //这行代码是为了添加上下文context，没有必要放在这里，只需要设置一次就好，可以放在application中
             SkinManager.getInstance().init(this);
+            //获取一个view中的皮肤属性集合
             List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(context,attrs);
+            //把每个view的属性集合封装进一个SkinView中
             SkinView skinView = new SkinView(view,skinAttrList);
             //交给Manager处理
             manageSkinView(skinView);
         }
-
-        LogUtils.e(TAG,view+"");
         return view;
     }
 
     /**
      * 统一管理SkinView
+     * 这个方法的作用是在activity启动的时候将其中所有需要的属性集合存入map中，这样我们
+     * 需要换肤的时候点击换肤按钮就可以拿到所有的需要设置的属性
      * @param skinView
      */
     private void manageSkinView(SkinView skinView) {
+        //获取当前activity中SkinView的集合
         List<SkinView> skinViews = SkinManager.getInstance().getSkinViews(this);
         if (skinViews == null){
             skinViews = new ArrayList<>();
+            //还没有这个集合，就去注册进去，把这个list加入到Map中（map是一个以activity为key，以Skin View集合为value的总的存放所有activity的集合）
             SkinManager.getInstance().register(this,skinViews);
         }
+        //不断的将SkinView添加进去
         skinViews.add(skinView);
     }
 
