@@ -51,7 +51,7 @@ public class TestSkinActivity extends BaseSkinActivity {
 
     public void skin1(View view){
         // 恢复默认
-        int result = SkinManager.getInstance().restoreDefault();
+         SkinManager.getInstance().restoreDefault();
     }
 
 

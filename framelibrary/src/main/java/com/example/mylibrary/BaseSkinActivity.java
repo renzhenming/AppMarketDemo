@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
 
+import com.example.mylibrary.skin.ISkinChangeListener;
 import com.example.mylibrary.skin.SkinAttrSupport;
 import com.example.mylibrary.skin.SkinManager;
 import com.example.mylibrary.skin.attr.SkinAttr;
@@ -29,7 +30,7 @@ import java.util.List;
  * tip : 永远在activity和BaseActivity中预留一层，用于未来迭代可能存在的扩展
  */
 
-public abstract class BaseSkinActivity extends BaseActivity {
+public abstract class BaseSkinActivity extends BaseActivity implements ISkinChangeListener {
 
     private static final java.lang.String TAG = "BaseSkinActivity";
     private SkinAppCompatViewInflater mAppCompatViewInflater;
@@ -84,10 +85,15 @@ public abstract class BaseSkinActivity extends BaseActivity {
         if (skinViews == null){
             skinViews = new ArrayList<>();
             //还没有这个集合，就去注册进去，把这个list加入到Map中（map是一个以activity为key，以Skin View集合为value的总的存放所有activity的集合）
-            SkinManager.getInstance().register(this,skinViews);
+            SkinManager.getInstance().register(skinViews,this);
         }
         //不断的将SkinView添加进去
         skinViews.add(skinView);
+
+        // 如果需要换肤
+        if(SkinManager.getInstance().needChangeSkin()){
+            SkinManager.getInstance().changeSkin(skinView);
+        }
     }
 
     public View createView(View parent, final String name, @NonNull Context context,
@@ -131,5 +137,17 @@ public abstract class BaseSkinActivity extends BaseActivity {
             }
             parent = parent.getParent();
         }
+    }
+
+    @Override
+    public void changeSkin(String path) {
+        LogUtils.d(TAG,"换肤完成 -> "+path);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
+        LogUtils.d(TAG,"移除listener -> "+this);
     }
 }
