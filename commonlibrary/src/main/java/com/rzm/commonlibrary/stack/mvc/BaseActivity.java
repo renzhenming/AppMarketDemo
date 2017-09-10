@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.rzm.commonlibrary.inject.ViewBind;
+
 /**
  * Created by renzhenming on 2017/8/8.
  * 基于模板设计模式的基类，以传统mvc为架构
@@ -23,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //加载布局
         setContentView();
+        // 加入注解
+        ViewBind.inject(this);
         //设置导航栏，toolbar或者actionbar之类的
         initTitle();
         //初始化view

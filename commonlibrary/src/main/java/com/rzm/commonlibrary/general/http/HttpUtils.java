@@ -24,7 +24,7 @@ public class HttpUtils{
 
     private Context mContext;
 
-    private static IHttpEngine mHttpEngine = null;
+    private static IHttpEngine mHttpEngine;
 
     private Map<String,Object> mParams;
 

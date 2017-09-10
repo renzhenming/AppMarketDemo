@@ -1,6 +1,7 @@
 package com.example.mylibrary.http;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.example.mylibrary.db.DaoSupportFactory;
@@ -34,6 +35,8 @@ import okhttp3.Response;
 public class OkHttpEngine implements IHttpEngine {
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
 
+    private static Handler mHandler = new Handler();
+
     @Override
     public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
 
@@ -51,16 +54,26 @@ public class OkHttpEngine implements IHttpEngine {
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
-                        callBack.onError(e);
+                    public void onFailure(Call call, final IOException e) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onError(e);
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
-                        String result = response.body().string();
+                        final String result = response.body().string();
                         LogUtils.e("Post返回结果：", jointUrl);
-                        callBack.onSuccess(result);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onSuccess(result);
+                            }
+                        });
                     }
                 }
         );
@@ -127,11 +140,17 @@ public class OkHttpEngine implements IHttpEngine {
         LogUtils.e("Get请求路径：", url);
 
         if (cache) {
-            String cacheJson = CacheUtils.getCache(url);
+            final String cacheJson = CacheUtils.getCache(url);
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e("TAG", "读取到缓存：" + cacheJson);
                 //获取到缓存，直接执行成功方法
-                callBack.onSuccess(cacheJson);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(cacheJson);
+                    }
+                });
+
             }
         }
         Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
@@ -141,13 +160,19 @@ public class OkHttpEngine implements IHttpEngine {
         final String finalUrl = url;
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                callBack.onError(e);
+            public void onFailure(Call call, final IOException e) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String resultJson = response.body().string();
+                final String resultJson = response.body().string();
 
                 if (cache) {
                     String finalCacheJson = CacheUtils.getCache(finalUrl);
@@ -160,8 +185,13 @@ public class OkHttpEngine implements IHttpEngine {
                         }
                     }
                 }
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(resultJson);
+                    }
+                });
 
-                callBack.onSuccess(resultJson);
                 LogUtils.e("Get返回结果：", resultJson);
 
                 if (cache) {

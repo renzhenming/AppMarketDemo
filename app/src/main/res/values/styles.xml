@@ -8,4 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="home_bottom_tab_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center|bottom</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:drawablePadding">6sp</item>
+        <item name="android:textColor">@color/tab_indicator_text</item>
+    </style>
+
+    <style name="media_choose_btn">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/media_choose_op_btn_text</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">10.0dip</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
 </resources>
