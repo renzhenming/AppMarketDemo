@@ -1,5 +1,6 @@
 package com.example.renzhenming.appmarket;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -18,6 +19,7 @@ import com.example.mylibrary.http.HttpCallBack;
 import com.example.mylibrary.http.OkHttpEngine;
 import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.example.renzhenming.appmarket.bean.Person;
+import com.example.renzhenming.appmarket.test.MessageService;
 import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.http.HttpUtils;
@@ -126,6 +128,7 @@ public class TestActivity extends BaseSkinActivity {
 
     @Override
     protected void initView() {
+        startService(new Intent(getApplicationContext(),MessageService.class));
         mImage = (ImageView) findViewById(R.id.image);
         new StatusBarManager.builder(this)
                 .setTintType(StatusBarManager.TintType.PURECOLOR)
@@ -219,5 +222,7 @@ public class TestActivity extends BaseSkinActivity {
         }
 
     }
+
+
 
 }

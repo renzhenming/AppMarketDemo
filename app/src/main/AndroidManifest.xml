@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    // JobService权限
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:name="com.rzm.commonlibrary.general.BaseApplication"
         android:allowBackup="true"
@@ -25,9 +28,7 @@
         </activity>
         <activity
             android:name=".TestActivity"
-            android:label="TestActivity">
-
-        </activity>
+            android:label="TestActivity" />
         <activity android:name=".TestSkinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +36,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".test.MessageService">
+            <intent-filter>
+                <action android:name="com.renzhenming.getmessage" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.GuardService1"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":guardService1" />
+        <service
+            android:name=".service.GuardService2"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":guardService2" />
+        <service
+            android:name=".service.JobWakeUpService"
+            android:enabled="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"></service>
     </application>
 
 </manifest>
