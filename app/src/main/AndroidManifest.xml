@@ -6,9 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     // JobService权限
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="com.rzm.commonlibrary.general.BaseApplication"
@@ -18,16 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.HomeActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+
         </activity>
         <activity
             android:name=".TestActivity"
             android:label="TestActivity" />
-        <activity android:name=".TestSkinActivity">
+        <activity android:name=".TestSkinActivity"></activity>
+        <activity android:name=".ui.TestImageActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service android:name=".test.MessageService">
@@ -48,8 +49,10 @@
         <service
             android:name=".service.JobWakeUpService"
             android:enabled="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"></service>
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity android:name=".ui.ChoosePictureActivity"></activity>
     </application>
 
 </manifest>

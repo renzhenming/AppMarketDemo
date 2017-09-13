@@ -1,8 +1,20 @@
 <resources>
-    <string name="app_name">AppMarket</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">open</string>
     <string name="close">close</string>
+
+    <string name="app_name">内涵段子</string>
+
+    <string name="ss_share_hint">期待你的神评论</string>
+
+    <string name="comment_dialog_send">发送</string>
+    <string name="comment_dialog_share_label">分享到：</string>
+
+    <string name="media_choose_ok">确定</string>
+    <string name="media_choose_only_single">不支持多选</string>
+    <string name="media_choose_preview">预览</string>
+
+    <string name="media_chooser_hint">支持选取最短4s最长10min</string>
 </resources>
