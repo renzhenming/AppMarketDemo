@@ -1,15 +1,9 @@
-package com.example.renzhenming.appmarket.view;
+package com.example.mylibrary.view.indicator.squre;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-/**
- * Email 240336124@qq.com
- * Created by Darren on 2017/4/9.
- * Version 1.0
- * Description: 正方形的FrameLayout容器
- */
 public class SquareFrameLayout extends FrameLayout{
     public SquareFrameLayout(Context context) {
         super(context);

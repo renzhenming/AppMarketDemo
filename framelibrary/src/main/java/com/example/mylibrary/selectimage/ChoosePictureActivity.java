@@ -1,4 +1,4 @@
-package com.example.renzhenming.appmarket.ui;
+package com.example.mylibrary.selectimage;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -9,13 +9,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.mylibrary.BaseSkinActivity;
+import com.example.mylibrary.R;
 import com.example.mylibrary.navigation.CommonNavigationBar;
-import com.example.renzhenming.appmarket.R;
-import com.example.renzhenming.appmarket.adapter.ChoosePictureAdapter;
-import com.example.renzhenming.appmarket.adapter.ChoosePictureListener;
 import com.rzm.commonlibrary.inject.BindViewId;
 
 import java.util.ArrayList;
@@ -57,16 +56,15 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     // ArraryList<String> 已经选择好的图片
     private ArrayList<String> mResultList;
 
-    @BindViewId(R.id.image_list_rv)
     private RecyclerView mImageListRv;
-    @BindViewId(R.id.select_num)
     private TextView mSelectNumTv;
-    @BindViewId(R.id.select_preview)
     private TextView mSelectPreview;
 
     @Override
     protected void initView() {
-
+        mImageListRv = (RecyclerView) findViewById(R.id.image_list_rv);
+        mSelectNumTv = (TextView) findViewById(R.id.select_num);
+        mSelectPreview = (TextView) findViewById(R.id.select_preview);
     }
 
     @Override

@@ -1,15 +1,9 @@
-package com.example.renzhenming.appmarket.view;
+package com.example.mylibrary.view.indicator.squre;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/**
- * Email 240336124@qq.com
- * Created by Darren on 2017/4/9.
- * Version 1.0
- * Description:正方形的图片
- */
 public class SquareImageView extends ImageView{
     public SquareImageView(Context context) {
         super(context);

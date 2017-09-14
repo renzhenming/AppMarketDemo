@@ -3,6 +3,7 @@ package com.example.renzhenming.appmarket.ui;
 import android.content.Intent;
 import android.view.View;
 import com.example.mylibrary.BaseSkinActivity;
+import com.example.mylibrary.selectimage.ChoosePictureActivity;
 import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.renzhenming.appmarket.adapter;
+package com.example.mylibrary.selectimage;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mylibrary.R;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.ViewHolder;
-import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
     // 选择图片的集合
     private ArrayList<String> mResultImageList;
     private int mMaxCount;
-    public ChoosePictureAdapter(Context context, List<String> data,ArrayList<String> imageList,int maxCount) {
+    public ChoosePictureAdapter(Context context, List<String> data, ArrayList<String> imageList, int maxCount) {
         super(context, data, R.layout.media_chooser_item);
         this.mResultImageList = imageList;
         this.mMaxCount = maxCount;
