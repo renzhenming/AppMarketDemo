@@ -12,7 +12,7 @@ import static com.rzm.commonlibrary.general.navigationbar.StatusBarView.addStatu
  * Created by chenyk on 2016/10/11.
  * 状态栏管理类
  * 使用方法
- * new StatusBarManager.builder(this)
+ * new StatusBarManager.build(this)
  *     .setStatusBarColor(mStatusBarColor)//状态栏颜色
  *     .setTintType(mTintType)//色彩类型：纯色、渐变
  *     .setAlpha(mAlpha)//不透明度

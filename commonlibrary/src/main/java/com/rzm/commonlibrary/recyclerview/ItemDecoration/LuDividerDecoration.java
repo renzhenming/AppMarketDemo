@@ -84,7 +84,7 @@ public class LuDividerDecoration extends RecyclerView.ItemDecoration {
 
 
     /**
-     * A basic builder for divider decorations. The default builder creates a 1px thick black divider decoration.
+     * A basic build for divider decorations. The default build creates a 1px thick black divider decoration.
      */
     public static class Builder {
         private Resources mResources;

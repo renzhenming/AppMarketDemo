@@ -152,7 +152,7 @@ public class CommonDialog extends Dialog {
 
         /**
          * Creates an {@link CommonDialog} with the arguments supplied to this
-         * builder.
+         * build.
          * <p>
          * Calling this method does not display the dialog. If no additional
          * processing is needed, {@link #show()} may be called instead to both
@@ -177,11 +177,11 @@ public class CommonDialog extends Dialog {
 
         /**
          * Creates an {@link CommonDialog} with the arguments supplied to this
-         * builder and immediately displays the dialog.
+         * build and immediately displays the dialog.
          * <p>
          * Calling this method is functionally identical to:
          * <pre>
-         *     AlertDialog dialog = builder.build();
+         *     AlertDialog dialog = build.build();
          *     dialog.show();
          * </pre>
          */

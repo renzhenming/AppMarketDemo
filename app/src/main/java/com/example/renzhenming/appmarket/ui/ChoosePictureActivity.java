@@ -1,4 +1,4 @@
-package com.example.mylibrary.selectimage;
+package com.example.renzhenming.appmarket.ui;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -7,15 +7,16 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.mylibrary.BaseSkinActivity;
-import com.example.mylibrary.R;
 import com.example.mylibrary.navigation.CommonNavigationBar;
-import com.rzm.commonlibrary.inject.BindViewId;
+import com.example.mylibrary.util.StatusBarUtil;
+import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * 2.可以设置拍照按钮的显示
  * 3.再次进入显示之前选择的图片
  */
-public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePictureListener {
+public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePictureListener, View.OnClickListener {
 
     // 带过来的Key
     // 是否显示相机的EXTRA_KEY
@@ -59,12 +60,15 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     private RecyclerView mImageListRv;
     private TextView mSelectNumTv;
     private TextView mSelectPreview;
+    private TextView mSelectFinish;
 
     @Override
     protected void initView() {
         mImageListRv = (RecyclerView) findViewById(R.id.image_list_rv);
         mSelectNumTv = (TextView) findViewById(R.id.select_num);
         mSelectPreview = (TextView) findViewById(R.id.select_preview);
+        mSelectFinish = (TextView) findViewById(R.id.select_finish);
+        mSelectFinish.setOnClickListener(this);
     }
 
     @Override
@@ -82,8 +86,18 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
         exchangeViewShow();
     }
 
+    //更新显示  每次点击图片都要更新
     private void exchangeViewShow() {
-
+        //预览是不是可点击 显示什么颜色
+        if (mResultList.size() > 0){
+            mSelectPreview.setEnabled(true);
+            mSelectPreview.setOnClickListener(this);
+        }else{
+            mSelectPreview.setEnabled(false);
+            mSelectPreview.setOnClickListener(null);
+        }
+        //中间图片显选中张数
+        mSelectNumTv.setText(mResultList.size()+"/"+mMaxCount);
     }
     /**
      * 2.ContentProvider获取内存卡中所有的图片
@@ -154,6 +168,8 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
 
     @Override
     protected void initTitle() {
+
+        StatusBarUtil.statusBarTintColor(this, ContextCompat.getColor(this,R.color.colorPrimary));
         CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this).setTitle("选择图片").build();
     }
 
@@ -164,6 +180,27 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
 
     @Override
     public void select() {
+        exchangeViewShow();
+    }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.select_finish:
+                setResultData();
+                break;
+            case R.id.select_preview:
+                //TODO 图片预览
+                break;
+        }
+
+    }
+
+    //将选择好的图片返回上一页面
+    private void setResultData() {
+        Intent intent = new Intent();
+        intent.putStringArrayListExtra(EXTRA_RESULT,mResultList);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

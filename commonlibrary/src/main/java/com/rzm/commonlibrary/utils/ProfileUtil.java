@@ -186,7 +186,7 @@ public class ProfileUtil {
     public static void getProfile(SightPlusApplication application, Activity thisActivity, RequestUtil.FJRequestSuccessCallback successCallback) {
 
         SightPlusApplication.User user = application.user();
-        FJRequestHandler.Builder builder = new FJRequestHandler.Builder(application, thisActivity, RequestWrapper.Get_Profile + "?token=" + user.getToken());
-        builder.successCallback(successCallback).request();
+        FJRequestHandler.Builder build = new FJRequestHandler.Builder(application, thisActivity, RequestWrapper.Get_Profile + "?token=" + user.getToken());
+        build.successCallback(successCallback).request();
     }*/
 }

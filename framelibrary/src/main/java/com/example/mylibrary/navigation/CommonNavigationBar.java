@@ -2,161 +2,55 @@ package com.example.mylibrary.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.rzm.commonlibrary.R;
+import com.example.mylibrary.R;
 import com.rzm.commonlibrary.general.navigationbar.AbsNavigationBar;
 
-/**
- * Created by renzhenming on 2017/8/17.
- */
+public class CommonNavigationBar<D extends
+        CommonNavigationBar.Builder.DefaultNavigationParams> extends
+        AbsNavigationBar<CommonNavigationBar.Builder.DefaultNavigationParams> {
 
-public class CommonNavigationBar extends AbsNavigationBar<CommonNavigationBar.Builder.CommonNavigationBarParams> {
-
-    public CommonNavigationBar(CommonNavigationBar.Builder.CommonNavigationBarParams mParams) {
-        super(mParams);
+    public CommonNavigationBar(Builder.DefaultNavigationParams params) {
+        super(params);
     }
+
 
     @Override
     public int bindLayoutId() {
-        return R.layout.common_navigation_bar;
+        return R.layout.title_bar;
     }
 
     @Override
     public void applyView() {
-        //默认使用中间的title布局，如果设置了toolbar则使用toolbar
-        if (getParams().mToolbarEnable){
-            initToolbar(R.id.toolbar,getParams().mTitle);
-            setOnToolbarClickListener(R.id.toolbar,getParams().mToolbarListener);
-        }else{
-            setText(R.id.center,getParams().mTitle);
-        }
-        setText(R.id.right_text,getParams().mRightText);
-        setIcon(R.id.right_icon,getParams().mRightIcon);
-        setOnClickListener(R.id.right_text,getParams().mRightListener);
-        setOnClickListener(R.id.right_icon,getParams().mRightListener);
+        // 绑定效果
+        setText(R.id.title, getParams().mTitle);
+        setText(R.id.right_text, getParams().mRightText);
 
-        setText(R.id.left_text,getParams().mLeftText);
-        setIcon(R.id.left_icon,getParams().mLeftIcon);
-        setOnClickListener(R.id.left_text,getParams().mLeftListener);
-        setOnClickListener(R.id.left_icon,getParams().mLeftListener);
+        setOnClickListener(R.id.right_text, getParams().mRightClickListener);
+        // 左边 要写一个默认的  finishActivity
+        setOnClickListener(R.id.back,getParams().mLeftClickListener);
 
-        //左边写一个默认的finish
-        setOnClickListener(R.id.left_text,getParams().mLeftListener);
-
+        setVisibility(R.id.back,getParams().leftIconVisible);
     }
 
-    private void setIcon(int viewId, int mRightIcon) {
-        ImageView iv = findViewById(viewId);
-        if (mRightIcon != -1 && iv != null){
-            iv.setVisibility(View.VISIBLE);
-            iv.setImageResource(mRightIcon);
-        }
-    }
 
-    private void initToolbar(int toolbarId, String mTitle) {
-        Toolbar toolbar = mNavigationView.findViewById(toolbarId);
-        if (toolbar != null && !TextUtils.isEmpty(mTitle)){
-            AppCompatActivity activity = (AppCompatActivity) getParams().mContext;
-            activity.setSupportActionBar(toolbar);
-            ActionBar actionBar = activity.getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-            toolbar.setTitle(mTitle);
-        }
-    }
 
-    private void setText(int viewId, String mTitle) {
-        TextView tv = findViewById(viewId);
-        if (!TextUtils.isEmpty(mTitle) && tv != null){
-            tv.setVisibility(View.VISIBLE);
-            tv.setText(mTitle);
-        }
-    }
 
-    private void setOnClickListener(int viewId,View.OnClickListener listener){
-        View view = findViewById(viewId);
-        if (view != null && listener != null)
-            view.setOnClickListener(listener);
-    }
-    private void setOnToolbarClickListener(int viewId,View.OnClickListener listener){
-        Toolbar view = (Toolbar)findViewById(viewId);
-        if (view != null  && listener != null)
-            view.setNavigationOnClickListener(listener);
-    }
+    public static class Builder extends AbsNavigationBar.Builder {
 
-    public <T extends View>T findViewById(int viewId){
-        return (T)mNavigationView.findViewById(viewId);
-    }
+        DefaultNavigationParams P;
 
-    public static class Builder extends AbsNavigationBar.Builder{
 
-        CommonNavigationBarParams P;
-
-        //不穿parent，设置使用activity根节点 android.R.id.content
-        public Builder(Context context) {
-            super(context, null);
-            P = new CommonNavigationBarParams(context,null);
-        }
-
-        //传入布局文件的根节点id作为navigation bar的parent
         public Builder(Context context, ViewGroup parent) {
             super(context, parent);
-            P = new CommonNavigationBarParams(context,parent);
+            P = new DefaultNavigationParams(context, parent);
         }
 
-
-        public CommonNavigationBar.Builder setToolbarEnable(boolean toolbarEnable) {
-            P.mToolbarEnable = toolbarEnable;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setToolbarBackClickListener(View.OnClickListener listener) {
-            P.mToolbarListener = listener;
-            return this;
-        }
-
-
-        public CommonNavigationBar.Builder setTitle(String title){
-            P.mTitle = title;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setRightText(String rightText){
-            P.mRightText = rightText;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setRightIcon(int rightIcon){
-            P.mRightIcon = rightIcon;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setRightClickListener(View.OnClickListener listener){
-            P.mRightListener = listener;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder seLeftText(String leftText){
-            P.mLeftText = leftText;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setLeftIcon(int leftIcon){
-            P.mLeftIcon = leftIcon;
-            return this;
-        }
-
-        public CommonNavigationBar.Builder setLeftClickListener(View.OnClickListener listener){
-            P.mLeftListener = listener;
-            return this;
+        public Builder(Context context) {
+            super(context, null);
+            P = new DefaultNavigationParams(context, null);
         }
 
         @Override
@@ -165,31 +59,73 @@ public class CommonNavigationBar extends AbsNavigationBar<CommonNavigationBar.Bu
             return navigationBar;
         }
 
-        public static class CommonNavigationBarParams extends AbsNavigationParams{
+        // 1. 设置所有效果
 
+        public Builder setTitle(String title) {
+            P.mTitle = title;
+            return this;
+        }
+
+
+        public Builder setRightText(String rightText) {
+            P.mRightText = rightText;
+            return this;
+        }
+
+        /**
+         * 设置右边的点击事件
+         */
+        public Builder
+        setRightClickListener(View.OnClickListener rightListener) {
+            P.mRightClickListener = rightListener;
+            return this;
+        }
+
+        /**
+         * 设置左边的点击事件
+         */
+        public Builder
+        setLeftClickListener(View.OnClickListener rightListener) {
+            P.mLeftClickListener = rightListener;
+            return this;
+        }
+
+        /**
+         * 设置右边的图片
+         */
+        public Builder setRightIcon(int rightRes) {
+
+            return this;
+        }
+
+        public Builder hideLeftIcon() {
+            P.leftIconVisible = View.INVISIBLE;
+            return this;
+        }
+
+        public static class DefaultNavigationParams extends
+                AbsNavigationBar.Builder.AbsNavigationParams {
+
+
+            // 2.所有效果放置
             public String mTitle;
+
             public String mRightText;
-            public int mRightIcon = -1;
-            public String mLeftText;
-            public int mLeftIcon;
-            public boolean mToolbarEnable;
 
-            public View.OnClickListener mRightListener;
-            //默认点击左侧finish activity ,重写后可覆盖
-            public View.OnClickListener mLeftListener = new View.OnClickListener() {
+            public int leftIconVisible = View.VISIBLE;
+
+            // 后面还有一些通用的
+            public View.OnClickListener mRightClickListener;
+
+            public View.OnClickListener mLeftClickListener = new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    ((Activity)mContext).finish();
-                }
-            };
-            public View.OnClickListener mToolbarListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((Activity)mContext).finish();
+                public void onClick(View v) {
+                    // 关闭当前Activity
+                    ((Activity) mContext).finish();
                 }
             };
 
-            public CommonNavigationBarParams(Context context, ViewGroup parent) {
+            public DefaultNavigationParams(Context context, ViewGroup parent) {
                 super(context, parent);
             }
         }

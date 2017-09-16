@@ -1,4 +1,4 @@
-package com.example.mylibrary.selectimage;
+package com.example.renzhenming.appmarket.ui;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.R;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.ViewHolder;
+import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;
 import java.util.List;

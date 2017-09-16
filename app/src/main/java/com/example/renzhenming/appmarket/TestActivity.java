@@ -5,8 +5,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -135,7 +133,6 @@ public class TestActivity extends BaseSkinActivity {
                 .setStatusBarColor(R.color.colorPrimary)
                 .build();
         CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
-                .setToolbarEnable(true)
                 .setTitle("个人中心")
                 .setRightIcon(R.drawable.search)
                 .setRightClickListener(new View.OnClickListener() {

@@ -2,90 +2,114 @@ package com.rzm.commonlibrary.general.navigationbar;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
- * Created by renzhenming on 2017/8/17.
- * NavigationBar 基类 供继承
+ * Email 240336124@qq.com
+ * Created by Darren on 2017/2/26.
+ * Version 1.0
+ * Description: 头部的Builder基类
  */
-
 public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNavigationParams> implements INavigationBar {
 
     private P mParams;
-    public View mNavigationView;
 
-    public AbsNavigationBar(P mParams) {
-        this.mParams = mParams;
+    private View mNavigationView;
+
+    public AbsNavigationBar(P params) {
+        this.mParams = params;
         createAndBindView();
     }
+
 
     public P getParams() {
         return mParams;
     }
 
+
     /**
-     * 创建和绑定view
+     * 设置文本
+     * @param viewId
+     * @param text
+     */
+    protected void setText(int viewId, String text) {
+        TextView tv = findViewById(viewId);
+        if(!TextUtils.isEmpty(text)){
+            tv.setVisibility(View.VISIBLE);
+            tv.setText(text);
+        }
+    }
+
+    protected void setVisibility(int viewId, int visibility) {
+        findViewById(viewId).setVisibility(visibility);
+    }
+
+    /**
+     * 设置点击
+     * @param viewId
+     * @param listener
+     */
+    protected void setOnClickListener(int viewId,View.OnClickListener listener){
+        findViewById(viewId).setOnClickListener(listener);
+    }
+
+
+    public <T extends View> T findViewById(int viewId){
+        return (T)mNavigationView.findViewById(viewId);
+    }
+
+    /**
+     * 绑定和创建View
      */
     private void createAndBindView() {
+        // 1. 创建View
 
-        //继承自AppCompatActivity
-        if (mParams.mParent == null){
-            //获取activity的根布局
-            if (mParams.mContext instanceof Activity){
-                //这种方式存在一种问题，如果我们设置的跟布局是RelativeLayout会导致导航栏下边的view和导航栏部分重叠，
-                //那么似乎也只能把我们的跟布局限制为LinearLayout但是这种方式明显很不通用，所以我们换一种方式处理，将下边两行注释掉
-                //ViewGroup activityRoot = (ViewGroup) ((Activity) mParams.mContext).findViewById(android.R.id.content);
-                //mParams.mParent = (ViewGroup)activityRoot.getChildAt(0);
-                //通过看源码我们知道DecorView是一个FrameLayout，是系统的一个ViewGroup，DecorView.getChildAt(0)位置得到的是一个LinearLayout
-                // 这样一来，我们的导航栏就跟我们自己的布局没有关系了，是位于凌驾于我们布局之上的系统布局中
-
-                //这样设置之后，发现导航栏和状态栏重叠，所以在导航栏布局中设置了一个MarginTop,防止交叉,在真机上似乎不交叉 ？？？
-                ViewGroup activityRoot = (ViewGroup) ((Activity) mParams.mContext).getWindow().getDecorView();
-                mParams.mParent = (ViewGroup)activityRoot.getChildAt(0);
-            }else{
-                throw new IllegalArgumentException("application context can not be cast to Activity");
-            }
+        if(mParams.mParent == null){
+            // 获取activity的根布局，View源码
+            ViewGroup activityRoot = (ViewGroup) ((Activity)(mParams.mContext))
+                    .getWindow().getDecorView();
+            mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);
+            Log.e("TAG",mParams.mParent+"");
         }
 
-        //继承自Activity(获取根节点的方式是不一样的，看源码)
-        //   ....
+        // 处理Activity的源码，后面再去看
 
-        if (mParams.mParent == null)
+        if(mParams.mParent == null){
             return;
+        }
 
-        //创建view
-        mNavigationView = LayoutInflater.from(mParams.mContext).inflate(bindLayoutId(), mParams.mParent,false);
-        //添加
-        mParams.mParent.addView(mNavigationView,0);
-        //绑定参数
+        mNavigationView = LayoutInflater.from(mParams.mContext).
+                inflate(bindLayoutId(), mParams.mParent, false);// 插件换肤
+
+        // 2.添加
+        mParams.mParent.addView(mNavigationView, 0);
+
         applyView();
     }
 
-    //Builder模式，基本的三个类  NavigationBar Builder Params
-    public static abstract class Builder{
+    // Builder  仿照系统写的， 套路，活  AbsNavigationBar  Builder  参数Params
+    public abstract static class Builder {
 
-        AbsNavigationParams P;
+        public Builder(Context context, ViewGroup parent) {
 
-        public Builder(Context context, ViewGroup parent){
-            P = new AbsNavigationParams(context,parent);
         }
 
-        //需要一个创建的方法
-        public abstract INavigationBar build();
+        public abstract AbsNavigationBar build();
 
 
         public static class AbsNavigationParams {
-            public ViewGroup mParent;
             public Context mContext;
+            public ViewGroup mParent;
 
-            public AbsNavigationParams(Context context, ViewGroup parent){
-                this.mContext= context;
+            public AbsNavigationParams(Context context, ViewGroup parent) {
+                this.mContext = context;
                 this.mParent = parent;
             }
         }
-
     }
 }

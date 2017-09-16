@@ -1,9 +1,9 @@
 package com.example.renzhenming.appmarket.ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import com.example.mylibrary.BaseSkinActivity;
-import com.example.mylibrary.selectimage.ChoosePictureActivity;
 import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;
@@ -76,9 +76,9 @@ public class TestImageActivity extends BaseSkinActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if(requestCode == SELECT_IMAGE_REQUEST && data != null){
-                /*mImageList = data.getStringArrayListExtra(SelectImageActivity.EXTRA_RESULT);
+                mImageList = data.getStringArrayListExtra(ChoosePictureActivity.EXTRA_RESULT);
                 // 做一下显示
-                Log.e("TAG",mImageList.toString());*/
+                Log.e("TAG",mImageList.toString());
             }
         }
     }
