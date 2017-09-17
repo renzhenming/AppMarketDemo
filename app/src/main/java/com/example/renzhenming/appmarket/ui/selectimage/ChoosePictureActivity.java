@@ -5,8 +5,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,8 +21,13 @@ import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.example.mylibrary.util.StatusBarUtil;
 import com.example.renzhenming.appmarket.R;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+
+import static com.example.renzhenming.appmarket.utils.FileUtils.ROOT_DIR;
 
 /**
  * 1.可以单选或多选
@@ -40,6 +47,8 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     public static final String EXTRA_SELECT_MODE = "EXTRA_SELECT_MODE";
     // 返回选择图片列表的EXTRA_KEY
     public static final String EXTRA_RESULT = "EXTRA_RESULT";
+
+    public static final String ROOT_DIR = "ROOT_IMAGE";
 
     // 加载所有的数据
     private static final int LOAD_TYPE = 0x0021;
@@ -64,7 +73,7 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     private TextView mSelectNumTv;
     private TextView mSelectPreview;
     private TextView mSelectFinish;
-    private ArrayList<String> images;
+
 
     @Override
     protected void initView() {
@@ -93,22 +102,23 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     //更新显示  每次点击图片都要更新
     private void exchangeViewShow() {
         //预览是不是可点击 显示什么颜色
-        if (mResultList.size() > 0){
+        if (mResultList.size() > 0) {
             mSelectPreview.setEnabled(true);
             mSelectPreview.setOnClickListener(this);
-        }else{
+        } else {
             mSelectPreview.setEnabled(false);
             mSelectPreview.setOnClickListener(null);
         }
         //中间图片显选中张数
-        mSelectNumTv.setText(mResultList.size()+"/"+mMaxCount);
+        mSelectNumTv.setText(mResultList.size() + "/" + mMaxCount);
     }
+
     /**
      * 2.ContentProvider获取内存卡中所有的图片
      */
     private void initImageList() {
         // int id 查询全部
-        getLoaderManager().initLoader(LOAD_TYPE,null,mLoaderCallback);
+        getLoaderManager().initLoader(LOAD_TYPE, null, mLoaderCallback);
     }
 
     private LoaderManager.LoaderCallbacks<Cursor> mLoaderCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
@@ -124,8 +134,8 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             CursorLoader cursorLoader = new CursorLoader(ChoosePictureActivity.this,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,IMAGE_PROJECTION,
-                    IMAGE_PROJECTION[4]+">0 AND "+IMAGE_PROJECTION[3]+"=? OR "+IMAGE_PROJECTION[3] + "=? ",
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
+                    IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? ",
                     new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");
             return cursorLoader;
         }
@@ -134,10 +144,10 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             // 解析，封装到集合  只保存String路径
             if (data != null && data.getCount() > 0) {
-                images = new ArrayList<>();
+                ArrayList<String> images = new ArrayList<>();
 
                 // 如果需要显示拍照，就在第一个位置上加一个空String
-                if(mShowCamera){
+                if (mShowCamera) {
                     images.add("");
                 }
                 // 不断的遍历循环
@@ -160,12 +170,13 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
 
     /**
      * 3.展示获取到的图片显示到列表
+     *
      * @param images
      */
     private void showImageList(ArrayList<String> images) {
-        ChoosePictureAdapter listAdapter = new ChoosePictureAdapter(this,images,mResultList,mMaxCount);
+        ChoosePictureAdapter listAdapter = new ChoosePictureAdapter(this, images, mResultList, mMaxCount);
         listAdapter.setOnSelectImageListener(this);
-        mImageListRv.setLayoutManager(new GridLayoutManager(this,4));
+        mImageListRv.setLayoutManager(new GridLayoutManager(this, 4));
         mImageListRv.setAdapter(listAdapter);
     }
 
@@ -173,7 +184,7 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     @Override
     protected void initTitle() {
 
-        StatusBarUtil.statusBarTintColor(this, ContextCompat.getColor(this,R.color.colorPrimary));
+        StatusBarUtil.statusBarTintColor(this, ContextCompat.getColor(this, R.color.colorPrimary));
         CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this).setTitle("选择图片")
                 .setTitleTextColor(R.color.white)
                 .setBackgroundColor(R.color.colorPrimaryDark)
@@ -197,12 +208,12 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
 
         //打开相机
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,ACTIOIN_TAKE_PHOTO);
+        startActivityForResult(intent, ACTIOIN_TAKE_PHOTO);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.select_finish:
                 setResultData();
                 break;
@@ -216,28 +227,97 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     //将选择好的图片返回上一页面
     private void setResultData() {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra(EXTRA_RESULT,mResultList);
-        setResult(RESULT_OK,intent);
+        intent.putStringArrayListExtra(EXTRA_RESULT, mResultList);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null){
-            switch (requestCode){
+        if (data != null) {
+            switch (requestCode) {
                 case ACTIOIN_TAKE_PHOTO:
-                    /*Uri dataResult = data.getData();
-
-                    if (dataResult != null){
-                        String path = dataResult.getPath();
-                        images.add(path);
+                    //拍照后图片的绝对路径
+                    String videoPath = null;
+                    if (data != null) {
+                        // 取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
+                        Uri uri = data.getData();
+		                /*
+		                 * 返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取
+		                 * 拍照后保存到相册的手机
+		                 */
+                        if (uri != null) {
+                            Cursor cursor = this.getContentResolver().query(uri, null,
+                                    null, null, null);
+                            if (cursor.moveToFirst()) {
+                                videoPath = cursor.getString(cursor.getColumnIndex("_data"));// 获取绝对路径
+                            }
+                        }
+                        //针对拍照后不保存的手机如小米
+                        else {
+                            Bitmap bm = (Bitmap) data.getExtras().get("data");
+                            videoPath = getFile(bm);
+                        }
+                        mResultList.add(videoPath);
                         //通知系统本地有图片改变，下次进来可以找到这张图片
-                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
+                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(videoPath))));
                         setResultData();
-                    }*/
-                    break;
+                        break;
+                    }
             }
         }
+    }
+
+    private String getFile(Bitmap bitmap){
+        String pictureDir = "";
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
+        ByteArrayOutputStream baos = null;
+        File file = null;
+        try {
+            baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] byteArray = baos.toByteArray();
+            File dir = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory() : getCacheDir();
+            dir = new File(dir,ROOT_DIR);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            file = new File(dir, System.currentTimeMillis()+".jpeg");
+            file.delete();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fos = new FileOutputStream(file);
+            bos = new BufferedOutputStream(fos);
+            bos.write(byteArray);
+            pictureDir = file.getPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (baos != null) {
+                try {
+                    baos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return pictureDir;
     }
 }
