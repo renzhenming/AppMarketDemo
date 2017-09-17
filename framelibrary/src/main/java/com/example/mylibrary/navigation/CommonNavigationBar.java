@@ -2,6 +2,8 @@ package com.example.mylibrary.navigation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,8 +28,10 @@ public class CommonNavigationBar<D extends
     public void applyView() {
         // 绑定效果
         setText(R.id.title, getParams().mTitle);
+        setTextColor(R.id.title,getParams().mTitleTextColor);
         setText(R.id.right_text, getParams().mRightText);
-
+        setRightIcon(R.id.right_text,getParams().mRightIcon);
+        setBackgroundColor(R.id.navigation_bar_parent,getParams().mBackgoundColor);
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
         // 左边 要写一个默认的  finishActivity
         setOnClickListener(R.id.back,getParams().mLeftClickListener);
@@ -40,16 +44,19 @@ public class CommonNavigationBar<D extends
 
     public static class Builder extends AbsNavigationBar.Builder {
 
+        private Context mContext;
         DefaultNavigationParams P;
 
 
         public Builder(Context context, ViewGroup parent) {
             super(context, parent);
+            this.mContext = context.getApplicationContext();
             P = new DefaultNavigationParams(context, parent);
         }
 
         public Builder(Context context) {
             super(context, null);
+            this.mContext = context.getApplicationContext();
             P = new DefaultNavigationParams(context, null);
         }
 
@@ -66,6 +73,15 @@ public class CommonNavigationBar<D extends
             return this;
         }
 
+        public Builder setTitleTextColor(int titleTextColor) {
+            P.mTitleTextColor = ContextCompat.getColor(mContext,titleTextColor);
+            return this;
+        }
+
+        public Builder setTitleTextColor(String titleTextColor) {
+            P.mTitleTextColor = Color.parseColor(titleTextColor);
+            return this;
+        }
 
         public Builder setRightText(String rightText) {
             P.mRightText = rightText;
@@ -94,7 +110,23 @@ public class CommonNavigationBar<D extends
          * 设置右边的图片
          */
         public Builder setRightIcon(int rightRes) {
+            P.mRightIcon = rightRes;
+            return this;
+        }
 
+        /**
+         * 设置背景色
+         */
+        public Builder setBackgroundColor(int color) {
+            P.mBackgoundColor = ContextCompat.getColor(mContext,color);
+            return this;
+        }
+
+        /**
+         * 设置背景色
+         */
+        public Builder setBackgroundColor(String color) {
+            P.mBackgoundColor = Color.parseColor(color);
             return this;
         }
 
@@ -110,9 +142,15 @@ public class CommonNavigationBar<D extends
             // 2.所有效果放置
             public String mTitle;
 
+            public int mTitleTextColor;
+
             public String mRightText;
 
             public int leftIconVisible = View.VISIBLE;
+
+            public int mBackgoundColor;
+
+            public int mRightIcon;
 
             // 后面还有一些通用的
             public View.OnClickListener mRightClickListener;
@@ -124,6 +162,7 @@ public class CommonNavigationBar<D extends
                     ((Activity) mContext).finish();
                 }
             };
+
 
             public DefaultNavigationParams(Context context, ViewGroup parent) {
                 super(context, parent);

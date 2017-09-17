@@ -1,10 +1,11 @@
-package com.example.renzhenming.appmarket.ui;
+package com.example.renzhenming.appmarket.ui.selectimage;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,7 @@ import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.example.mylibrary.util.StatusBarUtil;
 import com.example.renzhenming.appmarket.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +48,7 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
      *****************/
     // 选择图片的模式 - 多选
     public static final int MODE_MULTI = 0x0011;
+    private static final int ACTIOIN_TAKE_PHOTO = 0x0022;
     // 选择图片的模式 - 单选
     public static int MODE_SINGLE = 0x0012;
     // 单选或者多选，int类型的type
@@ -61,6 +64,7 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     private TextView mSelectNumTv;
     private TextView mSelectPreview;
     private TextView mSelectFinish;
+    private ArrayList<String> images;
 
     @Override
     protected void initView() {
@@ -130,7 +134,7 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             // 解析，封装到集合  只保存String路径
             if (data != null && data.getCount() > 0) {
-                ArrayList<String> images = new ArrayList<>();
+                images = new ArrayList<>();
 
                 // 如果需要显示拍照，就在第一个位置上加一个空String
                 if(mShowCamera){
@@ -170,7 +174,11 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     protected void initTitle() {
 
         StatusBarUtil.statusBarTintColor(this, ContextCompat.getColor(this,R.color.colorPrimary));
-        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this).setTitle("选择图片").build();
+        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this).setTitle("选择图片")
+                .setTitleTextColor(R.color.white)
+                .setBackgroundColor(R.color.colorPrimaryDark)
+                .setRightIcon(R.drawable.ic_tab_fresh_normal_night)
+                .build();
     }
 
     @Override
@@ -179,8 +187,17 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
     }
 
     @Override
-    public void select() {
+    public void onSelect() {
         exchangeViewShow();
+    }
+
+    @Override
+    public void onStartCamara() {
+        //TODO 动态申请权限
+
+        //打开相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,ACTIOIN_TAKE_PHOTO);
     }
 
     @Override
@@ -202,5 +219,25 @@ public class ChoosePictureActivity extends BaseSkinActivity implements ChoosePic
         intent.putStringArrayListExtra(EXTRA_RESULT,mResultList);
         setResult(RESULT_OK,intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null){
+            switch (requestCode){
+                case ACTIOIN_TAKE_PHOTO:
+                    /*Uri dataResult = data.getData();
+
+                    if (dataResult != null){
+                        String path = dataResult.getPath();
+                        images.add(path);
+                        //通知系统本地有图片改变，下次进来可以找到这张图片
+                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
+                        setResultData();
+                    }*/
+                    break;
+            }
+        }
     }
 }

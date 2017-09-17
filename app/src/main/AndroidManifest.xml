@@ -23,7 +23,7 @@
             android:name=".TestActivity"
             android:label="TestActivity" />
         <activity android:name=".TestSkinActivity"></activity>
-        <activity android:name=".ui.TestImageActivity">
+        <activity android:name=".ui.selectimage.TestImageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name=".ui.ChoosePictureActivity"></activity>
+        <activity android:name=".ui.selectimage.ChoosePictureActivity"></activity>
     </application>
 
 </manifest>

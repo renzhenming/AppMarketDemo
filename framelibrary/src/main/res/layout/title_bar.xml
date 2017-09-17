@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_bar_parent"
+    android:gravity="center_vertical"
     style="@style/title_bar_style">
 
     <TextView
@@ -15,7 +17,7 @@
         android:layout_marginLeft="75.0dip"
         android:layout_marginRight="75.0dip"
         android:ellipsize="end"
-        android:singleLine="true"
+        android:maxLines="1"
         android:visibility="gone"
         />
 

@@ -1,4 +1,4 @@
-package com.example.renzhenming.appmarket.ui;
+package com.example.renzhenming.appmarket.ui.selectimage;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -35,8 +35,9 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
             holder.setOnIntemClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 调用拍照，权限很重要，6.0以上要处理
-                    // http://www.jianshu.com/p/823360bb183f
+                    if(mListener != null){
+                        mListener.onStartCamara();
+                    }
                 }
             });
         }else{
@@ -86,7 +87,7 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
 
                     // 通知显示布局
                     if(mListener != null){
-                        mListener.select();
+                        mListener.onSelect();
                     }
                 }
             });

@@ -45,8 +45,46 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         }
     }
 
+    /**
+     * 设置文本颜色
+     * @param viewId
+     * @param textColor
+     */
+    protected void setTextColor(int viewId, int textColor) {
+        TextView tv = findViewById(viewId);
+        if(tv != null){
+            tv.setVisibility(View.VISIBLE);
+            tv.setTextColor(textColor);
+        }
+    }
+
     protected void setVisibility(int viewId, int visibility) {
         findViewById(viewId).setVisibility(visibility);
+    }
+
+    /**
+     * 设置背景色
+     * @param viewId
+     * @param color
+     */
+    protected void setBackgroundColor(int viewId, int color) {
+        ViewGroup viewGroup = findViewById(viewId);
+        if(viewGroup != null){
+            viewGroup.setBackgroundColor(color);
+        }
+    }
+
+    /**
+     * 设置右边的icon
+     * @param viewId
+     * @param icon
+     */
+    protected void setRightIcon(int viewId, int icon) {
+        TextView textView = findViewById(viewId);
+        if(textView != null){
+            textView.setVisibility(View.VISIBLE);
+            textView.setBackgroundResource(icon);
+        }
     }
 
     /**
