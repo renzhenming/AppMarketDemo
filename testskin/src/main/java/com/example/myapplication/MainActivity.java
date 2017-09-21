@@ -21,9 +21,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent();
+
+        //Android5.0中service的intent一定要显性声明
+        //final Intent intent = new Intent(this,BindService.class);
+        //bindService(intent,coon,Service.BIND_AUTO_CREATE)
+
+        /*Intent intent = new Intent();
         intent.setAction("com.renzhenming.getmessage");
-        bindService(intent,connection, Context.BIND_AUTO_CREATE);
+        bindService(intent,connection, Context.BIND_AUTO_CREATE);*/
     }
 
     public void getData(View view){

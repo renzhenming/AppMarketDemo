@@ -1,6 +1,10 @@
 package com.example.renzhenming.appmarket.ui.selectimage;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import com.example.mylibrary.BaseSkinActivity;
@@ -35,18 +39,13 @@ public class TestImageActivity extends BaseSkinActivity {
 
     // 选择图片
     public void selectImage(View view){
-        // 6.0 请求权限，危险权限，读取内存卡，拍照
-        //中间搞一层不让开发者关注太多
-        /*Intent intent = new Intent(this,ChoosePictureActivity.class);
-        intent.putExtra(ChoosePictureActivity.EXTRA_SELECT_COUNT,9);
-        intent.putExtra(ChoosePictureActivity.EXTRA_SELECT_MODE,ChoosePictureActivity.MODE_MULTI);
-        intent.putStringArrayListExtra(ChoosePictureActivity.EXTRA_DEFAULT_SELECTED_LIST, mImageList);
-        intent.putExtra(ChoosePictureActivity.EXTRA_SHOW_CAMERA, true);
-        startActivityForResult(intent, SELECT_IMAGE_REQUEST);*/
-
-        // 第一个只关注想要什么，良好的封装性，不要暴露太多
-        ImageSelector.create().count(9).multi().origin(mImageList)
-                .showCamera(true).start(this, SELECT_IMAGE_REQUEST);
+        // 6.0 请求权限，读取内存卡，拍照
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},12);
+        }else{
+            ImageSelector.create().count(9).multi().origin(mImageList)
+                    .showCamera(true).start(this, SELECT_IMAGE_REQUEST);
+        }
     }
 
     public void compressImg(View view){
