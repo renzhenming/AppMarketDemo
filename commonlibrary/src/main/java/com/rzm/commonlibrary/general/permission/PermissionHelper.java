@@ -22,6 +22,7 @@ public class PermissionHelper {
     private final Object mObject;
     private int mRequestCode = 0;
     private String[] mRequestPermissions;
+    private static List<String> mUnGrantedPermissions;
 
     public PermissionHelper(Object object){
         this.mObject = object;
@@ -76,9 +77,20 @@ public class PermissionHelper {
             executeSucceedMethod(mObject,mRequestCode);
         }else{
             //如果没有授予就申请权限
-            ActivityCompat.requestPermissions(getContext(mObject),deniedPermissions.toArray(new String[deniedPermissions.size()]),mRequestCode);
+            requestListPermissions(mObject,deniedPermissions,mRequestCode);
         }
     }
+
+    private static void requestListPermissions(Object object, List<String> deniedPermissions,int requestCode) {
+        ActivityCompat.requestPermissions(getContext(object),deniedPermissions.toArray(new String[deniedPermissions.size()]),requestCode);
+    }
+
+    /*private static void requestListPermissions(Object object, List<String> deniedPermissions,int requestCode) {
+        for (String deniedPermission : deniedPermissions) {
+            ActivityCompat.requestPermissions(getContext(object),new String[]{deniedPermission},requestCode);
+        }
+
+    }*/
 
     private void executeBellow6() {
         if (mObject == null || mRequestCode == 0)
@@ -131,28 +143,63 @@ public class PermissionHelper {
     }
 
     private static List<String> getDeniedPermissions(Object mObject, String[] requestPermissions) {
-        List<String> list = new ArrayList<>();
+        mUnGrantedPermissions = new ArrayList<>();
         Context context = getContext(mObject);
-        for (String permission : requestPermissions) {
-            if (ContextCompat.checkSelfPermission(context,permission) != PackageManager.PERMISSION_GRANTED){
-                list.add(permission);
+        if (context != null){
+            for (String permission : requestPermissions) {
+                if (ContextCompat.checkSelfPermission(context,permission) != PackageManager.PERMISSION_GRANTED){
+                    mUnGrantedPermissions.add(permission);
+                }
             }
         }
-        return list;
+        return mUnGrantedPermissions;
     }
 
     /**
      * 处理申请权限的回调
      */
-    public static void requestPermissionsResult(Object object,int requestCode,
-                                                String[] permissions) {
+    public static void requestPermissionsResult(Object object, int requestCode,
+                                                String[] permissions, int[] grantResults) {
         // 再次获取没有授予的权限
-        List<String> deniedPermissions = getDeniedPermissions(object,permissions);
+        /*List<String> deniedPermissions = getDeniedPermissions(object,permissions);
         if(deniedPermissions.size() == 0){
             executeSucceedMethod(object,requestCode);
-        }else{
-            executeFailedMethod(object,requestCode);
+        }*//*else{
+            for (int i = 0; i < grantResults.length ; i ++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                    //用户勾选了禁止权限
+                    boolean b = ActivityCompat.shouldShowRequestPermissionRationale(getContext(object), deniedPermissions.get(i));
+                    //判断是否勾选禁止后不再询问
+                    if (b){
+                        //拒绝了权限但是未选择下次不再提示，重新请求授权
+                        requestListPermissions(object,deniedPermissions,requestCode);
+                        return;
+                    }else{
+                        executeFailedMethod(object,requestCode);
+                    }
+                }
+            }
+        }*/
+
+    }
+
+    /**
+     * 用户第一次点击一个需要权限的地方，该方法返回false(因为用户没拒绝~)，当用户拒绝掉该权限，下次点击此权限处，该方法会返回true
+     * 当用户拒绝权限并勾选don't ask again选项后，会一直返回false，并且 ActivityCompat.requestPermissions 不会弹出对话框，
+     * 系统直接deny，并执行 onRequestPermissionsResult 方法
+     * @param activity
+     * @param permission
+     * @return
+     */
+    public static boolean shouldShowPermissions(Activity activity, List<String> permission) {
+
+        for (String value : permission) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
+                    value)) {
+                return true;
+            }
         }
+        return false;
     }
 
 }

@@ -3,16 +3,23 @@ package com.example.renzhenming.appmarket.ui.selectimage;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.example.mylibrary.BaseSkinActivity;
 import com.example.renzhenming.appmarket.R;
+import com.rzm.commonlibrary.general.permission.PermissionFailed;
+import com.rzm.commonlibrary.general.permission.PermissionHelper;
+import com.rzm.commonlibrary.general.permission.PermissionSucceed;
 
 import java.util.ArrayList;
 
 public class TestImageActivity extends BaseSkinActivity {
+    private static final int READ_STORAGE = 123;
     private ArrayList<String> mImageList;
     private final int SELECT_IMAGE_REQUEST = 0x0011;
 
@@ -40,12 +47,41 @@ public class TestImageActivity extends BaseSkinActivity {
     // 选择图片
     public void selectImage(View view){
         // 6.0 请求权限，读取内存卡，拍照
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},12);
-        }else{
-            ImageSelector.create().count(9).multi().origin(mImageList)
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.CAMERA
+        }).request();
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.RECORD_AUDIO
+        }).request();
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.RECORD_AUDIO
+        }).request();
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.ACCESS_FINE_LOCATION
+        }).request();
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.READ_CONTACTS
+        }).request();
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.WRITE_CONTACTS
+        }).request();
+    }
+
+    @PermissionSucceed(requestCode = READ_STORAGE)
+    public void onPermissionGranted(){
+        ImageSelector.create().count(9).multi().origin(mImageList)
                     .showCamera(true).start(this, SELECT_IMAGE_REQUEST);
-        }
+    }
+
+    @PermissionFailed(requestCode = READ_STORAGE)
+    public void onPermissionDenied(){
+        Toast.makeText(getApplicationContext(),"用户不想再收到申请权限的提示了",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionHelper.requestPermissionsResult(this,requestCode,permissions,grantResults);
     }
 
     public void compressImg(View view){
