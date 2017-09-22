@@ -16,19 +16,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.HomeActivity">
-
-        </activity>
+        <activity android:name=".ui.HomeActivity"></activity>
         <activity
             android:name=".TestActivity"
             android:label="TestActivity" />
-        <activity android:name=".TestSkinActivity"></activity>
+        <activity android:name=".TestSkinActivity" />
         <activity android:name=".ui.selectimage.TestImageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".test.MessageService">
@@ -52,7 +46,14 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name=".ui.selectimage.ChoosePictureActivity"></activity>
+        <activity android:name=".ui.selectimage.ChoosePictureActivity" />
+        <activity android:name=".TestJniActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
