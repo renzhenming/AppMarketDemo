@@ -6,5 +6,6 @@
 #define APPMARKETDEMO_JNI_LIB_H
 
 #include "jni.h"
-jstring GetStrFromJNI(JNIEnv* env,jobject callObj);
+//jstring GetStrFromJNI(JNIEnv* env,jobject callObj);
+jstring compressBitmap(JNIEnv*,jclass, jobject , int , jstring);
 #endif //APPMARKETDEMO_JNI_LIB_H

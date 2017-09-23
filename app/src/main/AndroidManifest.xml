@@ -16,14 +16,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.HomeActivity"></activity>
+        <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".TestActivity"
             android:label="TestActivity" />
         <activity android:name=".TestSkinActivity" />
-        <activity android:name=".ui.selectimage.TestImageActivity">
-
-        </activity>
+        <activity android:name=".ui.selectimage.TestImageActivity"></activity>
 
         <service android:name=".test.MessageService">
             <intent-filter>
@@ -48,11 +46,10 @@
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
         <activity android:name=".TestJniActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+           <intent-filter >
+               <action android:name="android.intent.action.MAIN"></action>
+               <category android:name="android.intent.category.LAUNCHER"/>
+           </intent-filter>
         </activity>
     </application>
 
