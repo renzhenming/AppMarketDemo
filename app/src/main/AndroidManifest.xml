@@ -21,7 +21,14 @@
             android:name=".TestActivity"
             android:label="TestActivity" />
         <activity android:name=".TestSkinActivity" />
-        <activity android:name=".ui.selectimage.TestImageActivity"></activity>
+        <activity android:name=".TestProxyActivity">
+        </activity>
+        <activity android:name=".TestImageActivity">
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <service android:name=".test.MessageService">
             <intent-filter>
@@ -45,12 +52,6 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestJniActivity">
-           <intent-filter >
-               <action android:name="android.intent.action.MAIN"></action>
-               <category android:name="android.intent.category.LAUNCHER"/>
-           </intent-filter>
-        </activity>
     </application>
 
 </manifest>

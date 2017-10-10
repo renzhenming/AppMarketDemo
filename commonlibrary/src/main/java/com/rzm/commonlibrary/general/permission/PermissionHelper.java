@@ -161,10 +161,12 @@ public class PermissionHelper {
     public static void requestPermissionsResult(Object object, int requestCode,
                                                 String[] permissions, int[] grantResults) {
         // 再次获取没有授予的权限
-        /*List<String> deniedPermissions = getDeniedPermissions(object,permissions);
-        if(deniedPermissions.size() == 0){
-            executeSucceedMethod(object,requestCode);
-        }*//*else{
+        List<String> deniedPermissions = getDeniedPermissions(object,permissions);
+        if(deniedPermissions.size() == 0) {
+            executeSucceedMethod(object, requestCode);
+        }
+
+        /*else{
             for (int i = 0; i < grantResults.length ; i ++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
                     //用户勾选了禁止权限
