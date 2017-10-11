@@ -30,16 +30,19 @@ android {
     }
 
     task ndkBuild(type: Exec) {//设置新的so的生成目录
-        /*commandLine "D:\\Android\\sdk\\ndk-bundle\\ndk-build.cmd",
-                'NDK_PROJECT_PATH=build/intermediates/ndk',
-                'NDK_LIBS_OUT=libs',
-                'APP_BUILD_SCRIPT=jni/Android.mk',
-                'NDK_APPLICATION_MK=jni/Application.mk'*/
-        commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
+
+        //Mac
+        commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=libs',
                 'APP_BUILD_SCRIPT=jni/Android.mk',
                 'NDK_APPLICATION_MK=jni/Application.mk'
+        //Windows
+        /*commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
+                'NDK_PROJECT_PATH=build/intermediates/ndk',
+                'NDK_LIBS_OUT=libs',
+                'APP_BUILD_SCRIPT=jni/Android.mk',
+                'NDK_APPLICATION_MK=jni/Application.mk'*/
     }
 
     tasks.withType(JavaCompile) {
