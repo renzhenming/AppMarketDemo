@@ -10,6 +10,33 @@ import android.view.ViewGroup;
 import com.example.mylibrary.R;
 import com.rzm.commonlibrary.general.navigationbar.AbsNavigationBar;
 
+
+/**
+ *
+ * 用法：
+ *
+ * CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
+ *      .setTitle("压缩图片")
+ *      .setRightText("确定")
+ *      .setRightTextColor(R.color.green)
+ *      .setRightTextSize(14)
+ *      .setBackgroundColor(R.color.gray)
+ *      .setRightClickListener(new View.OnClickListener() {
+ *      @Override
+ *      public void onClick(View v) {
+ *              Toast.makeText(getApplicationContext(),"确定",Toast.LENGTH_SHORT).show();
+ *          }
+ *      })
+ *      .setLeftClickListener(new View.OnClickListener() {
+ *      @Override
+ *      public void onClick(View v) {
+ *              Toast.makeText(getApplicationContext(),"退出",Toast.LENGTH_SHORT).show();
+ *          }
+ *      })
+ *      .setTitleTextColor(R.color.red)
+ *      .setTitleTextSize(18)
+ *      .build();
+ */
 public class CommonNavigationBar<D extends
         CommonNavigationBar.Builder.DefaultNavigationParams> extends
         AbsNavigationBar<CommonNavigationBar.Builder.DefaultNavigationParams> {
@@ -29,7 +56,12 @@ public class CommonNavigationBar<D extends
         // 绑定效果
         setText(R.id.title, getParams().mTitle);
         setTextColor(R.id.title,getParams().mTitleTextColor);
+        setTextSize(R.id.title,getParams().mTitleTextSize);
+
         setText(R.id.right_text, getParams().mRightText);
+        setTextColor(R.id.right_text,getParams().mRightTextColor);
+        setTextSize(R.id.right_text,getParams().mRightTextSize);
+
         setRightIcon(R.id.right_text,getParams().mRightIcon);
         setBackgroundColor(R.id.navigation_bar_parent,getParams().mBackgoundColor);
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
@@ -78,6 +110,11 @@ public class CommonNavigationBar<D extends
             return this;
         }
 
+        public Builder setTitleTextSize(float titleTextSize) {
+            P.mTitleTextSize = titleTextSize;
+            return this;
+        }
+
         public Builder setTitleTextColor(String titleTextColor) {
             P.mTitleTextColor = Color.parseColor(titleTextColor);
             return this;
@@ -85,6 +122,21 @@ public class CommonNavigationBar<D extends
 
         public Builder setRightText(String rightText) {
             P.mRightText = rightText;
+            return this;
+        }
+
+        public Builder setRightTextColor(int rightTextColor) {
+            P.mRightTextColor = ContextCompat.getColor(mContext,rightTextColor);
+            return this;
+        }
+
+        public Builder setRightTextColor(String rightTextColor) {
+            P.mRightTextColor = Color.parseColor(rightTextColor);
+            return this;
+        }
+
+        public Builder setRightTextSize(int rightTextSize) {
+            P.mRightTextSize = rightTextSize;
             return this;
         }
 
@@ -142,13 +194,19 @@ public class CommonNavigationBar<D extends
             // 2.所有效果放置
             public String mTitle;
 
-            public int mTitleTextColor;
+            public int mTitleTextColor = Color.parseColor("#000000");
+
+            public float mTitleTextSize = 18;
 
             public String mRightText;
 
+            public int mRightTextColor = Color.parseColor("#000000");
+
+            public int mRightTextSize = 14;
+
             public int leftIconVisible = View.VISIBLE;
 
-            public int mBackgoundColor;
+            public int mBackgoundColor = Color.parseColor("#ffffff");
 
             public int mRightIcon;
 
