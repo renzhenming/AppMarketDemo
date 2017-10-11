@@ -46,9 +46,9 @@ public class TestImageActivity extends BaseSkinActivity {
         CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
                 .setTitle("压缩图片")
                 .setRightText("确定")
-                //.setRightTextColor(R.color.green)
-                //.setRightTextSize(14)
-                //.setBackgroundColor(R.color.gray)
+                .setRightTextColor(R.color.green)
+                .setRightTextSize(14)
+                .setBackgroundColor(R.color.gray)
                 .setRightClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -61,8 +61,8 @@ public class TestImageActivity extends BaseSkinActivity {
                         Toast.makeText(getApplicationContext(),"退出",Toast.LENGTH_SHORT).show();
                     }
                 })
-                //.setTitleTextColor(R.color.red)
-                //.setTitleTextSize(18)
+                .setTitleTextColor(R.color.red)
+                .setTitleTextSize(18)
                 .build();
     }
 
