@@ -41,7 +41,7 @@ public class CommonNavigationBar<D extends
         CommonNavigationBar.Builder.DefaultNavigationParams> extends
         AbsNavigationBar<CommonNavigationBar.Builder.DefaultNavigationParams> {
 
-    public CommonNavigationBar(Builder.DefaultNavigationParams params) {
+    private CommonNavigationBar(Builder.DefaultNavigationParams params) {
         super(params);
     }
 
@@ -222,7 +222,7 @@ public class CommonNavigationBar<D extends
             };
 
 
-            public DefaultNavigationParams(Context context, ViewGroup parent) {
+            private DefaultNavigationParams(Context context, ViewGroup parent) {
                 super(context, parent);
             }
         }
