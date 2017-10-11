@@ -22,11 +22,29 @@ android {
         }
     }
 
-    externalNativeBuild {
-        cmake {
-            path 'src/main/jni/CMakeLists.txt'
-            //path 'src/main/jni/Android.mk'
+    sourceSets {
+        main {
+            jni.srcDirs = []//设置禁止gradle生成Android.mk
+            jniLibs.srcDirs = ['libs']
         }
+    }
+
+    task ndkBuild(type: Exec) {//设置新的so的生成目录
+
+        //windows下
+        /*commandLine "D:\\Android\\sdk\\ndk-bundle\\ndk-build.cmd",
+                'NDK_PROJECT_PATH=build/intermediates/ndk',
+                'NDK_LIBS_OUT=libs',
+                'APP_BUILD_SCRIPT=jni/Android.mk',
+                'NDK_APPLICATION_MK=jni/Application.mk'*/
+        //mac 下
+        commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build", 'NDK_PROJECT_PATH=build/intermediates/ndk', 'NDK_LIBS_OUT=libs',
+                'APP_BUILD_SCRIPT=jni/Android.mk',
+                'NDK_APPLICATION_MK=jni/Application.mk'
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild
     }
 }
 

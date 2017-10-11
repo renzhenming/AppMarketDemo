@@ -29,8 +29,6 @@
 #include <jni.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <stddef.h>
-
 #ifndef ANDROID
 #ifdef __cplusplus
 #ifndef DONT_USE_EXTERN_C

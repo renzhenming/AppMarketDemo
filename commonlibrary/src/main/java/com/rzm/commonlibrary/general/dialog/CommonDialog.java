@@ -2,11 +2,14 @@ package com.rzm.commonlibrary.general.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+
 import com.rzm.commonlibrary.R;
 
 /*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
@@ -37,16 +40,18 @@ public class CommonDialog extends Dialog {
 
     private CommonController mAlert;
 
-    public CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
+    private CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
         mAlert = new CommonController(this,getWindow());
     }
 
     public static class Builder{
         private final CommonController.CommonParams P;
+        private Context context;
 
         public Builder(Context context) {
             this(context, R.style.default_dialog);
+            this.context = context.getApplicationContext();
         }
 
         public Builder(Context context,int thmemId) {
@@ -107,15 +112,28 @@ public class CommonDialog extends Dialog {
         }
 
         /**
-         * 在屏幕中的位置
-         * @param isAnimation
+         * 宽度占满界面百分比
          * @return
          */
-        public Builder alignBottom(boolean isAnimation){
-            if (isAnimation){
-                P.mAnimation = R.style.ActionSheetDialogAnimation;
-            }
+        public Builder widthPercent(float persent){
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Point outSize = new Point();
+            wm.getDefaultDisplay().getSize(outSize);
+            P.mWidth = (int) (outSize.x*persent);
+            return this;
+        }
+
+        /**
+         * 在屏幕中的位置
+         * @return
+         */
+        public Builder alignBottom(){
             P.mGravity = Gravity.BOTTOM;
+            return this;
+        }
+
+        public Builder alignCenter(){
+            P.mGravity = Gravity.CENTER;
             return this;
         }
 

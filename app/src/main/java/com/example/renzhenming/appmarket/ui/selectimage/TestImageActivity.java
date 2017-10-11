@@ -1,8 +1,11 @@
 package com.example.renzhenming.appmarket.ui.selectimage;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +19,7 @@ import com.rzm.commonlibrary.general.permission.PermissionFailed;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class TestImageActivity extends BaseSkinActivity {
@@ -25,7 +29,6 @@ public class TestImageActivity extends BaseSkinActivity {
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -48,22 +51,7 @@ public class TestImageActivity extends BaseSkinActivity {
     public void selectImage(View view){
         // 6.0 请求权限，读取内存卡，拍照
         PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.CAMERA
-        }).request();
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.RECORD_AUDIO
-        }).request();
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.RECORD_AUDIO
-        }).request();
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.ACCESS_FINE_LOCATION
-        }).request();
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.READ_CONTACTS
-        }).request();
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.WRITE_CONTACTS
+                ,Manifest.permission.WRITE_EXTERNAL_STORAGE
         }).request();
     }
 
@@ -92,13 +80,13 @@ public class TestImageActivity extends BaseSkinActivity {
             // 做优化  第一个decodeFile有可能会内存移除
             // 一般后台会规定尺寸  800  小米 规定了宽度 720
             // 上传的时候可能会多张 for循环 最好用线程池 （2-3）
-            /*Bitmap bitmap = ImageUtil.decodeFile(path);
+            Bitmap bitmap = ImageUtil.decodeFile(path);
             // 调用写好的native方法
             // 用Bitmap.compress压缩1/10
             ImageUtil.compressBitmap(bitmap, 75,
                     Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
                             new File(path).getName()
-            );*/
+            );
         }
     }
 

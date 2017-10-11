@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.rzm.commonlibrary.R;
+
 /**
  * Created by renzhenming on 2017/8/14.
  */
@@ -54,7 +56,7 @@ public class CommonController {
         //dialog位置
         public int mGravity = Gravity.CENTER;
         //动画效果
-        public int mAnimation = 0;
+        public int mAnimation = R.style.ActionSheetDialogAnimation;
 
 
         public CommonParams(Context context, int thmemId) {
