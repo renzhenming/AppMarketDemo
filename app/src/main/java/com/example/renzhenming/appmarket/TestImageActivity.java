@@ -1,11 +1,8 @@
 package com.example.renzhenming.appmarket.ui.selectimage;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +12,9 @@ import android.widget.Toast;
 
 import com.example.mylibrary.BaseSkinActivity;
 import com.example.renzhenming.appmarket.R;
+import com.example.renzhenming.appmarket.ui.selectimage.ChoosePictureActivity;
+import com.example.renzhenming.appmarket.ui.selectimage.ImageSelector;
+import com.example.renzhenming.appmarket.ui.selectimage.ImageUtil;
 import com.rzm.commonlibrary.general.permission.PermissionFailed;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
@@ -29,6 +29,7 @@ public class TestImageActivity extends BaseSkinActivity {
 
     @Override
     protected void initData() {
+
     }
 
     @Override
@@ -85,8 +86,7 @@ public class TestImageActivity extends BaseSkinActivity {
             // 用Bitmap.compress压缩1/10
             ImageUtil.compressBitmap(bitmap, 75,
                     Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +
-                            new File(path).getName()
-            );
+                            new File(path).getName());
         }
     }
 

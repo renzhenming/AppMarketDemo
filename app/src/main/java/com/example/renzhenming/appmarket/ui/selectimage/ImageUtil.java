@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
  * Created by Darren on 2017/4/16.
  * Version 1.0
  * Description: 图片处理
+ *
+ * 目前测试只在7.0下有效
  */
 public class ImageUtil {
     static {

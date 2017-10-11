@@ -21,8 +21,10 @@
             android:name=".TestActivity"
             android:label="TestActivity" />
         <activity android:name=".TestSkinActivity" />
-        <activity android:name=".ui.selectimage.TestImageActivity">
-            <intent-filter>
+        <activity android:name=".TestProxyActivity">
+        </activity>
+        <activity android:name=".TestImageActivity">
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>

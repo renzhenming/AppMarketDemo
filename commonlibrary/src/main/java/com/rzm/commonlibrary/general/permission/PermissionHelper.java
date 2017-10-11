@@ -55,7 +55,7 @@ public class PermissionHelper {
             // 用注解的方式给方法打一个标记，然后通过反射去执行
             //(6.0以下的这个方法其实可以不去执行，直接配置文件设置以下就可以了，不过这样显得更规范，用与不用看个人喜好)
             executeBellow6();
-        } else {
+        }else{
             executeOver6();
         }
     }

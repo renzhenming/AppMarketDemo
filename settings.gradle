@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':framelibrary', ':testskin'
+include ':app', ':commonlibrary', ':framelibrary'
