@@ -19,15 +19,17 @@
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".TestActivity"
-            android:label="TestActivity" />
-        <activity android:name=".TestSkinActivity" />
-        <activity android:name=".TestProxyActivity">
-        </activity>
-        <activity android:name=".TestImageActivity">
+            android:label="TestActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".TestSkinActivity" />
+        <activity android:name=".TestProxyActivity">
+        </activity>
+        <activity android:name=".TestImageActivity">
+
         </activity>
 
         <service android:name=".test.MessageService">
