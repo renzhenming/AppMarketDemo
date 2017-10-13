@@ -24,7 +24,12 @@ public class SkinAttrSupport {
      * 获取属性
      * @param context
      * @param attrs
-     * @return
+     * attributeName -->layout_width, attributeValue-->-2
+     * attributeName -->layout_height, attributeValue-->-2
+     * attributeName -->text, attributeValue-->点击
+     * attributeName -->textColor, attributeValue-->#ff000000
+     * attributeName -->id, attributeValue-->@2131624078
+     * attributeName -->layout_width, attributeValue-->-2
      */
     public static List<SkinAttr> getSkinAttrs(Context context, AttributeSet attrs) {
         //background textColor ...
