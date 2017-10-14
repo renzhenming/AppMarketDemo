@@ -437,6 +437,8 @@
     <color name="pull_to_refresh_label_color">#ff575757</color>
     <color name="record_progress">#ffffb400</color>
     <color name="red">#ffff0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#00FF00</color>
     <color name="refresh_tip_bg">#dc8c7d72</color>
     <color name="report_activity_input_content_color">#ff444444</color>
     <color name="report_activity_input_content_color_night">@color/default_text_night</color>

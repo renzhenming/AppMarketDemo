@@ -15,7 +15,10 @@ public interface IHttpEngine {
 
     //post请求
     void post(boolean cache ,Context context,String url, Map<String,Object> params,EngineCallBack callBack);
-    //上传文件
 
-    //https 添加证书
+    // 取消请求
+    // 下载文件
+    // 上传文件
+    // https添加安全证书
+    // https 添加证书
 }

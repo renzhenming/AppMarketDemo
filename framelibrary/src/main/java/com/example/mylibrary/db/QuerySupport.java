@@ -163,6 +163,8 @@ public class QuerySupport<T> {
 
     private String getColumnMethodName(Class<?> fieldType) {
         String typeName;
+        // fieldType.isPrimitive()此方法主要用来判断Class是否为原始类型
+        //（boolean、char、byte、short、int、long、float、double）
         if (fieldType.isPrimitive()) {
             typeName = DaoUtil.capitalize(fieldType.getName());
         } else {

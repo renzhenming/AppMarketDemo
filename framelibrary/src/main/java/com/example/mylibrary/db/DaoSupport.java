@@ -89,7 +89,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     }
 
     /**
-     * 删除
+     * 原生删除方式
      */
     @Override
     public int delete(String whereClause, String[] whereArgs) {
@@ -97,7 +97,7 @@ public class DaoSupport<T> implements IDaoSupport<T> {
     }
 
     /**
-     * 更新  这些你需要对  最原始的写法比较明了 extends
+     * 原生更新方式
      */
     @Override
     public int update(T obj, String whereClause, String... whereArgs) {
@@ -113,6 +113,8 @@ public class DaoSupport<T> implements IDaoSupport<T> {
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
+
+                //分别获取到属性和对应的值 比如 name = age  value = 12
                 String name = field.getName();
                 Object value = field.get(t);
 
@@ -124,11 +126,20 @@ public class DaoSupport<T> implements IDaoSupport<T> {
                 String filedTypeName = field.getType().getName();
                 Method putMethod = mPutMethods.get(filedTypeName);
                 if (putMethod == null) {
+                    // value.getClass() 获取到的是这个值的所属类型 比如如果是int age 10岁， 那么这个value获取到的就是
+                    // class java.lang.Integer  即Integer.class
+
+                    // 获取ContentValue中的put方法  例如 public void put(String key, Integer value，ContentValue是以键值对的
+                    // 形式添加数据的，第一个参数肯定是String,而第二个就由我们定义的属性的性质决定了，用 value.getClass()获取
                     putMethod = ContentValues.class.getDeclaredMethod("put", String.class, value.getClass());
+
+                    //缓存这个获取到的方法，再次执行的时候直接取用，减少反射的使用次数，（参考系统的代码方式）
                     mPutMethods.put(filedTypeName, putMethod);
                 }
 
                 putMethod.setAccessible(true);
+
+                //反射执行这个方法，将获取到的键值存入
                 putMethod.invoke(contentValues, mPutMethodArgs);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

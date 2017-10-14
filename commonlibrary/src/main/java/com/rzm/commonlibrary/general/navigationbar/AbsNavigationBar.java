@@ -58,6 +58,19 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         }
     }
 
+    /**
+     * 设置文本字体大小
+     * @param viewId
+     * @param textSize
+     */
+    protected void setTextSize(int viewId, float textSize) {
+        TextView tv = findViewById(viewId);
+        if(tv != null){
+            tv.setVisibility(View.VISIBLE);
+            tv.setTextSize(textSize);
+        }
+    }
+
     protected void setVisibility(int viewId, int visibility) {
         findViewById(viewId).setVisibility(visibility);
     }

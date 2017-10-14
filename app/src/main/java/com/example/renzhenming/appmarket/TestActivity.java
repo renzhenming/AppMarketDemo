@@ -148,10 +148,9 @@ public class TestActivity extends BaseSkinActivity {
             public void onClick(View view) {
                 CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
                         .setContentView(R.layout.dialog)
-
                         .setText(R.id.toast,"我是新的dialog")
                         .fullWidth()
-                        .alignBottom(true)
+                        .alignBottom()
                         .show();
                 //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
                 /*final EditText mEditText = dialog.getView(输入框的id);
