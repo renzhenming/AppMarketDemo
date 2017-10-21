@@ -20,7 +20,7 @@ import java.lang.reflect.Proxy;
 public class HookActivityUtils {
 
     /** * hook start activity */
-    public void hookStartActivity(Context context,Class clazz) throws Exception{
+    public static void hookStartActivity(Context context,Class clazz) throws Exception{
         // 先获取ActivityManagerNative中的gDefault
         Class<?> amnClazz = Class.forName("android.app.ActivityManagerNative");
         Field defaultField = amnClazz.getDeclaredField("gDefault");
@@ -38,7 +38,7 @@ public class HookActivityUtils {
     }
 
     /** * Start Activity Invocation Handler */
-    private class StartActivityInvocationHandler implements InvocationHandler {
+    private static class StartActivityInvocationHandler implements InvocationHandler {
         private final Context context;
         private final Class clazz;
         private Object mAmsObj;

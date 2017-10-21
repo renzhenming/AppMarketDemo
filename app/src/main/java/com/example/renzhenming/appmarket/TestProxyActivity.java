@@ -1,15 +1,16 @@
 package com.example.renzhenming.appmarket;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.rzm.commonlibrary.general.hook.HookActivityUtil;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
-public class TestProxyActivity extends AppCompatActivity {
+public class TestProxyActivity extends Activity {
 
     private IBank bank;
 
@@ -17,15 +18,24 @@ public class TestProxyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_proxy);
-        Man man = new Man();
-        bank = (IBank) Proxy.newProxyInstance(IBank.class.getClassLoader(), new Class<?>[] {IBank.class}, new BankInvocationHandler(man));
+        /*Man man = new Man();
+        bank = (IBank) Proxy.newProxyInstance(IBank.class.getClassLoader(), new Class<?>[] {IBank.class}, new BankInvocationHandler(man));*/
 
+        HookActivityUtil hookActivityUtil = new HookActivityUtil(this,TestHookActivity_Registered.class);
+        try {
+            hookActivityUtil.hookStartActivity();
+            hookActivityUtil.hookLaunchActivity();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void proxy(View v){
         bank.makeCard();
         bank.takeMoney();
     }
-
+    public void hook(View v){
+        startActivity(new Intent(getApplicationContext(),TestHookActivity.class));
+    }
     private class BankInvocationHandler implements InvocationHandler{
 
         private final Man man;
