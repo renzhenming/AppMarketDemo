@@ -30,7 +30,7 @@ import dalvik.system.BaseDexClassLoader;
  */
 
 public class FixDexManager {
-    private static final String TAG = "FixDexManager";
+    private static final String TAG = "FixDexManager2";
     private final Context mContext;
     private final File mDexDir;
 
@@ -51,8 +51,9 @@ public class FixDexManager {
         File desFile = new File(mDexDir, srcFile.getName());
         //文件名重复的可能性很小，所以不做覆盖了
         if (desFile.exists()) {
-            Log.d(TAG, "patch [" + fixDexPath + "] has be loaded.");
-            return;
+//            Log.d(TAG, "patch [" + fixDexPath + "] has be loaded.");
+//            return;
+            desFile.delete();
         }
         //执行完copy之后，修复好的dex文件就会被拷贝到desFile这个路径文件中
         FileUtil.copyFile(srcFile, desFile);// copy to patch's directory

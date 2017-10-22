@@ -3,14 +3,18 @@ package com.example.renzhenming.appmarket;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.rzm.commonlibrary.general.hook.HookActivityUtil;
+import com.rzm.commonlibrary.general.plugin.PluginManager;
 
+import java.io.File;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-public class TestProxyActivity extends Activity {
+public class TestProxyActivity extends AppCompatActivity {
 
     private IBank bank;
 
@@ -28,13 +32,21 @@ public class TestProxyActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + File.separator+"app.apk";
+        PluginManager.install(this,path);
     }
     public void proxy(View v){
         bank.makeCard();
         bank.takeMoney();
     }
     public void hook(View v){
-        startActivity(new Intent(getApplicationContext(),TestHookActivity.class));
+
+        Intent intent = new Intent();
+        intent.putExtra("data","renzhenming");
+        intent.setClassName(getPackageName(),"com.example.renzhenming.myapplication.MainActivity");
+        startActivity(intent);
     }
     private class BankInvocationHandler implements InvocationHandler{
 
