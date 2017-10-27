@@ -58,10 +58,12 @@ dependencies {
     })
     compile project(':commonlibrary')
     compile project(':framelibrary')
-    compile fileTree(dir: 'libs', include: ['*.jar']) //针对libs下的.jar库
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //针对libs下的.jar库
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
+    compile project(':DroidPlugin')
 }
