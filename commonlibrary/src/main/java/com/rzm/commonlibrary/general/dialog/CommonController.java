@@ -48,6 +48,9 @@ public class CommonController {
         public int mViewLayoutResId;
         //存放字体的修改
         public SparseArray<CharSequence> mTextArray = new SparseArray<>();
+
+        //存放view的显示隐藏状态
+        public SparseArray<Integer> mViewVisible = new SparseArray<>();
         //存放点击事件
         public SparseArray<View.OnClickListener> mClickArray = new SparseArray<>();
         //dialog宽度
@@ -57,6 +60,10 @@ public class CommonController {
         public int mGravity = Gravity.CENTER;
         //动画效果
         public int mAnimation = R.style.ActionSheetDialogAnimation;
+        //占满全屏，隐藏状态栏
+        public boolean mFullScreen = false;
+        //设置透明度
+        public float mAlpha = 1;
 
 
         public CommonParams(Context context, int thmemId) {
@@ -88,6 +95,12 @@ public class CommonController {
                 }
             }
 
+            //设置背景透明度
+            if(mView != null && mAlpha != 1){
+                mView.setAlpha(mAlpha);
+            }else{
+                viewHelper.getContentView().setAlpha(mAlpha);
+            }
             //给dialog设置布局
             mAlert.getCommonDialog().setContentView(viewHelper.getContentView());
 
@@ -114,7 +127,13 @@ public class CommonController {
                 mAlert.setOnClickListener(mClickArray.keyAt(i),mClickArray.valueAt(i));
             }
 
-
+            //设置显示隐藏
+            int viewVisibleSize = mViewVisible.size();
+            for (int i = 0 ; i < viewVisibleSize;i++){
+                //viewHelper.setOnClickListener(mClickArray.keyAt(i),mClickArray.valueAt(i));
+                //为了获取输入框文字而修改的
+                mAlert.setVisibility(mViewVisible.keyAt(i),mViewVisible.valueAt(i));
+            }
 
 
             //配置自定义效果  全屏 底部弹出 默认动画
@@ -129,11 +148,15 @@ public class CommonController {
             }
             //设置宽高
             WindowManager.LayoutParams attributes = window.getAttributes();
+            //是否全屏显示
+            if (mFullScreen)
+                window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             attributes.width = mWidth;
             attributes.height = mHeight;
             window.setAttributes(attributes);
         }
     }
+
 
     /////////////////////////////////为了获取输入框文字而添加的/////////////////////////////////////
 
@@ -159,6 +182,17 @@ public class CommonController {
     public void setOnClickListener(int viewId, View.OnClickListener listener) {
         mViewHelper.setOnClickListener(viewId,listener);
 
+    }
+
+
+    public void setVisible(int viewId, int visible) {
+        mViewHelper.setVisibility(viewId,visible);
+    }
+
+
+
+    private void setVisibility(int viewId, Integer integer) {
+        mViewHelper.setVisibility(viewId,integer);
     }
 
     /**

@@ -76,4 +76,11 @@ class CommonViewHelper {
     public View getContentView() {
         return mContentView;
     }
+
+    public void setVisibility(int viewId, Integer integer) {
+        View view = getView(viewId);
+        if (view != null){
+            view.setVisibility(integer);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package com.rzm.commonlibrary.general.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.rzm.commonlibrary.R;
 
+
 /*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
 @Override
 public void onClick(View view) {
@@ -19,6 +20,7 @@ public void onClick(View view) {
         .setContentView(R.layout.dialog)
         .setText(R.id.toast,"我是新的dialog")
         .fullWidth()
+        // 可以设置宽度占屏幕百分比  widthPercent(0.9f)
         .alignBottom(true)
         .show();
 
@@ -36,25 +38,27 @@ public void onClick(View view) {
  * Created by renzhenming on 2017/8/14.
  */
 
-public class CommonDialog extends Dialog {
+public class CommonDialog extends CustomDialog {
+
 
     private CommonController mAlert;
 
-    private CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
+    public CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
+
         mAlert = new CommonController(this,getWindow());
     }
 
     public static class Builder{
         private final CommonController.CommonParams P;
-        private Context context;
+        private static Context mContext;
 
         public Builder(Context context) {
-            this(context, R.style.default_dialog);
-            this.context = context.getApplicationContext();
+            this(context, R.style.ActionSheetDialogAnimation);
+            mContext = context.getApplicationContext();
         }
 
-        public Builder(Context context,int thmemId) {
+        public Builder(Context context, int thmemId) {
             P = new CommonController.CommonParams(context,thmemId);
         }
 
@@ -75,6 +79,12 @@ public class CommonDialog extends Dialog {
             P.mTextArray.put(viewId,text);
             return this;
         }
+
+        //设置view的显示和隐藏
+        public Builder setVisible(int viewId,int visible){
+            P.mViewVisible.put(viewId,visible);
+            return this;
+        }
         //设置点击事件
         public Builder setOnClickListener(int viewId, View.OnClickListener listener){
             P.mClickArray.put(viewId,listener);
@@ -86,18 +96,18 @@ public class CommonDialog extends Dialog {
             return this;
         }
 
-        public Builder setOnCancelListener(OnCancelListener onCancelListener) {
+        public Builder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
             P.mOnCancelListener = onCancelListener;
             return this;
         }
 
-        public Builder setOnDismissListener(OnDismissListener onDismissListener) {
+        public Builder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
             P.mOnDismissListener = onDismissListener;
             return this;
         }
 
 
-        public Builder setOnKeyListener(OnKeyListener onKeyListener) {
+        public Builder setOnKeyListener(DialogInterface.OnKeyListener onKeyListener) {
             P.mOnKeyListener = onKeyListener;
             return this;
         }
@@ -112,11 +122,31 @@ public class CommonDialog extends Dialog {
         }
 
         /**
+         * 占满界面
+         * @return
+         */
+        public Builder fullScreen(){
+            P.mFullScreen =true;
+            P.mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
+            P.mHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+            return this;
+        }
+
+        /**
+         * 设置北京透明度
+         * @return
+         */
+        public Builder setAlpha(float alpha){
+            P.mAlpha = alpha;
+            return this;
+        }
+
+        /**
          * 宽度占满界面百分比
          * @return
          */
         public Builder widthPercent(float persent){
-            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
             Point outSize = new Point();
             wm.getDefaultDisplay().getSize(outSize);
             P.mWidth = (int) (outSize.x*persent);
@@ -125,15 +155,14 @@ public class CommonDialog extends Dialog {
 
         /**
          * 在屏幕中的位置
+         * @param isAnimation
          * @return
          */
-        public Builder alignBottom(){
+        public Builder alignBottom(boolean isAnimation){
+            if (isAnimation){
+                P.mAnimation = R.style.ActionSheetDialogAnimation;
+            }
             P.mGravity = Gravity.BOTTOM;
-            return this;
-        }
-
-        public Builder alignCenter(){
-            P.mGravity = Gravity.CENTER;
             return this;
         }
 
@@ -170,7 +199,7 @@ public class CommonDialog extends Dialog {
 
         /**
          * Creates an {@link CommonDialog} with the arguments supplied to this
-         * build.
+         * builder.
          * <p>
          * Calling this method does not display the dialog. If no additional
          * processing is needed, {@link #show()} may be called instead to both
@@ -195,11 +224,11 @@ public class CommonDialog extends Dialog {
 
         /**
          * Creates an {@link CommonDialog} with the arguments supplied to this
-         * build and immediately displays the dialog.
+         * builder and immediately displays the dialog.
          * <p>
          * Calling this method is functionally identical to:
          * <pre>
-         *     AlertDialog dialog = build.build();
+         *     AlertDialog dialog = builder.build();
          *     dialog.show();
          * </pre>
          */
@@ -228,6 +257,11 @@ public class CommonDialog extends Dialog {
      */
     public void setOnClickListener(int viewId, View.OnClickListener listener) {
         mAlert.setOnClickListener(viewId,listener);
+    }
+
+    //设置view的显示和隐藏
+    public void setVisible(int viewId,int visible){
+        mAlert.setVisible(viewId,visible);
     }
 
     /**
