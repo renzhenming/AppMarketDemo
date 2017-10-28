@@ -1,4 +1,4 @@
-package com.example.renzhenming.appmarket.ui.selectimage;
+package com.example.renzhenming.appmarket.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

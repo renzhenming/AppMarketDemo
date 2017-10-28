@@ -2,22 +2,20 @@ package com.example.renzhenming.appmarket;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.mylibrary.BaseSkinActivity;
 import com.example.mylibrary.navigation.CommonNavigationBar;
-import com.example.renzhenming.appmarket.R;
 import com.example.renzhenming.appmarket.ui.selectimage.ChoosePictureActivity;
 import com.example.renzhenming.appmarket.ui.selectimage.ImageSelector;
-import com.example.renzhenming.appmarket.ui.selectimage.ImageUtil;
+import com.example.renzhenming.appmarket.utils.ImageUtil;
+import com.example.renzhenming.appmarket.utils.PatchUtils;
 import com.rzm.commonlibrary.general.permission.PermissionFailed;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
@@ -29,10 +27,26 @@ public class TestImageActivity extends BaseSkinActivity {
     private static final int READ_STORAGE = 123;
     private ArrayList<String> mImageList;
     private final int SELECT_IMAGE_REQUEST = 0x0011;
+    private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"version_1_2.patch";
+
+    private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"version_2.apk";
 
     @Override
     protected void initData() {
+        //耗时操作，开线程
+        //getPackageResourcePath 安装的apk的路径
+        if (!new File(patch_path).exists())
+            return;
+        PatchUtils.combine(getPackageResourcePath(),newApkPath,patch_path);
+        //校验签名
 
+        //安装apk
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
+                "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
     @Override

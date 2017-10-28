@@ -22,13 +22,15 @@
             android:label="TestActivity"></activity>
         <activity android:name=".TestSkinActivity" />
         <activity android:name=".TestProxyActivity">
+
+        </activity>
+        <activity android:name=".TestImageActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestImageActivity" />
 
         <service android:name=".test.MessageService">
             <intent-filter>

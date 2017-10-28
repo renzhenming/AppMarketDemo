@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 121
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 179
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 232
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 285
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -88,7 +88,7 @@
                     "endOffset": 461
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -109,7 +109,7 @@
                     "endOffset": 633
                 },
                 "from": {
-                    "file": "C:\\Users\\renzhenming\\Desktop\\appdemo\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,

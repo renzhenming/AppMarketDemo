@@ -155,13 +155,9 @@ public class CommonDialog extends CustomDialog {
 
         /**
          * 在屏幕中的位置
-         * @param isAnimation
          * @return
          */
-        public Builder alignBottom(boolean isAnimation){
-            if (isAnimation){
-                P.mAnimation = R.style.ActionSheetDialogAnimation;
-            }
+        public Builder alignBottom(){
             P.mGravity = Gravity.BOTTOM;
             return this;
         }

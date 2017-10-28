@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\renzhenming\Desktop\appdemo\AppMarketDemo\DroidPlugin\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\renzhenming\Desktop\appdemo\AppMarketDemo\DroidPlugin\build-types\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\application\java\AS_Space\AppMarketDemo\DroidPlugin\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\application\java\AS_Space\AppMarketDemo\DroidPlugin\build-types\debug\shaders"/></dataSet></merger>
