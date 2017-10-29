@@ -19,6 +19,7 @@ import com.example.renzhenming.appmarket.utils.PatchUtils;
 import com.rzm.commonlibrary.general.permission.PermissionFailed;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
+import com.rzm.commonlibrary.utils.AppSignatureUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class TestImageActivity extends BaseSkinActivity {
             +File.separator+"version_1_2.patch";
 
     private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"version_2.apk";
+            +File.separator+"version_1.apk";
 
     @Override
     protected void initData() {
@@ -41,7 +42,16 @@ public class TestImageActivity extends BaseSkinActivity {
             return;
         PatchUtils.combine(getPackageResourcePath(),newApkPath,patch_path);
         //校验签名
-
+        try {
+            if (AppSignatureUtils.signatureEquals(AppSignatureUtils.getSignature(this),AppSignatureUtils.getSignature(newApkPath))){
+                Toast.makeText(getApplicationContext(),"签名校验成功",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getApplicationContext(),"签名校验失败",Toast.LENGTH_LONG).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //安装apk
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
