@@ -21,4 +21,14 @@ public class VolleyEngine  implements IHttpEngine {
     public void post(boolean cache,Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
 
     }
+
+    @Override
+    public void download(String url, EngineCallBack callBack) {
+
+    }
+
+    @Override
+    public void upload(String path, String url, EngineCallBack callBack) {
+
+    }
 }

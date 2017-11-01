@@ -1,5 +1,6 @@
 package com.example.renzhenming.appmarket;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
@@ -22,6 +23,8 @@ import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.http.HttpUtils;
 import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
+import com.rzm.commonlibrary.general.permission.PermissionHelper;
+import com.rzm.commonlibrary.general.permission.PermissionSucceed;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.inject.ViewBind;
 import com.rzm.commonlibrary.utils.LogUtils;
@@ -41,9 +44,92 @@ public class TestActivity extends BaseSkinActivity {
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+        PermissionHelper.with(this).requestCode(111).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.WRITE_EXTERNAL_STORAGE
+        }).request();
+
+        startService(new Intent(getApplicationContext(),MessageService.class));
+        mImage = (ImageView) findViewById(R.id.image);
+        new StatusBarManager.builder(this)
+                .setTintType(StatusBarManager.TintType.PURECOLOR)
+                .setStatusBarColor(R.color.colorPrimary)
+                .build();
+        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
+                .setTitle("个人中心")
+                .setRightIcon(R.drawable.search)
+                .setRightClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(),"编辑",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .build();
+
+        findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
+                        .setContentView(R.layout.dialog)
+                        .setText(R.id.toast,"我是新的dialog")
+                        .fullWidth()
+                        .alignBottom()
+                        .show();
+                //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
+                /*final EditText mEditText = dialog.getView(输入框的id);
+                dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+            }
+        });
+
+    }
+
+    @PermissionSucceed(requestCode = 111)
+    public void onPermissionGranted(){
+
+
+        HttpUtils httpUtils = HttpUtils.with(this)
+                .exchangeEngine(new OkHttpEngine())
+                .download()
+                .url("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg")
+                .execute(new HttpCallBack<String>() {
+
+                    @Override
+                    public void onError(final Exception e) {
+                        LogUtils.d(TAG,"onError");
+                    }
+                    @Override
+                    public void onSuccess(final String result) {
+                        LogUtils.d(TAG,"onSuccess");
+                    }
+
+                    @Override
+                    public void downloadProgress(int progress) {
+                        super.downloadProgress(progress);
+                        System.out.println("onDownloadProgress:"+progress);
+                    }
+
+                    @Override
+                    public void uploadProgress(int progress) {
+                        super.uploadProgress(progress);
+                    }
+
+                });
+
+
+
         //路径url参数都需要放到jni中，防止反编译被盗取到url
         //（https无法被抓包，http可以）
-        HttpUtils httpUtils = HttpUtils.with(this)
+        HttpUtils httpUtils2 = HttpUtils.with(this)
                 .exchangeEngine(new OkHttpEngine())
                 .cache(true)
                 .url("http://is.snssdk.com/2/essay/discovery/v3/")
@@ -52,30 +138,24 @@ public class TestActivity extends BaseSkinActivity {
                 .execute(new HttpCallBack<String>() {
 
                     @Override
-                    protected void onPreExecute() {
-
-                    }
-
-                    @Override
                     public void onError(final Exception e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
                     }
                     @Override
                     public void onSuccess(final String result) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDownloadProgress(int progress) {
 
                     }
+
+                    @Override
+                    public void onUploadProgress(int progress) {
+
+                    }
+
                 });
 
 
@@ -122,46 +202,6 @@ public class TestActivity extends BaseSkinActivity {
          * 机型的问题，因为别人好像在activity中调用修复就没问题
          */
         // fixDex();
-    }
-
-    @Override
-    protected void initView() {
-        startService(new Intent(getApplicationContext(),MessageService.class));
-        mImage = (ImageView) findViewById(R.id.image);
-        new StatusBarManager.builder(this)
-                .setTintType(StatusBarManager.TintType.PURECOLOR)
-                .setStatusBarColor(R.color.colorPrimary)
-                .build();
-        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
-                .setTitle("个人中心")
-                .setRightIcon(R.drawable.search)
-                .setRightClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(),"编辑",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .build();
-
-        findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
-                        .setContentView(R.layout.dialog)
-                        .setText(R.id.toast,"我是新的dialog")
-                        .fullWidth()
-                        .alignBottom()
-                        .show();
-                //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
-                /*final EditText mEditText = dialog.getView(输入框的id);
-                dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-            }
-        });
     }
 
     @Override

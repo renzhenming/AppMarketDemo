@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.rzm.commonlibrary.general.http.EngineCallBack;
 import com.rzm.commonlibrary.general.http.HttpUtils;
+import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.util.Map;
 
@@ -43,6 +44,24 @@ public abstract class HttpCallBack<T>  implements EngineCallBack {
     }
 
     @Override
+    public void onDownloadProgress(int progress) {
+        downloadProgress(progress);
+    }
+
+    public void downloadProgress(int progress) {
+
+    }
+
+    @Override
+    public void onUploadProgress(int progress) {
+        uploadProgress(progress);
+    }
+
+    public void uploadProgress(int progress) {
+
+    }
+
+    @Override
     public void onSuccess(String result) {
         Gson gson = new Gson();
         T objResult = (T) gson.fromJson(result, HttpUtils.analysisClazzInfo(this));
@@ -53,5 +72,7 @@ public abstract class HttpCallBack<T>  implements EngineCallBack {
     protected abstract void onSuccess(T result);
 
     //添加参数之后开始执行，回调过去
-    protected abstract void onPreExecute();
+    public void onPreExecute(){
+
+    }
 }

@@ -8,17 +8,17 @@ import com.rzm.commonlibrary.general.http.IHttpEngine;
 import java.util.Map;
 
 /**
- * Created by renzhenming on 2017/8/20.
+ * Created by renzhenming on 2017/11/1.
  */
 
-public class XutilsEngine  implements IHttpEngine {
+public class RetrofitEngine implements IHttpEngine {
     @Override
-    public void get(boolean cache,Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
+    public void get(boolean cache, Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
 
     }
 
     @Override
-    public void post(boolean cache,Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
+    public void post(boolean cache, Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
 
     }
 
@@ -31,4 +31,5 @@ public class XutilsEngine  implements IHttpEngine {
     public void upload(String path, String url, EngineCallBack callBack) {
 
     }
+
 }

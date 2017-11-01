@@ -18,7 +18,9 @@ public interface IHttpEngine {
 
     // 取消请求
     // 下载文件
+    void download(String url,EngineCallBack callBack);
     // 上传文件
+    void upload(String path, String url,EngineCallBack callBack);
     // https添加安全证书
     // https 添加证书
 }

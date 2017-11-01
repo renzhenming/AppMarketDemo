@@ -1,19 +1,20 @@
 package com.example.mylibrary.http;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.example.mylibrary.db.DaoSupportFactory;
-import com.example.mylibrary.db.IDaoSupport;
 import com.rzm.commonlibrary.general.http.EngineCallBack;
 import com.rzm.commonlibrary.general.http.HttpUtils;
 import com.rzm.commonlibrary.general.http.IHttpEngine;
-import com.rzm.commonlibrary.utils.EncryptUtil;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 import java.util.List;
@@ -27,23 +28,37 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
+import okio.BufferedSink;
+import okio.Okio;
+import okio.Source;
 
 
 /**
  * Created by renzhenming on 2017/8/20.
  */
 public class OkHttpEngine implements IHttpEngine {
+
+    private static final String TAG = "OkHttpEngine";
+    private static final String DOWNLOAD_SAVE_PATH = "Download_File";
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
 
     private static Handler mHandler = new Handler();
+
+
+    /***************************
+     *
+     * post请求
+     *
+     ***************************/
+
 
     @Override
     public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
 
         final String jointUrl = HttpUtils.jointParams(url, params);  //打印
-        LogUtils.e("Post请求路径：", jointUrl);
+        LogUtils.e(TAG, "post url:"+jointUrl);
 
-        // 了解 Okhhtp
         RequestBody requestBody = appendBody(params);
         Request request = new Request.Builder()
                 .url(url)
@@ -51,6 +66,7 @@ public class OkHttpEngine implements IHttpEngine {
                 .post(requestBody)
                 .build();
 
+        // 两个回掉方法都不是在主线程中
         mOkHttpClient.newCall(request).enqueue(
                 new Callback() {
                     @Override
@@ -65,9 +81,9 @@ public class OkHttpEngine implements IHttpEngine {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        // 这个 两个回掉方法都不是在主线程中
+
                         final String result = response.body().string();
-                        LogUtils.e("Post返回结果：", jointUrl);
+                        LogUtils.e(TAG,"post result:"+result);
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -77,6 +93,276 @@ public class OkHttpEngine implements IHttpEngine {
                     }
                 }
         );
+    }
+
+
+    /***************************
+     *
+     * get请求
+     *
+     ***************************/
+
+
+    @Override
+    public void get(final boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
+        url = HttpUtils.jointParams(url, params);
+        LogUtils.e(TAG,"get url:"+url);
+
+        if (cache) {
+            final String cacheJson = CacheUtils.getCache(url);
+            if (!TextUtils.isEmpty(cacheJson)) {
+                LogUtils.e(TAG, "get 读取到缓存：" + cacheJson);
+                //获取到缓存，直接执行成功方法
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(cacheJson);
+                    }
+                });
+
+            }
+        }
+        Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
+        //可以省略，默认是GET请求
+        Request request = requestBuilder.build();
+
+        final String finalUrl = url;
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String resultJson = response.body().string();
+
+                if (cache) {
+                    String finalCacheJson = CacheUtils.getCache(finalUrl);
+                    //2.每次获取到的结果，和上次的缓存进行比对
+                    if (!TextUtils.isEmpty(finalCacheJson)) {
+                        if (resultJson.equals(finalCacheJson)) {
+                            //内容相同，没有数据更新，不需要执行成功方法刷新界面了
+                            LogUtils.e(TAG, "数据和缓存相同，不需要更新");
+                            return;
+                        }
+                    }
+                }
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(resultJson);
+                    }
+                });
+
+                LogUtils.e(TAG,"get result:"+ resultJson);
+
+                if (cache) {
+                    long l = CacheUtils.setCache(finalUrl, resultJson);
+                    LogUtils.e(TAG, "写入缓存 insert -->> " + l+","+resultJson);
+                }
+            }
+        });
+    }
+
+
+    /***************************
+     *
+     * download请求
+     *
+     ***************************/
+
+
+    @Override
+    public void download(final String url,final EngineCallBack callBack) {
+        Request request = new Request.Builder().url(url).build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
+
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                InputStream is = null;
+                byte[] buf = new byte[2048];
+                int len = 0;
+                FileOutputStream fos = null;
+                // 储存下载文件的目录
+                String savePath = isExistDir(DOWNLOAD_SAVE_PATH);
+                try {
+                    is = response.body().byteStream();
+                    long total = response.body().contentLength();
+                    File file = new File(savePath, getNameFromUrl(url));
+                    fos = new FileOutputStream(file);
+                    long sum = 0;
+                    while ((len = is.read(buf)) != -1) {
+                        fos.write(buf, 0, len);
+                        sum += len;
+                        final int progress = (int) (sum * 1.0f / total * 100);
+                        // 下载中
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onDownloadProgress(progress);
+                            }
+                        });
+                    }
+                    fos.flush();
+                    // 下载完成
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.onSuccess("");
+                        }
+                    });
+                } catch (final Exception e) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.onError(e);
+                        }
+                    });
+                } finally {
+                    try {
+                        if (is != null)
+                            is.close();
+                    } catch (IOException e) {
+                    }
+                    try {
+                        if (fos != null)
+                            fos.close();
+                    } catch (IOException e) {
+                    }
+                }
+            }
+        });
+    }
+
+    /***************************
+     *
+     * upload请求
+     *
+     ***************************/
+
+    @Override
+    public void upload(String path, String url, final EngineCallBack callBack) {
+        File file = new File(path);
+        if (!file.exists()){
+            return;
+        }
+
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", file.getName(), createCustomRequestBody(MultipartBody.FORM, file, new ProgressListener() {
+                    @Override
+                    public void onProgress(final long totalBytes, final long remainingBytes, boolean done) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callBack.onUploadProgress((int) ((totalBytes - remainingBytes) * 100 / totalBytes));
+                            }
+                        });
+                    }
+                }))
+                .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onError(e);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
+    }
+
+    public RequestBody createCustomRequestBody(final MediaType contentType, final File file, final ProgressListener listener) {
+        return new RequestBody() {
+            @Override public MediaType contentType() {
+                return contentType;
+            }
+
+            @Override public long contentLength() {
+                return file.length();
+            }
+
+            @Override public void writeTo(BufferedSink sink) throws IOException {
+                Source source;
+                try {
+                    source = Okio.source(file);
+                    //sink.writeAll(source);
+                    Buffer buf = new Buffer();
+                    Long remaining = contentLength();
+                    for (long readCount; (readCount = source.read(buf, 2048)) != -1; ) {
+                        sink.write(buf, readCount);
+                        listener.onProgress(contentLength(), remaining -= readCount, remaining == 0);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    interface ProgressListener {
+        void onProgress(long totalBytes, long remainingBytes, boolean done);
+    }
+
+
+    /**
+     * @param saveDir
+     * @return
+     * @throws IOException
+     * 判断下载目录是否存在
+     */
+    private String isExistDir(String saveDir) throws IOException {
+        // 下载位置
+        File downloadFile = new File(Environment.getExternalStorageDirectory(), saveDir);
+        if (!downloadFile.mkdirs()) {
+            downloadFile.createNewFile();
+        }
+        String savePath = downloadFile.getAbsolutePath();
+        return savePath;
+    }
+
+    /**
+     * @param url
+     * @return
+     * 从下载连接中解析出文件名
+     */
+    @NonNull
+    private String getNameFromUrl(String url) {
+        return url.substring(url.lastIndexOf("/") + 1);
     }
 
     /**
@@ -134,71 +420,5 @@ public class OkHttpEngine implements IHttpEngine {
         return contentTypeFor;
     }
 
-    @Override
-    public void get(final boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
-        url = HttpUtils.jointParams(url, params);
-        LogUtils.e("Get请求路径：", url);
 
-        if (cache) {
-            final String cacheJson = CacheUtils.getCache(url);
-            if (!TextUtils.isEmpty(cacheJson)) {
-                LogUtils.e("TAG", "读取到缓存：" + cacheJson);
-                //获取到缓存，直接执行成功方法
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onSuccess(cacheJson);
-                    }
-                });
-
-            }
-        }
-        Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
-        //可以省略，默认是GET请求
-        Request request = requestBuilder.build();
-
-        final String finalUrl = url;
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, final IOException e) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onError(e);
-                    }
-                });
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String resultJson = response.body().string();
-
-                if (cache) {
-                    String finalCacheJson = CacheUtils.getCache(finalUrl);
-                    //2.每次获取到的结果，和上次的缓存进行比对
-                    if (!TextUtils.isEmpty(finalCacheJson)) {
-                        if (resultJson.equals(finalCacheJson)) {
-                            //内容相同，没有数据更新，不需要执行成功方法刷新界面了
-                            LogUtils.e("TAG", "数据和缓存相同，不需要更新");
-                            return;
-                        }
-                    }
-                }
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.onSuccess(resultJson);
-                    }
-                });
-
-                LogUtils.e("Get返回结果：", resultJson);
-
-                if (cache) {
-                    long l = CacheUtils.setCache(finalUrl, resultJson);
-                    LogUtils.e("TAG", "insert -->> " + l);
-                }
-            }
-        });
-    }
 }

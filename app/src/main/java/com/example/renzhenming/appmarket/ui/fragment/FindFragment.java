@@ -50,10 +50,6 @@ public class FindFragment extends BaseFragment implements BannerViewPager.Banner
                         addBannerView(result.getData().getRotate_banner().getBanners());
                     }
 
-                    @Override
-                    protected void onPreExecute() {
-
-                    }
 
                     @Override
                     public void onError(Exception e) {
