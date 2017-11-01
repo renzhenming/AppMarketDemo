@@ -7,8 +7,6 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.widget.Toast;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -82,15 +80,13 @@ public class PermissionHelper {
         }
     }
 
+    /**
+     * @param object
+     * @param deniedPermissions
+     * @param requestCode
+     */
     private static void requestListPermissions(Object object, List<String> deniedPermissions, int requestCode) {
-
-        //默认是false,但是只要请求过一次权限就会为true,除非点了不再询问才会重新变为false
-        if (shouldShowPermissions(getContext(object), deniedPermissions)) {
-            Toast.makeText(getContext(object), "用户拒绝了一次权限，需要重新申请", Toast.LENGTH_SHORT).show();
-        } else {
-            // 无需向用户界面提示，直接请求权限,如果用户点了不再询问,即使调用请求权限也不会出现请求权限的对话框
-            ActivityCompat.requestPermissions(getContext(object), deniedPermissions.toArray(new String[deniedPermissions.size()]), requestCode);
-        }
+        ActivityCompat.requestPermissions(getContext(object), deniedPermissions.toArray(new String[deniedPermissions.size()]), requestCode);
     }
 
     private void executeBellow6() {
@@ -122,12 +118,42 @@ public class PermissionHelper {
         }
     }
 
-    private static void executeFailedMethod(Object object, long requestCode) {
+    /**
+     * 用户拒绝了权限但是没有永久拒绝（未勾选不再提醒）
+     * @param object
+     * @param requestCode
+     */
+    private static void executeDeniedMethod(Object object, long requestCode) {
         Method[] methods = object.getClass().getDeclaredMethods();
         for (Method method : methods) {
-            PermissionFailed permissionFailed = method.getAnnotation(PermissionFailed.class);
+            PermissionDenied permissionFailed = method.getAnnotation(PermissionDenied.class);
             if (permissionFailed != null) {
                 int code = permissionFailed.requestCode();
+                if (code == requestCode) {
+                    try {
+                        // 反射执行方法  第一个是传该方法是属于哪个类   第二个参数是反射方法的参数
+                        method.setAccessible(true);
+                        method.invoke(object, new Object[]{});
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * 用户拒绝了权限并且永久拒绝（勾选不再提醒）
+     * @param object
+     * @param requestCode
+     */
+    private static void executePermanentDeniedMethod(Object object, long requestCode) {
+        Method[] methods = object.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            PermissionPermanentDenied permissionPermanentDenied = method.getAnnotation(PermissionPermanentDenied.class);
+            if (permissionPermanentDenied != null) {
+                int code = permissionPermanentDenied.requestCode();
                 if (code == requestCode) {
                     try {
                         // 反射执行方法  第一个是传该方法是属于哪个类   第二个参数是反射方法的参数
@@ -158,10 +184,14 @@ public class PermissionHelper {
 
     /**
      * 处理申请权限的回调
+     *
+     * shouldShowRequestPermissionRationale
+     * 1   第一次进来这个返回值为false
+     * 2   当用户点击了拒绝权限而没有选择不再提示，返回值为true
+     * 3   当用户点击了拒绝权限并且选择了不再提示，返回值为false
      */
     public static void requestPermissionsResult(Object object, int requestCode,
                                                 String[] permissions, int[] grantResults) {
-
         if (verifyPermissions(grantResults)) {//有权限
             executeSucceedMethod(object, requestCode);
         } else {
@@ -169,11 +199,12 @@ public class PermissionHelper {
             for (int i = 0; i < grantResults.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED){
                     boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(getContext(object), permissions[i]);
-                    if (showRequestPermission) {//这个返回false 表示勾选了不再提示
-                        Toast.makeText(getContext(object), "用户拒绝了权限，并且选择了不再提醒，请去设置界面设置权限", Toast.LENGTH_SHORT).show();
+                    if (showRequestPermission) {
+                        //拒绝权限而没有选择不再提示
+                        executeDeniedMethod(object,requestCode);
                     } else {
-                        //表示没有权限 ,但是没勾选不再提示
-                        Toast.makeText(getContext(object), "请允许权限请求，才能进行下一步", Toast.LENGTH_SHORT).show();
+                        //拒绝权限并且选择了不再提示
+                        executePermanentDeniedMethod(object,requestCode);
                     }
                 }
             }
@@ -189,52 +220,16 @@ public class PermissionHelper {
      * @return
      */
     public static boolean verifyPermissions(int[] grantResults) {
-        // At least one result must be checked.
         if (grantResults.length < 1) {
             return false;
         }
 
-        // Verify that each required permission has been granted, otherwise return false.
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * 用户第一次点击一个需要权限的地方，该方法返回false(因为用户没拒绝~)，当用户拒绝掉该权限，下次点击此权限处，该方法会返回true
-     * 当用户拒绝权限并勾选don't ask again选项后，会一直返回false，并且 ActivityCompat.requestPermissions 不会弹出对话框，
-     * 系统直接deny，并执行 onRequestPermissionsResult 方法
-     *
-     * @param activity
-     * @param permission
-     * @return
-     */
-    public static boolean shouldShowPermissions(Activity activity, List<String> permission) {
-
-        for (String value : permission) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                    value)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 检测这些权限中是否有 没有授权需要提示的
-     */
-    public static boolean shouldShowPermissions(Activity activity, String... permission) {
-
-        for (String value : permission) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                    value)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

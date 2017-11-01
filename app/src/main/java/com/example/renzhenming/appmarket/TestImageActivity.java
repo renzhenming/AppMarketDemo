@@ -16,8 +16,9 @@ import com.example.renzhenming.appmarket.ui.selectimage.ChoosePictureActivity;
 import com.example.renzhenming.appmarket.ui.selectimage.ImageSelector;
 import com.example.renzhenming.appmarket.utils.ImageUtil;
 import com.example.renzhenming.appmarket.utils.PatchUtils;
-import com.rzm.commonlibrary.general.permission.PermissionFailed;
+import com.rzm.commonlibrary.general.permission.PermissionDenied;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
+import com.rzm.commonlibrary.general.permission.PermissionPermanentDenied;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
 import com.rzm.commonlibrary.utils.AppSignatureUtils;
 
@@ -109,9 +110,14 @@ public class TestImageActivity extends BaseSkinActivity {
                     .showCamera(true).start(this, SELECT_IMAGE_REQUEST);
     }
 
-    @PermissionFailed(requestCode = READ_STORAGE)
+    @PermissionDenied(requestCode = READ_STORAGE)
     public void onPermissionDenied(){
-        Toast.makeText(getApplicationContext(),"用户不想再收到申请权限的提示了",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"用户拒绝了一次权限，但是没有永久拒绝",Toast.LENGTH_SHORT).show();
+    }
+
+    @PermissionPermanentDenied(requestCode = READ_STORAGE)
+    public void onPermissionPermanentDenied(){
+        Toast.makeText(getApplicationContext(),"用户拒绝了一次权限，并且永久拒绝",Toast.LENGTH_SHORT).show();
     }
 
     @Override
