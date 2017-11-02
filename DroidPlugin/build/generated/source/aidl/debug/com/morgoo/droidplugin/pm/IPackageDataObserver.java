@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\src\\com\\morgoo\\droidplugin\\pm\\IPackageDataObserver.aidl
+ * Original file: /Users/renzhenming/Desktop/a/AppMarketDemo/DroidPlugin/src/com/morgoo/droidplugin/pm/IPackageDataObserver.aidl
  */
 package com.morgoo.droidplugin.pm;
 /**

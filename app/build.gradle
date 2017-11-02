@@ -32,17 +32,17 @@ android {
     task ndkBuild(type: Exec) {//设置新的so的生成目录
 
         //Mac
-        /*commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
-                'NDK_PROJECT_PATH=build/intermediates/ndk',
-                'NDK_LIBS_OUT=libs',
-                'APP_BUILD_SCRIPT=jni/Android.mk',
-                'NDK_APPLICATION_MK=jni/Application.mk'*/
-        //Windows
-        commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
+        commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=libs',
                 'APP_BUILD_SCRIPT=jni/Android.mk',
                 'NDK_APPLICATION_MK=jni/Application.mk'
+        //Windows
+        /**commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
+                'NDK_PROJECT_PATH=build/intermediates/ndk',
+                'NDK_LIBS_OUT=libs',
+                'APP_BUILD_SCRIPT=jni/Android.mk',
+                'NDK_APPLICATION_MK=jni/Application.mk'*/
     }
 
     tasks.withType(JavaCompile) {
@@ -58,6 +58,7 @@ dependencies {
     })
     compile project(':commonlibrary')
     compile project(':framelibrary')
+    compile project(':DroidPlugin')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //针对libs下的.jar库
     compile 'com.android.support:appcompat-v7:26.+'
@@ -65,5 +66,4 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
-    compile project(':DroidPlugin')
 }

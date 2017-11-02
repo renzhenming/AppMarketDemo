@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/renzhenming/Desktop/a/AppMarketDemo/DroidPlugin/libs"/></dataSet><dataSet config="release"><source path="/Users/renzhenming/Desktop/a/AppMarketDemo/DroidPlugin/build-types/release/jniLibs"/></dataSet></merger>
