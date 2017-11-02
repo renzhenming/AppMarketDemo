@@ -160,6 +160,7 @@ public class AppSignatureUtils {
             Constructor<?> packageParserConstructor = packageParserClazz.getDeclaredConstructor();
             return packageParserConstructor.newInstance();
         }else{
+            //21之下的版本PackageParser没有空参构造方法，需要传入一个path
             Constructor<?> packageParserConstructor = packageParserClazz.getDeclaredConstructor(String.class);
             return packageParserConstructor.newInstance(path);
         }

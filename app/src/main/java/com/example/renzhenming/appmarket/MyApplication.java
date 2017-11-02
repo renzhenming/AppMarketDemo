@@ -20,13 +20,13 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
-        PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
+        /*PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
         try {
             PluginManager.getInstance().installPackage("", 0);
             PluginManager.getInstance().deletePackage("",0);
         } catch (RemoteException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override

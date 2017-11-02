@@ -69,3 +69,11 @@ Uninstall, use this method：
         int PluginManager.getInstance().deletePackage(String packageName,int flags);
 
 packageName is package name of the plugged app，flags = 0。
+
+
+启动插件apk的方法：
+//com.plugin 为插件apk包名
+PackageManager pm = getPackageManager();
+Intent intent = pm.getLaunchIntentForPackage("com.plugin");
+intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+startActivity(intent);

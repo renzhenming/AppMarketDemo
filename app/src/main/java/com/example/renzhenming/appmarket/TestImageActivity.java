@@ -33,7 +33,7 @@ public class TestImageActivity extends BaseSkinActivity {
             +File.separator+"version_1_2.patch";
 
     private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"version_1.apk";
+            +File.separator+"release.apk";
 
     @Override
     protected void initData() {
@@ -50,14 +50,15 @@ public class TestImageActivity extends BaseSkinActivity {
                 Toast.makeText(getApplicationContext(),"签名校验失败",Toast.LENGTH_LONG).show();
                 return;
             }
+            //安装apk
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
+                    "application/vnd.android.package-archive");
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //安装apk
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
-                "application/vnd.android.package-archive");
-        startActivity(intent);
+
     }
 
     @Override
