@@ -2,8 +2,10 @@ package com.example.renzhenming.appmarket;
 
 
 import android.content.Context;
+import android.os.RemoteException;
 
 import com.morgoo.droidplugin.PluginHelper;
+import com.morgoo.droidplugin.pm.PluginManager;
 import com.rzm.commonlibrary.general.BaseApplication;
 
 /**
@@ -19,6 +21,12 @@ public class MyApplication extends BaseApplication {
         super.onCreate();
         context = this;
         PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
+        try {
+            PluginManager.getInstance().installPackage("", 0);
+            PluginManager.getInstance().deletePackage("",0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

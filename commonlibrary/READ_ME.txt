@@ -53,3 +53,19 @@ CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
                 Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
             }
         });
+
+3.360DroidPlugin:
+
+Install/Upgrade, use this method：
+
+        int PluginManager.getInstance().installPackage(String filepath, int flags);
+
+For installation, filepath set to path of the .apk file, and flags set to 0.
+
+For upgrade, filepath set to path of the .apk file, and flags set to PackageManagerCompat.INSTALL_REPLACE_EXISTING.
+
+Uninstall, use this method：
+
+        int PluginManager.getInstance().deletePackage(String packageName,int flags);
+
+packageName is package name of the plugged app，flags = 0。
