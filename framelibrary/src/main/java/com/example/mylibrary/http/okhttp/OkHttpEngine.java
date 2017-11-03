@@ -1,4 +1,4 @@
-package com.example.mylibrary.http;
+package com.example.mylibrary.http.okhttp;
 
 import android.content.Context;
 import android.os.Environment;
@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.example.mylibrary.http.CacheUtils;
 import com.rzm.commonlibrary.general.http.EngineCallBack;
 import com.rzm.commonlibrary.general.http.HttpUtils;
 import com.rzm.commonlibrary.general.http.IHttpEngine;
@@ -54,10 +55,25 @@ public class OkHttpEngine implements IHttpEngine {
 
 
     @Override
-    public void post(boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
+    public void post(final boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
 
-        final String jointUrl = HttpUtils.jointParams(url, params);  //打印
-        LogUtils.e(TAG, "post url:"+jointUrl);
+        final String paramsUrl = HttpUtils.jointParams(url, params);  //打印
+        LogUtils.e(TAG, "post url:"+paramsUrl);
+
+        if (cache) {
+            final String cacheJson = CacheUtils.getCache(paramsUrl);
+            if (!TextUtils.isEmpty(cacheJson)) {
+                LogUtils.e(TAG, "post 读取到缓存：" + cacheJson);
+                //获取到缓存，直接执行成功方法
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.onSuccess(cacheJson);
+                    }
+                });
+
+            }
+        }
 
         RequestBody requestBody = appendBody(params);
         Request request = new Request.Builder()
@@ -84,12 +100,30 @@ public class OkHttpEngine implements IHttpEngine {
 
                         final String result = response.body().string();
                         LogUtils.e(TAG,"post result:"+result);
+
+                        if (cache) {
+                            String cacheJson = CacheUtils.getCache(paramsUrl);
+                            //2.每次获取到的结果，和上次的缓存进行比对
+                            if (!TextUtils.isEmpty(cacheJson)) {
+                                if (result.equals(cacheJson)) {
+                                    //内容相同，没有数据更新，不需要执行成功方法刷新界面了
+                                    LogUtils.e(TAG, "数据和缓存相同，不需要更新");
+                                    return;
+                                }
+                            }
+                        }
+
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
                                 callBack.onSuccess(result);
                             }
                         });
+
+                        if (cache) {
+                            long l = CacheUtils.setCache(paramsUrl, result);
+                            LogUtils.e(TAG, "post 写入缓存 insert -->> " + l+","+result);
+                        }
                     }
                 }
         );
@@ -105,11 +139,12 @@ public class OkHttpEngine implements IHttpEngine {
 
     @Override
     public void get(final boolean cache, Context context, String url, Map<String, Object> params, final EngineCallBack callBack) {
-        url = HttpUtils.jointParams(url, params);
-        LogUtils.e(TAG,"get url:"+url);
+        //url = HttpUtils.jointParams(url, params);
+        final String paramsUrl = HttpUtils.jointParams(url, params);
+        LogUtils.e(TAG,"get url:"+paramsUrl);
 
         if (cache) {
-            final String cacheJson = CacheUtils.getCache(url);
+            final String cacheJson = CacheUtils.getCache(paramsUrl);
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e(TAG, "get 读取到缓存：" + cacheJson);
                 //获取到缓存，直接执行成功方法
@@ -122,11 +157,10 @@ public class OkHttpEngine implements IHttpEngine {
 
             }
         }
-        Request.Builder requestBuilder = new Request.Builder().url(url).tag(context);
+        Request.Builder requestBuilder = new Request.Builder().url(paramsUrl).tag(context);
         //可以省略，默认是GET请求
         Request request = requestBuilder.build();
 
-        final String finalUrl = url;
         mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
@@ -141,13 +175,13 @@ public class OkHttpEngine implements IHttpEngine {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String resultJson = response.body().string();
+                final String result = response.body().string();
 
                 if (cache) {
-                    String finalCacheJson = CacheUtils.getCache(finalUrl);
+                    String cacheJson = CacheUtils.getCache(paramsUrl);
                     //2.每次获取到的结果，和上次的缓存进行比对
-                    if (!TextUtils.isEmpty(finalCacheJson)) {
-                        if (resultJson.equals(finalCacheJson)) {
+                    if (!TextUtils.isEmpty(cacheJson)) {
+                        if (result.equals(cacheJson)) {
                             //内容相同，没有数据更新，不需要执行成功方法刷新界面了
                             LogUtils.e(TAG, "数据和缓存相同，不需要更新");
                             return;
@@ -157,15 +191,15 @@ public class OkHttpEngine implements IHttpEngine {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callBack.onSuccess(resultJson);
+                        callBack.onSuccess(result);
                     }
                 });
 
-                LogUtils.e(TAG,"get result:"+ resultJson);
+                LogUtils.e(TAG,"get result:"+ result);
 
                 if (cache) {
-                    long l = CacheUtils.setCache(finalUrl, resultJson);
-                    LogUtils.e(TAG, "写入缓存 insert -->> " + l+","+resultJson);
+                    long l = CacheUtils.setCache(paramsUrl, result);
+                    LogUtils.e(TAG, "get 写入缓存 insert -->> " + l+","+result);
                 }
             }
         });

@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mylibrary.http.HttpCallBack;
-import com.example.mylibrary.http.OkHttpEngine;
+import com.example.mylibrary.http.okhttp.OkHttpEngine;
 import com.example.mylibrary.view.indicator.banner.BannerAdapter;
 import com.example.mylibrary.view.indicator.banner.BannerView;
 import com.example.mylibrary.view.indicator.banner.BannerViewPager;

@@ -1,4 +1,4 @@
-package com.example.mylibrary.http;
+package com.example.mylibrary.http.volley;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by renzhenming on 2017/8/20.
  */
 
-public class XutilsEngine  implements IHttpEngine {
+public class VolleyEngine  implements IHttpEngine {
     @Override
     public void get(boolean cache,Context context, String url, Map<String, Object> params, EngineCallBack callBack) {
 

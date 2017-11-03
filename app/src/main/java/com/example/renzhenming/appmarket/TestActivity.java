@@ -15,7 +15,7 @@ import com.example.mylibrary.BaseSkinActivity;
 import com.example.mylibrary.db.DaoSupportFactory;
 import com.example.mylibrary.db.IDaoSupport;
 import com.example.mylibrary.http.HttpCallBack;
-import com.example.mylibrary.http.OkHttpEngine;
+import com.example.mylibrary.http.retrofit.RetrofitEngine;
 import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.example.renzhenming.appmarket.bean.Person;
 import com.example.renzhenming.appmarket.test.MessageService;
@@ -97,7 +97,7 @@ public class TestActivity extends BaseSkinActivity {
     public void onPermissionGranted(){
 
 
-        HttpUtils httpUtils = HttpUtils.with(this)
+        /*HttpUtils httpUtils = HttpUtils.with(this)
                 .exchangeEngine(new OkHttpEngine())
                 .download()
                 .url("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg")
@@ -124,39 +124,11 @@ public class TestActivity extends BaseSkinActivity {
                     }
 
                 });
-
+*/
 
 
         //路径url参数都需要放到jni中，防止反编译被盗取到url
         //（https无法被抓包，http可以）
-        HttpUtils httpUtils2 = HttpUtils.with(this)
-                .exchangeEngine(new OkHttpEngine())
-                .cache(true)
-                .url("http://is.snssdk.com/2/essay/discovery/v3/")
-                .addParams("iid","6152551759")
-                .addParams("aid","7")
-                .execute(new HttpCallBack<String>() {
-
-                    @Override
-                    public void onError(final Exception e) {
-                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onSuccess(final String result) {
-                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onDownloadProgress(int progress) {
-
-                    }
-
-                    @Override
-                    public void onUploadProgress(int progress) {
-
-                    }
-
-                });
 
 
 
@@ -206,6 +178,31 @@ public class TestActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
+        HttpUtils httpUtils2 = HttpUtils.with(this)
+                .exchangeEngine(new RetrofitEngine())
+                .cache(true)
+                .get()
+                .url("http://is.snssdk.com/2/essay/discovery/v3/")
+                .addParams("iid","6152551759")
+                .addParams("aid","7")
+                .execute(new HttpCallBack<String>() {
+
+                    @Override
+                    public void onPreExecute() {
+                        super.onPreExecute();
+                        Toast.makeText(getApplicationContext(),"加载中。。。。。。。。。。",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(final Exception e) {
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onSuccess(final String result) {
+                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
+                    }
+
+                });
 
     }
 
