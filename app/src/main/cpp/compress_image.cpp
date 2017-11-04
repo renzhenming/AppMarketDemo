@@ -1,4 +1,3 @@
-#include "compress_image.h"
 #include <string.h>
 #include <android/bitmap.h>
 #include <android/log.h>
@@ -110,91 +109,75 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 
 // 函数的实现  AS  1.5如果没代码提示 AS2.2   VS去写好 Unity3D
 // java 什么思想  C就是什么思想
-jint Java_com_example_renzhenming_appmarket_ui_selectimage_ImageUtil_compressBitmap(JNIEnv *env,
-                                                             jclass thiz, jobject bitmap,
-                                                             int quality,
-                                                             jstring fileNameStr) {
-    // 1. 解析RGB
-    // 1.1 获取bitmap信息  w，h，format  Android的Native要有了解
-    AndroidBitmapInfo info;
-    // java你调用完方法往往返回的是对象，而C往往是参数
-    AndroidBitmap_getInfo(env, bitmap, &info);
-    // 从地址获取值
-    int bitmap_height = info.height;
-    int bitmap_width = info.width;
-    int bitmap_format = info.format;
-    if (bitmap_format != ANDROID_BITMAP_FORMAT_RGBA_8888) {
-        // argb
+extern "C"
+JNIEXPORT jint JNICALL
+Java_com_example_renzhenming_appmarket_utils_ImageUtil_compressBitmap(JNIEnv *env, jclass type,
+                                                             jobject bitmap, jint quality,
+                                                                 jstring fileNameStr) {
+    // 1.获取Bitmap信息
+    AndroidBitmapInfo android_bitmap_info;
+    AndroidBitmap_getInfo(env, bitmap, &android_bitmap_info);
+    // 获取bitmap的 宽，高，format
+    int bitmap_width = android_bitmap_info.width;
+    int bitmap_height = android_bitmap_info.height;
+    int format = android_bitmap_info.format;
+
+    if (format != ANDROID_BITMAP_FORMAT_RGBA_8888) {
         return -1;
     }
-
-    LOGE("bitmap_height = %d,bitmap_width = %d,", bitmap_height, bitmap_width);
-
-    // 1.2 把bitmap解析到数组中，数组中保存的是rgb -> YCbCr
-    // 1.2.1 锁定画布
-    BYTE *pixel_color;
-    AndroidBitmap_lockPixels(env, bitmap, (void **) &pixel_color);
-
-    // 1.2.2 解析数据，定义一些变量
+    // 2.解析Bitmap的像素信息，并转换成RGB数据,保存到二维byte数组里面
+    BYTE *pixelscolor;
+    // 2.1 锁定画布
+    AndroidBitmap_lockPixels(env, bitmap, (void **) &pixelscolor);
+    // 2.2 解析初始化参数值
     BYTE *data;
     BYTE r, g, b;
-    // 申请一块内存 = 宽*高*3
-    data = (BYTE *) malloc(bitmap_width * bitmap_height * 3);
-    // 数组指针指向的是数组首地址，因为这块内存要释放所以先保存一下
-    BYTE *tempData;
-    tempData = data;
-
-    // 一个一个像素解析保存到data
-    int i = 0;
-    int j = 0;
+    data = (BYTE *) malloc(bitmap_width * bitmap_height * 3);//每一个像素都有三个信息RGB
+    BYTE *tmpData;
+    tmpData = data;//临时保存data的首地址
+    int i = 0, j = 0;
     int color;
+    //2.3 解析每一个像素点里面的rgb值(去掉alpha值)，保存到一维数组data里面
     for (i = 0; i < bitmap_height; ++i) {
         for (j = 0; j < bitmap_width; ++j) {
-            // 获取二位数组的每一个像素信息的首地址
-            color = *((int *) pixel_color);
-            // 把 rgb 取出来
+            //获取二维数组的每一个像素信息首地址
+            color = *((int *) pixelscolor);
             r = ((color & 0x00FF0000) >> 16);
             g = ((color & 0x0000FF00) >> 8);
-            b = (color & 0x000000FF);
-
-            // 保存到data里面去
+            b = ((color & 0x000000FF));
+            //保存到data数据里面
             *data = b;
             *(data + 1) = g;
             *(data + 2) = r;
-
             data = data + 3;
-            // 一个像素点包括argb四个值，每+4下就是取下一个像素点
-            pixel_color += 4;
+            // 一个像素包括argb四个值，每+4就是取下一个像素点
+            pixelscolor += 4;
         }
     }
-
-    // 1.2.3 解锁画布
+    // 2.4. 解锁Bitmap
     AndroidBitmap_unlockPixels(env, bitmap);
+    // jstring --> c char
+    char *fileName = (char *) (env)->GetStringUTFChars(fileNameStr, 0);
 
-    // 1.2.4 还差一个参数，jstring -> char*
-    char *file_name = (char *) env->GetStringUTFChars(fileNameStr, NULL);
-    LOGE("file_name = %s", file_name);
+    //3. 调用libjpeg核心方法实现压缩
+    int resultCode = generateJPEG(tmpData, bitmap_width, bitmap_height, quality, fileName,
+                                  true);
 
-    // 2.调用第三方的提供好的方法   赋值的
-    int result = generateJPEG(tempData, bitmap_width, bitmap_height, quality, file_name, true);
+    //4.释放资源
+    env->ReleaseStringUTFChars(fileNameStr, fileName);
+    free((void *) tmpData);
+    // 4.2 释放Bitmap
+    // 4.2.1 通过对象获取类
+    jclass bitmap_clz = env->GetObjectClass(bitmap);
+    // 4.2.2 通过类和方法签名获取方法id
+    jmethodID recycle_mid = env->GetMethodID(bitmap_clz, "recycle", "()V");
+    // 4.2.3 执行回收释放方法
+    env->CallVoidMethod(bitmap, recycle_mid);
 
-    // 3.一定要回收内存
-    free(tempData);
-    env->ReleaseStringUTFChars(fileNameStr, file_name);
-    // 释放bitmap,调用bitmap的recycle
-    // 3.2 获取对象的class
-    jclass obj_clazz = env -> GetObjectClass(bitmap);
-    // 3.3 通过class获取方法id
-    jmethodID method_id = env -> GetMethodID(obj_clazz,"recycle","()V");
-    // 3.4 调用方法释放Bitmap
-    env->CallVoidMethod(bitmap,method_id);
-
-    LOGE("result = %d", result);
-
-    // 4.返回结果
-    if (result == 0) {
+    // 5.返回结果
+    if (resultCode == 0) {
         return -1;
     }
-
     return 1;
+
 }

@@ -11,6 +11,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+
+        ndk {
+            abiFilters'armeabi', 'armeabi-v7a'
+        }
     }
     dataBinding {
         enabled = true;
@@ -22,7 +32,9 @@ android {
         }
     }
 
-    sourceSets {
+    //********************** ndk-build 方式**********************//
+
+    /*sourceSets {
         main {
             jni.srcDirs = []//设置禁止gradle生成Android.mk
             jniLibs.srcDirs = ['libs']//指定生成的so文件位置
@@ -38,17 +50,24 @@ android {
                 'APP_BUILD_SCRIPT=jni/Android.mk',
                 'NDK_APPLICATION_MK=jni/Application.mk'
         //Windows
-        /**commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
+        commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=libs',
                 'APP_BUILD_SCRIPT=jni/Android.mk',
-                'NDK_APPLICATION_MK=jni/Application.mk'*/
+                'NDK_APPLICATION_MK=jni/Application.mk'
     }
 
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn ndkBuild
-    }
+    }*/
 
+    //********************** CMake 方式**********************//
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
