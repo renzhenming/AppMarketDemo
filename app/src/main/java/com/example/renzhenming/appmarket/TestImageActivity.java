@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class TestImageActivity extends BaseSkinActivity {
     private static final int READ_STORAGE = 123;
+    private static final int CALL_PHONE = 124;
     private ArrayList<String> mImageList;
     private final int SELECT_IMAGE_REQUEST = 0x0011;
     private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -98,9 +99,18 @@ public class TestImageActivity extends BaseSkinActivity {
     // 选择图片
     public void selectImage(View view){
         // 6.0 请求权限，读取内存卡，拍照
-        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.WRITE_EXTERNAL_STORAGE
+        PermissionHelper.with(this).requestCode(CALL_PHONE).requestPermissions(new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.WRITE_CALENDAR
         }).request();
+    }
+
+    @PermissionSucceed(requestCode = CALL_PHONE)
+    public void callPhoneGranted(){
+        Toast.makeText(getApplicationContext(),"授权成功",Toast.LENGTH_LONG).show();
+    }
+
+    @PermissionFailed(requestCode = CALL_PHONE)
+    public void callPhoneDenied(){
+        Toast.makeText(getApplicationContext(),"授权失败",Toast.LENGTH_LONG).show();
     }
 
     @PermissionSucceed(requestCode = READ_STORAGE)
