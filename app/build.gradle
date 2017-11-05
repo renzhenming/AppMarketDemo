@@ -11,6 +11,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+
+        ndk {
+            abiFilters'armeabi', 'armeabi-v7a'
+        }
     }
     dataBinding {
         enabled = true;
@@ -22,7 +32,9 @@ android {
         }
     }
 
-    sourceSets {
+    //********************** ndk-build 方式**********************//
+
+    /*sourceSets {
         main {
             jni.srcDirs = []//设置禁止gradle生成Android.mk
             jniLibs.srcDirs = ['libs']//指定生成的so文件位置
@@ -32,11 +44,11 @@ android {
     task ndkBuild(type: Exec) {//设置新的so的生成目录
 
         //Mac
-        /*commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
+        commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=libs',
                 'APP_BUILD_SCRIPT=jni/Android.mk',
-                'NDK_APPLICATION_MK=jni/Application.mk'*/
+                'NDK_APPLICATION_MK=jni/Application.mk'
         //Windows
         commandLine "D:\\application\\java\\sdk\\ndk-bundle\\ndk-build.cmd",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
@@ -47,8 +59,15 @@ android {
 
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn ndkBuild
-    }
+    }*/
 
+    //********************** CMake 方式**********************//
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
@@ -58,6 +77,7 @@ dependencies {
     })
     compile project(':commonlibrary')
     compile project(':framelibrary')
+    compile project(':DroidPlugin')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //针对libs下的.jar库
     compile 'com.android.support:appcompat-v7:26.+'
@@ -65,5 +85,4 @@ dependencies {
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:26.+'
     testCompile 'junit:junit:4.12'
-    compile project(':DroidPlugin')
 }

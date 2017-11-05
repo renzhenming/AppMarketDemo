@@ -11,16 +11,20 @@ import java.util.Map;
  * Created by renzhenming on 2017/8/20.
  * 将各种网络引擎进行包装，后期如果需要跟换网络引擎，直接修改简单的代码就可以实现了
  */
-
 public class HttpUtils{
 
     private String mUrl;
+    private String mPath;
 
     private int mType = GET_TYPE;
 
     private static final int POST_TYPE = 0x0011;
 
     private static final int GET_TYPE = 0x0022;
+
+    private static final int DOWNLOAD_TYPE = 0x0033;
+
+    private static final int UPLOAD_TYPE = 0x0044;
 
     private Context mContext;
 
@@ -49,6 +53,16 @@ public class HttpUtils{
         return this;
     }
 
+    public HttpUtils download(){
+        mType = DOWNLOAD_TYPE;
+        return this;
+    }
+
+    public HttpUtils upload(){
+        mType = UPLOAD_TYPE;
+        return this;
+    }
+
     /**
      * 添加参数
      * @param key
@@ -67,6 +81,11 @@ public class HttpUtils{
 
     public HttpUtils url(String url){
         mUrl = url;
+        return this;
+    }
+
+    public HttpUtils path(String path){
+        mPath = path;
         return this;
     }
 
@@ -92,6 +111,12 @@ public class HttpUtils{
         }
         if (mType == GET_TYPE){
             get(mContext,mUrl,mParams,callBack);
+        }
+        if (mType == DOWNLOAD_TYPE){
+            download(mUrl,callBack);
+        }
+        if (mType == UPLOAD_TYPE){
+            upload(mPath,mUrl,callBack);
         }
         return this;
     }
@@ -127,10 +152,18 @@ public class HttpUtils{
         mHttpEngine.post(mCache,context,url,params,callBack);
     }
 
+    private void download(String url,EngineCallBack callBack) {
+        mHttpEngine.download(url,callBack);
+    }
+
+    private void upload(String path, String url, EngineCallBack callBack) {
+        mHttpEngine.upload(path,url,callBack);
+    }
+
     //--------------------------------  供外界调用 --------------------------------//
 
     /**
-     * 拼接参数
+     * 拼接参数（为了打印显示提供）
      */
     public static String jointParams(String url, Map<String, Object> params) {
         if (params == null || params.size() <= 0) {

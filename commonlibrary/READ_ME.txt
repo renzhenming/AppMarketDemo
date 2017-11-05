@@ -1,0 +1,79 @@
+1.HttpUtils:
+
+HttpUtils httpUtils = HttpUtils.with(this)
+                .exchangeEngine(new OkHttpEngine())
+                .cache(true)
+                .url("http://is.snssdk.com/2/essay/discovery/v3/")
+                .addParams("iid","6152551759")
+                .addParams("aid","7")
+                .execute(new HttpCallBack<String>() {
+
+                    @Override
+                    protected void onPreExecute() {
+
+                    }
+
+                    @Override
+                    public void onError(final Exception e) {
+                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onSuccess(final String result) {
+                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onDownloadProgress(int progress) {
+
+                    }
+
+                    @Override
+                    public void onUploadProgress(int progress) {
+
+                    }
+
+                });
+
+2.CommonDialog:
+
+CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
+        .setContentView(R.layout.dialog)
+        .setText(R.id.toast,"我是新的dialog")
+        .fullWidth()
+        // 可以设置宽度占屏幕百分比  widthPercent(0.9f)
+        .alignBottom(true)
+        .show();
+
+        //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
+        final EditText mEditText = dialog.getView(输入框的id);
+        dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+3.360DroidPlugin:
+
+Install/Upgrade, use this method：
+
+        int PluginManager.getInstance().installPackage(String filepath, int flags);
+
+For installation, filepath set to path of the .apk file, and flags set to 0.
+
+For upgrade, filepath set to path of the .apk file, and flags set to PackageManagerCompat.INSTALL_REPLACE_EXISTING.
+
+Uninstall, use this method：
+
+        int PluginManager.getInstance().deletePackage(String packageName,int flags);
+
+packageName is package name of the plugged app，flags = 0。
+
+
+启动插件apk的方法：
+//com.plugin 为插件apk包名
+PackageManager pm = getPackageManager();
+Intent intent = pm.getLaunchIntentForPackage("com.plugin");
+intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+startActivity(intent);

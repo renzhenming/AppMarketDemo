@@ -12,28 +12,6 @@ import android.view.WindowManager;
 
 import com.rzm.commonlibrary.R;
 
-
-/*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
-@Override
-public void onClick(View view) {
-        CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
-        .setContentView(R.layout.dialog)
-        .setText(R.id.toast,"我是新的dialog")
-        .fullWidth()
-        // 可以设置宽度占屏幕百分比  widthPercent(0.9f)
-        .alignBottom(true)
-        .show();
-
-        //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
-        // *//*final EditText mEditText = dialog.getView(输入框的id);
-        dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
-        }
-        });*//*
-}});*/
-
 /**
  * Created by renzhenming on 2017/8/14.
  */
