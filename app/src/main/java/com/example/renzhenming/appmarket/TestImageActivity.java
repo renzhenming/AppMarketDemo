@@ -101,13 +101,8 @@ public class TestImageActivity extends BaseSkinActivity {
     // 选择图片
     public void selectImage(View view){
         // 6.0 请求权限，读取内存卡，拍照
-        PermissionHelper.with(this).requestCode(CALL_PHONE).requestPermissions(new String[]{Manifest.permission.CALL_PHONE,Manifest.permission.WRITE_CALENDAR
+        PermissionHelper.with(this).requestCode(READ_STORAGE).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
         }).request();
-    }
-
-    @PermissionSucceed(requestCode = CALL_PHONE)
-    public void callPhoneGranted(){
-        Toast.makeText(getApplicationContext(),"授权成功",Toast.LENGTH_LONG).show();
     }
 
     @PermissionSucceed(requestCode = READ_STORAGE)
