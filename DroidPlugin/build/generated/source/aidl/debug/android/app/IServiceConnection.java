@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/renzhenming/Desktop/a/AppMarketDemo/DroidPlugin/src/android/app/IServiceConnection.aidl
+ * Original file: D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\src\\android\\app\\IServiceConnection.aidl
  */
 package android.app;
 /** @hide */

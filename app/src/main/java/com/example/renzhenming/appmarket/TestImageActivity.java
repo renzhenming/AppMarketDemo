@@ -110,11 +110,6 @@ public class TestImageActivity extends BaseSkinActivity {
         Toast.makeText(getApplicationContext(),"授权成功",Toast.LENGTH_LONG).show();
     }
 
-    @PermissionFailed(requestCode = CALL_PHONE)
-    public void callPhoneDenied(){
-        Toast.makeText(getApplicationContext(),"授权失败",Toast.LENGTH_LONG).show();
-    }
-
     @PermissionSucceed(requestCode = READ_STORAGE)
     public void onPermissionGranted(){
         ImageSelector.create().count(9).multi().origin(mImageList)

@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /Users/renzhenming/Desktop/a/AppMarketDemo/DroidPlugin/src/com/morgoo/droidplugin/pm/IApplicationCallback.aidl
+ * Original file: D:\\application\\java\\AS_Space\\AppMarketDemo\\DroidPlugin\\src\\com\\morgoo\\droidplugin\\pm\\IApplicationCallback.aidl
  */
 package com.morgoo.droidplugin.pm;
 /**
