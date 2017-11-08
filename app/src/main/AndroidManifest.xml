@@ -19,19 +19,10 @@
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".TestActivity"
-            android:label="TestActivity">
-
-        </activity>
+            android:label="TestActivity"></activity>
         <activity android:name=".TestSkinActivity" />
-        <activity android:name=".TestProxyActivity">
-
-        </activity>
-        <activity android:name=".TestImageActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".TestProxyActivity"></activity>
+        <activity android:name=".TestImageActivity">
         </activity>
 
         <service android:name=".test.MessageService">
@@ -56,8 +47,15 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestCoordinatorCollapsingToolbarActivity"></activity>
-        <activity android:name=".TestHookActivity_Registered"></activity>
+        <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
+        <activity android:name=".TestHookActivity_Registered" />
+        <activity android:name=".TestCustomRecyclerViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@ import android.text.Html;
 import android.view.View;
 
 import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.ViewHolder;
+import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
 import com.example.renzhenming.appmarket.R;
 import com.example.renzhenming.appmarket.bean.DiscoverListResult;
 import com.example.renzhenming.appmarket.utils.GlideImageLoader;
@@ -24,7 +24,7 @@ public class DiscoverListAdapter extends
     }
 
     @Override
-    public void convert(ViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item) {
+    public void convert(CommonViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item) {
         // 显示数据
         String str = item.getSubscribe_count() + " 订阅 | " +
                 "总帖数 <font color='#FF678D'>" + item.getTotal_updates() + "</font>";

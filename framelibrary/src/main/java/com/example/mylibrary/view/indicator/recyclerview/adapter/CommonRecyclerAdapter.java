@@ -13,7 +13,7 @@ import java.util.List;
  * Email: 240336124@qq.com
  * Description: 通用的Adapter
  */
-public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<CommonViewHolder> {
 
     protected Context mContext;
     protected LayoutInflater mInflater;
@@ -53,7 +53,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 多布局支持
         if (mMultiTypeSupport != null) {
             mLayoutId = viewType;
@@ -61,12 +61,12 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
         // 先inflate数据
         View itemView = mInflater.inflate(mLayoutId, parent, false);
         // 返回ViewHolder
-        ViewHolder holder = new ViewHolder(itemView);
+        CommonViewHolder holder = new CommonViewHolder(itemView);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final CommonViewHolder holder, final int position) {
         // 设置点击和长按事件
         if (mItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
      *
      * @param item 当前的数据
      */
-    public abstract void convert(ViewHolder holder, T item);
+    public abstract void convert(CommonViewHolder holder, T item);
 
     @Override
     public int getItemCount() {

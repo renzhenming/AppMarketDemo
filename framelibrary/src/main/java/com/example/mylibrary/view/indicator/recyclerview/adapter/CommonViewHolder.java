@@ -12,12 +12,12 @@ import android.widget.TextView;
  * Email: 240336124@qq.com
  * Description: RecyclerView的ViewHolder
  */
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class CommonViewHolder extends RecyclerView.ViewHolder {
 
     // 用来存放子View减少findViewById的次数
     private SparseArray<View> mViews;
 
-    public ViewHolder(View itemView) {
+    public CommonViewHolder(View itemView) {
         super(itemView);
         mViews = new SparseArray<>();
     }
@@ -25,7 +25,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 设置TextView文本
      */
-    public ViewHolder setText(int viewId, CharSequence text) {
+    public CommonViewHolder setText(int viewId, CharSequence text) {
         TextView tv = getView(viewId);
         tv.setText(text);
         return this;
@@ -48,7 +48,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 设置View的Visibility
      */
-    public ViewHolder setViewVisibility(int viewId, int visibility) {
+    public CommonViewHolder setViewVisibility(int viewId, int visibility) {
         getView(viewId).setVisibility(visibility);
         return this;
     }
@@ -56,7 +56,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     /**
      * 设置ImageView的资源
      */
-    public ViewHolder setImageResource(int viewId, int resourceId) {
+    public CommonViewHolder setImageResource(int viewId, int resourceId) {
         ImageView imageView = getView(viewId);
         imageView.setImageResource(resourceId);
         return this;
@@ -80,7 +80,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
      * 设置图片通过路径,这里稍微处理得复杂一些，因为考虑加载图片的第三方可能不太一样
      * 也可以直接写死
      */
-    public ViewHolder setImageByUrl(int viewId, HolderImageLoader imageLoader) {
+    public CommonViewHolder setImageByUrl(int viewId, HolderImageLoader imageLoader) {
         ImageView imageView = getView(viewId);
         if (imageLoader == null) {
             throw new NullPointerException("imageLoader is null!");

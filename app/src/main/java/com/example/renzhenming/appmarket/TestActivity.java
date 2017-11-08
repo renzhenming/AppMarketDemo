@@ -17,6 +17,7 @@ import com.example.mylibrary.db.IDaoSupport;
 import com.example.mylibrary.http.HttpCallBack;
 import com.example.mylibrary.http.retrofit.RetrofitEngine;
 import com.example.mylibrary.navigation.CommonNavigationBar;
+import com.example.mylibrary.view.indicator.recyclerview.adapter.MultiTypeSupport;
 import com.example.renzhenming.appmarket.bean.Person;
 import com.example.renzhenming.appmarket.test.MessageService;
 import com.rzm.commonlibrary.general.FixDexManager;
@@ -253,9 +254,6 @@ public class TestActivity extends BaseSkinActivity {
                 e.printStackTrace();
             }
         }
-
     }
-
-
 
 }

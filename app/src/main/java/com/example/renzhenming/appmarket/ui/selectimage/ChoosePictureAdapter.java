@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.ViewHolder;
+import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
 import com.example.renzhenming.appmarket.R;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
     }
 
     @Override
-    public void convert(ViewHolder holder, final String item) {
+    public void convert(CommonViewHolder holder, final String item) {
         if(TextUtils.isEmpty(item)){
             // 显示拍照
             holder.setViewVisibility(R.id.camera_ll, View.VISIBLE);
