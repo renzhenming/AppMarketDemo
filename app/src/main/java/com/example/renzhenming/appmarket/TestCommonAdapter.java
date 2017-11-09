@@ -1,7 +1,6 @@
 package com.example.renzhenming.appmarket;
 
 import android.content.Context;
-import android.view.View;
 
 import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.MultiTypeSupport;
@@ -19,15 +18,10 @@ public class TestCommonAdapter extends CommonRecyclerAdapter<String> {
     }
 
     @Override
-    public void convert(CommonViewHolder holder, String item) {
-        TestCommonViewHolder viewHolder = (TestCommonViewHolder) holder;
+    public void convert(CommonViewHolder holder, String item,int position) {
+        if (position == 0)
+            return;
+        CommonViewHolder viewHolder = holder;
         viewHolder.setText(R.id.center_text,item);
-    }
-
-    class TestCommonViewHolder extends CommonViewHolder{
-
-        public TestCommonViewHolder(View itemView) {
-            super(itemView);
-        }
     }
 }

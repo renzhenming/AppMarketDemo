@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="20dp"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/load_tv"
         android:layout_width="match_parent"
+        android:text="加载更多"
         android:gravity="center"
-        android:textColor="#f00"
-        android:id="@+id/center_text"
-        android:textSize="18sp"
-        android:text="我是Center"
         android:layout_height="50dp" />
 </LinearLayout>

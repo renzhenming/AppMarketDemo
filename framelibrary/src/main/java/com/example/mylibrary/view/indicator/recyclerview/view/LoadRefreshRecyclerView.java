@@ -84,6 +84,8 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
      * 重置当前加载更多状态
      */
     private void restoreLoadView() {
+        if (mLoadView == null)
+            return;
         int currentBottomMargin = ((MarginLayoutParams) mLoadView.getLayoutParams()).bottomMargin;
         int finalBottomMargin = 0;
         if (mCurrentLoadStatus == LOAD_STATUS_LOOSEN_LOADING) {
@@ -181,6 +183,8 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
      * 设置加载View的marginBottom
      */
     public void setLoadViewMarginBottom(int marginBottom) {
+        if (mLoadView == null)
+            return;
         MarginLayoutParams params = (MarginLayoutParams) mLoadView.getLayoutParams();
         if (marginBottom < 0) {
             marginBottom = 0;

@@ -86,6 +86,8 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      * 重置当前刷新状态状态
      */
     private void restoreRefreshView() {
+        if (mRefreshView == null)
+            return;
         int currentTopMargin = ((MarginLayoutParams) mRefreshView.getLayoutParams()).topMargin;
         int finalTopMargin = -mRefreshViewHeight + 1;
         if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
@@ -197,6 +199,8 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      * 设置刷新View的marginTop
      */
     public void setRefreshViewMarginTop(int marginTop) {
+        if (mRefreshView == null)
+            return;
         MarginLayoutParams params = (MarginLayoutParams) mRefreshView.getLayoutParams();
         if (marginTop < -mRefreshViewHeight + 1) {
             marginTop = -mRefreshViewHeight + 1;

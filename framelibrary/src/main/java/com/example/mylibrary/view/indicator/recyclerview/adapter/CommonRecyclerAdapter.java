@@ -86,7 +86,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
         }
 
         // 绑定怎么办？回传出去
-        convert(holder, mData.get(position));
+        convert(holder, mData.get(position),position);
     }
 
     /**
@@ -94,7 +94,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Comm
      *
      * @param item 当前的数据
      */
-    public abstract void convert(CommonViewHolder holder, T item);
+    public abstract void convert(CommonViewHolder holder, T item,int position);
 
     @Override
     public int getItemCount() {

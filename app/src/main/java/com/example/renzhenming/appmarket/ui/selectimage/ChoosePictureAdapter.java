@@ -25,7 +25,7 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
     }
 
     @Override
-    public void convert(CommonViewHolder holder, final String item) {
+    public void convert(CommonViewHolder holder, final String item,int position) {
         if(TextUtils.isEmpty(item)){
             // 显示拍照
             holder.setViewVisibility(R.id.camera_ll, View.VISIBLE);

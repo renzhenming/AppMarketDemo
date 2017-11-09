@@ -24,7 +24,7 @@ public class DiscoverListAdapter extends
     }
 
     @Override
-    public void convert(CommonViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item) {
+    public void convert(CommonViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item,int position) {
         // 显示数据
         String str = item.getSubscribe_count() + " 订阅 | " +
                 "总帖数 <font color='#FF678D'>" + item.getTotal_updates() + "</font>";
