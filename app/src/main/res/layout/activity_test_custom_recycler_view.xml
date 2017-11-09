@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,25 +7,9 @@
     android:id="@+id/container"
     tools:context="com.example.renzhenming.appmarket.TestCustomRecyclerViewActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:text="停止刷新"
-        android:onClick="stop_refresh"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:text="停止加载下一页"
-        android:onClick="stop_load"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_width="wrap_content"
-        android:text="数据加载出现"
-        android:onClick="load_finish"
-        android:layout_height="wrap_content" />
-
     <com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView>
-</LinearLayout>
+    <include layout="@layout/layout_loading_state"/>
+</RelativeLayout>

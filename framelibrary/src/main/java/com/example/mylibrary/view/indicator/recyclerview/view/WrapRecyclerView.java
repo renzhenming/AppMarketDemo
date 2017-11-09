@@ -24,6 +24,7 @@ public class WrapRecyclerView extends RecyclerView {
     // 空列表数据应该显示的空View
     // 正在加载数据页面，也就是正在获取后台接口页面
     private View mEmptyView, mLoadingView;
+    private View mFailureView;
 
     public WrapRecyclerView(Context context) {
         super(context);
@@ -178,17 +179,45 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加一个加载失败的页面
+     */
+    public void addFailureView(View failureView) {
+        this.mFailureView = failureView;
+        mFailureView.setVisibility(View.GONE);
+    }
+
+    /**
      * Adapter数据改变的方法
      */
     private void dataChanged() {
         if (mAdapter.getItemCount() == 0) {
             // 没有数据
             if (mEmptyView != null) {
-                mEmptyView.setVisibility(VISIBLE);
-            } else {
+                showView(mEmptyView);
+            }
+        }else{
+            if (mEmptyView != null) {
                 mEmptyView.setVisibility(GONE);
+                showView(this);
             }
         }
+        if (mLoadingView != null){
+            mLoadingView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 动画过渡
+     * @param view
+     */
+    private void showView(View view) {
+        view.setAlpha(0f);
+        view.setVisibility(View.VISIBLE);
+        view.animate()
+                .alpha(1f)
+                .setDuration(300)
+                .setListener(null);
+
     }
 
     /***************

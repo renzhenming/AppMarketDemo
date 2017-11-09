@@ -34,7 +34,6 @@ public class DefaultLoadCreator extends LoadViewCreator {
 
     @Override
     public void onStopLoad() {
-        mLoadMoreView.setText("加载完成");
-        mLoadMoreView.setVisibility(View.GONE);
+        mLoadMoreView.setText("");
     }
 }
