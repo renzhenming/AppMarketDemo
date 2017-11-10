@@ -8,6 +8,7 @@
         android:textColor="#f00"
         android:id="@+id/center_text"
         android:textSize="18sp"
+        android:background="#9f9"
         android:text="我是Center"
         android:layout_height="50dp" />
 </LinearLayout>

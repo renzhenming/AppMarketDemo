@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:gravity="center"
+    android:background="#FFFFFF"
+    android:id="@+id/view_load_failed"
     android:visibility="gone"
     android:layout_height="match_parent">
     <TextView

@@ -34,6 +34,5 @@ public class DefaultLoadCreator extends LoadViewCreator {
 
     @Override
     public void onStopLoad() {
-        mLoadMoreView.setText("");
     }
 }

@@ -19,9 +19,10 @@ public class TestCommonAdapter extends CommonRecyclerAdapter<String> {
 
     @Override
     public void convert(CommonViewHolder holder, String item,int position) {
-        if (position == 0)
-            return;
-        CommonViewHolder viewHolder = holder;
-        viewHolder.setText(R.id.center_text,item);
+        int itemViewType = getItemViewType(position);
+        if (itemViewType == R.layout.item_center){
+            CommonViewHolder viewHolder = holder;
+            viewHolder.setText(R.id.center_text,item);
+        }
     }
 }

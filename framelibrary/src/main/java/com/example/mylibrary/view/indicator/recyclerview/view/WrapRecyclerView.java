@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Adapter;
 
 import com.example.mylibrary.view.indicator.recyclerview.adapter.OnItemClickListener;
 
@@ -23,8 +22,7 @@ public class WrapRecyclerView extends RecyclerView {
     // 增加一些通用功能
     // 空列表数据应该显示的空View
     // 正在加载数据页面，也就是正在获取后台接口页面
-    private View mEmptyView, mLoadingView;
-    private View mFailureView;
+    private View mEmptyView, mLoadingView,mFailureView;
 
     public WrapRecyclerView(Context context) {
         super(context);
@@ -61,11 +59,6 @@ public class WrapRecyclerView extends RecyclerView {
 
         // 解决GridLayout添加头部和底部也要占据一行
         mWrapRecyclerAdapter.adjustSpanSize(this);
-
-        // 加载数据页面
-        if (mLoadingView != null && mLoadingView.getVisibility() == View.VISIBLE) {
-            mLoadingView.setVisibility(View.GONE);
-        }
 
         if (mItemClickListener != null) {
             mWrapRecyclerAdapter.setOnItemClickListener(mItemClickListener);
@@ -179,11 +172,17 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
-     * 添加一个加载失败的页面
+     * 显示数据加载失败的页面
      */
-    public void addFailureView(View failureView) {
+    public void showFailureView(View failureView) {
+        if (failureView == null)
+            return;
         this.mFailureView = failureView;
-        mFailureView.setVisibility(View.GONE);
+        mFailureView.setVisibility(View.VISIBLE);
+        if (mLoadingView != null)
+            mLoadingView.setVisibility(GONE);
+        if (mEmptyView != null)
+            mEmptyView.setVisibility(GONE);
     }
 
     /**
@@ -204,6 +203,10 @@ public class WrapRecyclerView extends RecyclerView {
         if (mLoadingView != null){
             mLoadingView.setVisibility(View.GONE);
         }
+
+        if (mFailureView != null){
+            mLoadingView.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -211,12 +214,9 @@ public class WrapRecyclerView extends RecyclerView {
      * @param view
      */
     private void showView(View view) {
-        view.setAlpha(0f);
+        //view.setAlpha(0f);
         view.setVisibility(View.VISIBLE);
-        view.animate()
-                .alpha(1f)
-                .setDuration(300)
-                .setListener(null);
+        //view.animate().alpha(1f).setDuration(300).setListener(null);
 
     }
 

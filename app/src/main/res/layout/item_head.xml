@@ -5,8 +5,9 @@
     <TextView
         android:layout_width="match_parent"
         android:gravity="center"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="18sp"
-        android:text="我是head"
+        android:background="#f99"
+        android:text="head"
         android:layout_height="50dp" />
 </LinearLayout>

@@ -163,6 +163,11 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged();
     }
 
+    //头部个数
+    public int getHeaderViewCount(){
+        return mHeaderViews != null ? mHeaderViews.size() : 0;
+    }
+
     // 添加底部
     public void addFooterView(View view) {
         int position = mFooterViews.indexOfValue(view);
@@ -170,6 +175,11 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             mFooterViews.put(BASE_ITEM_TYPE_FOOTER++, view);
         }
         notifyDataSetChanged();
+    }
+
+    //底部个数
+    public int getFooterViewCount(){
+        return mFooterViews != null ? mFooterViews.size() : 0;
     }
 
     // 移除头部
