@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,7 +34,7 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
     public static int LOAD_STATUS_LOOSEN_LOADING = 0x0033;
     // 正在加载更多状态
     public int LOAD_STATUS_LOADING = 0x0044;
-    private float mDragIndex = 1;
+    private float mDragIndex = 0.35f;
 
     public LoadRefreshRecyclerView(Context context) {
         super(context);
@@ -200,7 +199,8 @@ public class LoadRefreshRecyclerView extends RefreshRecyclerView {
      * 判断是不是滚动到了最顶部，这个是从SwipeRefreshLayout里面copy过来的源代码
      */
     public boolean canScrollDown() {
-        return ViewCompat.canScrollVertically(this, 1);
+        return canScrollVertically(1);
+        //return ViewCompat.canScrollVertically(this, 1);
     }
 
     /**

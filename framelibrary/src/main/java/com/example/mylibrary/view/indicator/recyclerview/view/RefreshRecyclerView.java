@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -69,7 +68,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 // 记录手指按下的位置 ,之所以写在dispatchTouchEvent那是因为如果我们处理了条目点击事件，
-                // 那么就不会进入onTouchEvent里面，所以只能在这里获取
+                // 那么就不会进入onTouchEvent MotionEvent.ACTION_DOWN 的里面，所以只能在这里获取
                 mFingerDownY = (int) ev.getRawY();
                 break;
 
@@ -100,9 +99,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
                 mListener.onRefresh();
             }
         }
-
         int distance = currentTopMargin - finalTopMargin;
-
         // 回弹到指定位置
         ValueAnimator animator = ObjectAnimator.ofFloat(currentTopMargin, finalTopMargin).setDuration(distance);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -195,6 +192,37 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         }
     }
 
+
+    /*************************************************************
+     *
+     * 设置view的padding属性
+     * view.setPadding(left, top, right, bottom);
+     *
+     * 不存在设置margin的方法
+     * view.setMargin(left, top ,right, bottom);方法不存在
+     *
+     * 使用ViewGroup.MarginLayoutParams 替代这一行
+     *
+     *
+     * ViewGroup.LayoutParams layoutParams = mRefreshView.getLayoutParams();
+     * ViewGroup.MarginLayoutParams params = null;
+     * 获取view的margin设置参数
+     *
+     * ***********************************************************
+     *
+     * if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+     *      params = (ViewGroup.MarginLayoutParams) layoutParams;
+     * } else {
+     *      不存在时创建一个新的参数
+     *      基于View本身原有的布局参数对象
+     *      params = new ViewGroup.MarginLayoutParams(layoutParams);
+     * }
+     * ***********************************************************
+     *
+     * MarginLayoutParams params = (MarginLayoutParams) mRefreshView.getLayoutParams();
+     *
+     * *************************************************************/
+
     /**
      * 设置刷新View的marginTop
      */
@@ -202,6 +230,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         if (mRefreshView == null)
             return;
         MarginLayoutParams params = (MarginLayoutParams) mRefreshView.getLayoutParams();
+
         if (marginTop < -mRefreshViewHeight + 1) {
             marginTop = -mRefreshViewHeight + 1;
         }
@@ -216,10 +245,24 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      * 判断是不是滚动到了最顶部，这个是从SwipeRefreshLayout里面copy过来的源代码
      */
     public boolean canScrollUp() {
+
+        /*************************************************************
+         *
+         * 替代过时方法
+         *
+         * if (android.os.Build.VERSION.SDK_INT < 14) {
+         *    return ViewCompat.canScrollVertically(this, -1) || this.getScrollY() > 0;
+         * } else {
+         *    return ViewCompat.canScrollVertically(this, -1);
+         * }
+         *
+         * *************************************************************/
+
+
         if (android.os.Build.VERSION.SDK_INT < 14) {
-            return ViewCompat.canScrollVertically(this, -1) || this.getScrollY() > 0;
+            return canScrollVertically(-1) || this.getScrollY() > 0;
         } else {
-            return ViewCompat.canScrollVertically(this, -1);
+            return canScrollVertically(-1);
         }
     }
 
