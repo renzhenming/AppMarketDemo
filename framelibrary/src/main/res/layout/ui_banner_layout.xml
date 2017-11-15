@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.administrator.framelibrary.banner.BannerViewPager
+    <com.example.mylibrary.view.indicator.banner.BannerViewPager
         android:id="@+id/banner_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

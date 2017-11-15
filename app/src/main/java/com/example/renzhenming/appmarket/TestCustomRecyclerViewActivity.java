@@ -8,9 +8,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.mylibrary.view.indicator.banner.BannerAdapter;
+import com.example.mylibrary.view.indicator.banner.BannerView;
+import com.example.mylibrary.view.indicator.banner.BannerViewPager;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.MultiTypeSupport;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.OnItemClickListener;
 import com.example.mylibrary.view.indicator.recyclerview.adapter.OnLongClickListener;
@@ -23,10 +30,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TestCustomRecyclerViewActivity extends AppCompatActivity {
+public class TestCustomRecyclerViewActivity extends AppCompatActivity{
 
     private LoadRefreshRecyclerView mRecyclerView;
     private List<String> mList = new ArrayList<>();
+    private List<String> mBannerList = new ArrayList<>();
     private TestCommonAdapter adapter;
 
     @Override
@@ -39,16 +47,16 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
     private void initView() {
         mRecyclerView = (LoadRefreshRecyclerView) findViewById(R.id.recyclerview);
 
-        adapter = new TestCommonAdapter(this, mList,new MultiTypeSupport<String>() {
+        adapter = new TestCommonAdapter(this, mList, new MultiTypeSupport<String>() {
             @Override
             public int getLayoutId(String item, int position) {
-                if (position == 0){
+                if (position == 0) {
                     return R.layout.item_head;
-                }else if (position == 1){
+                } else if (position == 1) {
                     return R.layout.test_item_1;
-                }else if (position == 2){
+                } else if (position == 2) {
                     return R.layout.test_item_2;
-                }else{
+                } else {
                     return R.layout.item_center;
                 }
             }
@@ -64,7 +72,7 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setAdapter(adapter);
         // 这个就不多解释了，就这么attach
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        //itemTouchHelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -73,21 +81,21 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
                     public void run() {
                         mRecyclerView.onStopRefresh();
                     }
-                },2000);
+                }, 1000);
             }
         });
 
         mRecyclerView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(),""+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
         mRecyclerView.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(int position) {
-                Toast.makeText(getApplicationContext(),"long click "+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "long click " + position, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -100,19 +108,19 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
                     public void run() {
                         mRecyclerView.onStopLoad();
                         for (int i = 0; i < 20; i++) {
-                            mList.add("测试数据"+i);
+                            mList.add("测试数据" + i);
                         }
 
                         adapter.notifyDataSetChanged();
                     }
-                },2000);
+                }, 1000);
             }
         });
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 20; i++) {
-                    mList.add("测试数据"+i);
+                    mList.add("测试数据" + i);
                 }
                 adapter.notifyDataSetChanged();
 
@@ -127,7 +135,48 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
                  */
 
             }
-        },2000);
+        }, 1000);
+
+
+
+        //---------------    头部轮播   ----------------------//
+        mBannerList.add("http://img5.imgtn.bdimg.com/it/u=2617197204,2648632269&fm=15&gp=0.jpg");
+        mBannerList.add("http://img1.imgtn.bdimg.com/it/u=4157134066,1594146451&fm=15&gp=0.jpg");
+        mBannerList.add("http://img4.imgtn.bdimg.com/it/u=561664270,3411990450&fm=15&gp=0.jpg");
+        mBannerList.add("http://img0.imgtn.bdimg.com/it/u=3791883986,637837532&fm=27&gp=0.jpg");
+        mBannerList.add("http://img4.imgtn.bdimg.com/it/u=1931147940,1655865016&fm=15&gp=0.jpg");
+        mBannerList.add("http://img5.imgtn.bdimg.com/it/u=363482050,555400723&fm=15&gp=0.jpg");
+
+        BannerView bannerView = (BannerView) LayoutInflater.from(this)
+                .inflate(R.layout.layout_banner_view, mRecyclerView, false);
+
+        bannerView.setAdapter(new BannerAdapter() {
+            @Override
+            public View getView(int position, View convertView) {
+                if (convertView == null) {
+                    convertView = View.inflate(getApplicationContext(),R.layout.item_test_bannerview,null);
+                }
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.item_banner);
+                Glide.with(getApplicationContext()).load(mBannerList.get(position)).into(imageView);
+                return convertView;
+            }
+
+            @Override
+            public int getCount() {
+                return mBannerList.size();
+            }
+        });
+        bannerView.setOnBannerItemClickListener(new BannerViewPager.BannerItemClickListener() {
+            @Override
+            public void click(int position) {
+                Toast.makeText(getApplicationContext(), position+"", Toast.LENGTH_SHORT).show();
+            }
+        });
+        // 开启滚动
+        bannerView.startRoll();
+        mRecyclerView.addHeaderView(bannerView);
+        //---------------    头部轮播   ----------------------//
+
 
     }
 
@@ -211,6 +260,5 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity {
             viewHolder.itemView.setTranslationX(0);
         }
     });
-
 
 }

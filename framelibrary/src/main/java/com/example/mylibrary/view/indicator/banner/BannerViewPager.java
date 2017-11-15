@@ -83,7 +83,7 @@ public class BannerViewPager extends ViewPager {
             @Override
             public void handleMessage(Message msg) {
                 // 每隔*s后切换到下一页
-                setCurrentItem(getCurrentItem() + 1);
+                setCurrentItem(getCurrentItem() + 1,true);
                 // 不断循环执行
                 startRoll();
             }
@@ -237,7 +237,6 @@ public class BannerViewPager extends ViewPager {
                     if (activity == mActivity) {
                         // 开启轮播
                         startRoll();
-                        // mHandler.sendEmptyMessageDelayed(mCutDownTime, SCROLL_MSG);
                     }
                 }
 
