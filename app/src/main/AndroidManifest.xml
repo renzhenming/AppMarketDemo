@@ -49,7 +49,9 @@
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
         <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
         <activity android:name=".TestHookActivity_Registered" />
-        <activity android:name=".TestCustomRecyclerViewActivity">
+        <activity android:name=".TestCustomRecyclerViewActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -141,6 +141,57 @@ public class BannerViewPager extends ViewPager {
         super.onDetachedFromWindow();
     }
 
+
+    /**
+     * *********************************************************************************************
+     *
+     * 在RecyclerView中使用ViewPager时，会出现两个诡异的bug：
+     *
+     *    1.RecyclerView滚动上去，直至ViewPager看不见，再滚动下来，ViewPager下一次切换没有动画
+     *
+     *    2.初次加载显示页面的时候，如果已经设置了viewpager到recyclerview中，从服务器拿到数据后进行刷新，notify，也会导致
+     *    同样的问题，viewpager第一次切换没有动画
+     *
+     * 原因:
+     *
+     * ViewPager里有一个私有变量mFirstLayout，它是表示是不是第一次显示布局，如果是true，则使用无动画的方式显示当前item，
+     * 如果是false，则使用动画方式显示当前item。
+     *
+     * 源码如下:
+     *
+     * void setCurrentItemInternal(int item, boolean smoothScroll, boolean always, int velocity) {
+     *        ...
+     *
+     * if (mFirstLayout) {
+     *        // We don't have any idea how big we are yet and shouldn't have any pages either.
+     *        // Just set things up and let the pending layout handle things.
+     *        mCurItem = item;
+     *       if (dispatchSelected) {
+     *          dispatchOnPageSelected(item);
+     *       }
+     *       requestLayout();
+     * } else {
+     *       populate(item);
+     *       scrollToItem(item, smoothScroll, velocity, dispatchSelected);
+     *       ...
+     * }
+     *
+     * 当ViewPager滚动上去后，因为RecyclerView的回收机制，ViewPager会走onDetachFromWindow，当再次滚动下来时，
+     * ViewPager会走onAttachedToWindow，而问题就出在onAttachToWindow。
+     *
+     * @Override
+     *  protected void onAttachedToWindow() {
+     *      super.onAttachedToWindow();
+     *      mFirstLayout = true;
+     *  }
+     *
+     * 解决办法：
+     *
+     * 重写onAttachedToWindow方法，把mFirstLayout再重置成false，因为mFirstLayout是private变量，我们不能直接访问，
+     * 所以只能反射了。
+     *
+     * *********************************************************************************************
+     */
     @Override
     protected void onAttachedToWindow() {
         if (mAdapter != null) {
@@ -150,6 +201,15 @@ public class BannerViewPager extends ViewPager {
             mActivity.getApplication().registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
         }
         super.onAttachedToWindow();
+        try {
+            Field mFirstLayout = ViewPager.class.getDeclaredField("mFirstLayout");
+            mFirstLayout.setAccessible(true);
+            mFirstLayout.set(this,false);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

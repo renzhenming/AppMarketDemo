@@ -9,7 +9,9 @@
 
     <com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView
         android:id="@+id/recyclerview"
+        android:layout_below="@+id/banner_view"
         android:layout_width="match_parent"
+        android:layout_marginTop="-1dp"
         android:layout_height="match_parent"></com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView>
     <include layout="@layout/layout_loading_state"/>
 </RelativeLayout>

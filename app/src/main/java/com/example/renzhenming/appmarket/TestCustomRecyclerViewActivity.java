@@ -149,7 +149,6 @@ public class TestCustomRecyclerViewActivity extends AppCompatActivity{
 
         BannerView bannerView = (BannerView) LayoutInflater.from(this)
                 .inflate(R.layout.layout_banner_view, mRecyclerView, false);
-
         bannerView.setAdapter(new BannerAdapter() {
             @Override
             public View getView(int position, View convertView) {
