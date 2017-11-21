@@ -41,6 +41,13 @@ class CommonViewHelper {
             textView.setText(charSequence);
     }
 
+
+    public void setGravity(int viewId, int gravity) {
+        TextView textView = getView(viewId);
+        if (textView != null)
+            textView.setGravity(gravity);
+    }
+
     /**
      * 点击事件
      * @param viewId
@@ -83,4 +90,5 @@ class CommonViewHelper {
             view.setVisibility(integer);
         }
     }
+
 }

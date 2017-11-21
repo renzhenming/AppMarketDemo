@@ -142,7 +142,7 @@ public class BannerViewPager extends ViewPager {
     }
 
 
-    /**
+    /** rzm add
      * *********************************************************************************************
      *
      * 在RecyclerView中使用ViewPager时，会出现两个诡异的bug：

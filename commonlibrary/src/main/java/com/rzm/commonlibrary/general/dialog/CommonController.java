@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.rzm.commonlibrary.R;
+import cn.easyar.sightplus.R;
 
 /**
  * Created by renzhenming on 2017/8/14.
@@ -48,7 +48,8 @@ public class CommonController {
         public int mViewLayoutResId;
         //存放字体的修改
         public SparseArray<CharSequence> mTextArray = new SparseArray<>();
-
+        //存放字体的修改
+        public SparseArray<Integer> mGravityArray = new SparseArray<>();
         //存放view的显示隐藏状态
         public SparseArray<Integer> mViewVisible = new SparseArray<>();
         //存放点击事件
@@ -119,6 +120,12 @@ public class CommonController {
                 mAlert.setText(mTextArray.keyAt(i),mTextArray.valueAt(i));
             }
 
+            //设置gravity
+            int gravityArraySize = mGravityArray.size();
+            for (int i = 0 ; i < gravityArraySize;i++){
+                mAlert.setGravity(mTextArray.keyAt(i),mGravityArray.valueAt(i));
+            }
+
             //设置点击
             int clickArraySize = mClickArray.size();
             for (int i = 0 ; i < clickArraySize;i++){
@@ -172,6 +179,12 @@ public class CommonController {
      */
     public void setText(int viewId, CharSequence charSequence) {
         mViewHelper.setText(viewId,charSequence);
+    }
+    /**
+     * 设置gravity
+     */
+    public void setGravity(int viewId,int gravity){
+        mViewHelper.setGravity(viewId,gravity);
     }
 
     /**

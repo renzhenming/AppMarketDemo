@@ -1,7 +1,6 @@
 package com.rzm.commonlibrary.general.dialog;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -10,7 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.rzm.commonlibrary.R;
+import cn.easyar.sightplus.R;
+
+/*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View view) {
+        CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
+        .setContentView(R.layout.dialog)
+        .setText(R.id.toast,"我是新的dialog")
+        .fullWidth()
+        // 可以设置宽度占屏幕百分比  widthPercent(0.9f)
+        .alignBottom(true)
+        .show();
+
+        //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
+        // *//*final EditText mEditText = dialog.getView(输入框的id);
+        dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
+        }
+        });*//*
+}});*/
 
 /**
  * Created by renzhenming on 2017/8/14.
@@ -58,6 +78,12 @@ public class CommonDialog extends CustomDialog {
             return this;
         }
 
+        //设置textview中字体的gravity
+        public Builder setGravity(int viewId,int gravity){
+            P.mGravityArray.put(viewId,gravity);
+            return this;
+        }
+
         //设置view的显示和隐藏
         public Builder setVisible(int viewId,int visible){
             P.mViewVisible.put(viewId,visible);
@@ -74,18 +100,18 @@ public class CommonDialog extends CustomDialog {
             return this;
         }
 
-        public Builder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
+        public Builder setOnCancelListener(OnCancelListener onCancelListener) {
             P.mOnCancelListener = onCancelListener;
             return this;
         }
 
-        public Builder setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        public Builder setOnDismissListener(OnDismissListener onDismissListener) {
             P.mOnDismissListener = onDismissListener;
             return this;
         }
 
 
-        public Builder setOnKeyListener(DialogInterface.OnKeyListener onKeyListener) {
+        public Builder setOnKeyListener(OnKeyListener onKeyListener) {
             P.mOnKeyListener = onKeyListener;
             return this;
         }
@@ -133,9 +159,13 @@ public class CommonDialog extends CustomDialog {
 
         /**
          * 在屏幕中的位置
+         * @param isAnimation
          * @return
          */
-        public Builder alignBottom(){
+        public Builder alignBottom(boolean isAnimation){
+            if (isAnimation){
+                P.mAnimation = R.style.ActionSheetDialogAnimation;
+            }
             P.mGravity = Gravity.BOTTOM;
             return this;
         }
