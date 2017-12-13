@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import cn.easyar.sightplus.R;
+import com.rzm.commonlibrary.R;
+
 
 /**
  * Created by renzhenming on 2017/8/14.

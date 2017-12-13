@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <com.rzm.commonlibrary.views.FullScreenVideoView
+        android:id="@+id/uVideoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+
+    <ImageView
+        android:id="@+id/finish"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        android:src="@drawable/back_white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#66000000"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <FrameLayout
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:id="@+id/layout_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/id_rv_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/positionIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="35dp"
+                    android:src="@drawable/shape_video_cut_seek" />
+
+                <LinearLayout
+                    android:id="@+id/id_seekBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/layout_bottom_text"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:text="只能发布15秒内的视频，请进行裁剪→"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/video_tailor"
+            android:layout_width="286dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="裁剪"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

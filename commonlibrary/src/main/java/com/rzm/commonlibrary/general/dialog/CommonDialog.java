@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import cn.easyar.sightplus.R;
+import com.rzm.commonlibrary.R;
+
 
 /*findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
 @Override
