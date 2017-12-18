@@ -19,11 +19,10 @@
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".TestActivity"
-            android:label="TestActivity"></activity>
+            android:label="TestActivity" />
         <activity android:name=".TestSkinActivity" />
-        <activity android:name=".TestProxyActivity"></activity>
-        <activity android:name=".TestImageActivity">
-        </activity>
+        <activity android:name=".TestProxyActivity" />
+        <activity android:name=".TestImageActivity"></activity>
 
         <service android:name=".test.MessageService">
             <intent-filter>
@@ -49,34 +48,31 @@
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
         <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
         <activity android:name=".TestHookActivity_Registered" />
-        <activity android:name=".TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait"
-            >
-
-        </activity>
-
         <activity
-            android:name="com.example.renzhenming.appmarket.ui.clip.ChooseVideoActivity"
+            android:name=".TestCustomRecyclerViewActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-             >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.example.renzhenming.appmarket.ui.clip.VideoEditActivity"
+            android:name=".ui.clip.VideoEditActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.clip.VideoPreviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-             />
-        <activity android:name="com.example.renzhenming.appmarket.ui.clip.VideoPreviewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            ></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".TestObservableActivity">
+
+        </activity>
     </application>
 
 </manifest>
