@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:id="@+id/home_container"
-    tools:context="com.example.renzhenming.appmarket.TestActivity">
+    tools:context="com.example.renzhenming.appmarket.com.app.renzhenming.appmarket.TestActivity">
 
 
     <TextView

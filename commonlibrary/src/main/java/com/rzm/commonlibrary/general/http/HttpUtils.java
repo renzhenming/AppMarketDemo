@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by renzhenming on 2017/8/20.
+ * Created by rzm on 2017/8/20.
  * 将各种网络引擎进行包装，后期如果需要跟换网络引擎，直接修改简单的代码就可以实现了
  */
 public class HttpUtils{

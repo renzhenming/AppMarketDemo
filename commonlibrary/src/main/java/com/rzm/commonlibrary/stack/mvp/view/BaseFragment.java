@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import com.rzm.commonlibrary.stack.mvp.presenter.IPresenter;
 
 /**
- * Created by renzhenming on 2017/8/5.
+ * Created by rzm on 2017/8/5.
  */
 
 public abstract class BaseFragment<V extends IView,P extends IPresenter<V>> extends Fragment {

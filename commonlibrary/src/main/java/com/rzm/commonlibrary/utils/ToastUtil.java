@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by renzhenming on 2017/7/22.
+ * Created by rzm on 2017/7/22.
  */
 public class ToastUtil {
     private static Toast mToast;

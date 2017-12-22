@@ -9,7 +9,7 @@ import android.view.View;
 import com.rzm.commonlibrary.inject.ViewBind;
 
 /**
- * Created by renzhenming on 2017/8/8.
+ * Created by rzm on 2017/8/8.
  * 基于模板设计模式的基类，以传统mvc为架构
  *
  * BaseActivity中只能放一些通用的方法，基本每个activity都要使用的方法，比如类似数据库

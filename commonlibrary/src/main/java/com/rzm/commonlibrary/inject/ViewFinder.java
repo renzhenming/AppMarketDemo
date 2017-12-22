@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.view.View;
 
 /**
- * Created by renzhenming on 2017/8/6.
+ * Created by rzm on 2017/8/6.
  * view的 findviewbyid的辅助类
  */
 

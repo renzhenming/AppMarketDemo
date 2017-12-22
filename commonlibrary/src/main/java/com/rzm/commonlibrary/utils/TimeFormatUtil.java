@@ -1,6 +1,6 @@
 package com.rzm.commonlibrary.utils;
 /**
- * Created by renzhenming on 2017/6/1.
+ * Created by rzm on 2017/6/1.
  */
 import java.text.SimpleDateFormat;
 import java.util.Date;

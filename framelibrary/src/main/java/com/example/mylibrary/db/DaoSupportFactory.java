@@ -6,7 +6,7 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by renzhenming on 2017/8/22.
+ * Created by rzm on 2017/8/22.
  *
  * 1.为什么使用Factory目前的数据是在内存卡中 有时候我们需要放到系统目录 data/data/xxx/database中
  * 获取不同的Factory，可以达到写入位置不同的效果，只需创建另一个Factory

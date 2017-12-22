@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * Created by renzhenming on 2017/8/5.
+ * Created by rzm on 2017/8/5.
  */
 
 public class BasePresenter<V extends IView> implements IPresenter<V> {

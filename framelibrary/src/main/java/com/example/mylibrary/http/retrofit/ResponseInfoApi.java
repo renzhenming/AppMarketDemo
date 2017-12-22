@@ -20,7 +20,7 @@ import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 /**
- * Created by renzhenming on 2017/11/2.
+ * Created by rzm on 2017/11/2.
  */
 
 public interface ResponseInfoApi {

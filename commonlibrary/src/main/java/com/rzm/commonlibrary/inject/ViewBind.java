@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Created by renzhenming on 2017/8/6.
+ * Created by rzm on 2017/8/6.
  */
 
 public class ViewBind {

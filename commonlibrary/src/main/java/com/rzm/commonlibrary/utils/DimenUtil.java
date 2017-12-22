@@ -3,7 +3,7 @@ package com.rzm.commonlibrary.utils;
 import android.content.Context;
 
 /**
- * Created by renzhenming on 2017/7/22.
+ * Created by rzm on 2017/7/22.
  */
 
 public class DimenUtil {

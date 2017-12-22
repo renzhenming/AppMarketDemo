@@ -34,7 +34,7 @@ public void onClick(View view) {
 }});*/
 
 /**
- * Created by renzhenming on 2017/8/14.
+ * Created by rzm on 2017/8/14.
  */
 
 public class CommonDialog extends CustomDialog {

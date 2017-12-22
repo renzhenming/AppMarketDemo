@@ -5,7 +5,7 @@ import android.content.Context;
 import com.rzm.commonlibrary.general.FixDexManager;
 
 /**
- * Created by renzhenming on 2017/10/22.
+ * Created by rzm on 2017/10/22.
  */
 
 public class PluginManager {

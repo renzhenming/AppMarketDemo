@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by renzhenming on 2017/8/10.
+ * Created by rzm on 2017/8/10.
  */
 
 public class ExceptionCrashHandler implements Thread.UncaughtExceptionHandler {

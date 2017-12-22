@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * Created by renzhenming on 2017/10/21.
+ * Created by rzm on 2017/10/21.
  */
 
 public class HookActivityUtil {
@@ -117,7 +117,7 @@ public class HookActivityUtil {
              * AppCompatActivity就会报错
              *
              * Caused by: java.lang.IllegalArgumentException: android.content.pm.PackageManager$NameNotFoundException:
-             * ComponentInfo{com.example.renzhenming.appmarket/com.example.renzhenming.appmarket.TestHookActivity}
+             * ComponentInfo{com.example.rzm.appmarket/com.example.rzm.appmarket.TestHookActivity}
              * at android.support.v4.app.NavUtils.getParentActivityName(NavUtils.java:285)
              *
              * 找到源码中的位置在NavUtils方法中

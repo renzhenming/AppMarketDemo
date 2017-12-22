@@ -7,7 +7,7 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 /**
- * Created by renzhenming on 2017/7/22.
+ * Created by rzm on 2017/7/22.
  */
 public class StatusBarCompatHelper  {
     private static final int INVALID_VAL = -2;

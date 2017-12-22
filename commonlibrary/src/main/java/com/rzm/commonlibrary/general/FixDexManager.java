@@ -15,7 +15,7 @@ import java.util.List;
 import dalvik.system.BaseDexClassLoader;
 
 /**
- * Created by renzhenming on 2017/8/12.
+ * Created by rzm on 2017/8/12.
  * 没有考虑分包的情况，所以缺点就是每次修复都要将整个dex文件注入
  *
  * 热修复实现的一些思路：

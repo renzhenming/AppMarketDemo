@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.renzhenming.appmarket">
+    package="com.app.rzm">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,49 +10,49 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.app.rzm.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name="com.app.rzm.ui.HomeActivity" />
         <activity
-            android:name=".TestActivity"
+            android:name="com.app.rzm.TestActivity"
             android:label="TestActivity" />
-        <activity android:name=".TestSkinActivity" />
-        <activity android:name=".TestProxyActivity" />
-        <activity android:name=".TestImageActivity"></activity>
+        <activity android:name="com.app.rzm.TestSkinActivity" />
+        <activity android:name="com.app.rzm.TestProxyActivity" />
+        <activity android:name="com.app.rzm.TestImageActivity"></activity>
 
-        <service android:name=".test.MessageService">
+        <service android:name="com.app.rzm.test.MessageService">
             <intent-filter>
                 <action android:name="com.renzhenming.getmessage" />
             </intent-filter>
         </service>
         <service
-            android:name=".service.GuardService1"
+            android:name="com.app.rzm.service.GuardService1"
             android:enabled="true"
             android:exported="true"
             android:process=":guardService1" />
         <service
-            android:name=".service.GuardService2"
+            android:name="com.app.rzm.service.GuardService2"
             android:enabled="true"
             android:exported="true"
             android:process=":guardService2" />
         <service
-            android:name=".service.JobWakeUpService"
+            android:name="com.app.rzm.service.JobWakeUpService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
-        <activity android:name=".TestHookActivity_Registered" />
+        <activity android:name="com.app.rzm.ui.selectimage.ChoosePictureActivity" />
+        <activity android:name="com.app.rzm.TestCoordinatorCollapsingToolbarActivity" />
+        <activity android:name="com.app.rzm.TestHookActivity_Registered" />
         <activity
-            android:name=".TestCustomRecyclerViewActivity"
+            android:name="com.app.rzm.TestCustomRecyclerViewActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ui.clip.ChooseVideoActivity"
+            android:name="com.app.rzm.ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -62,15 +62,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.clip.VideoEditActivity"
+            android:name="com.app.rzm.ui.clip.VideoEditActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.clip.VideoPreviewActivity"
+            android:name="com.app.rzm.ui.clip.VideoPreviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".TestObservableActivity">
+        <activity android:name="com.app.rzm.TestObservableActivity">
 
         </activity>
     </application>

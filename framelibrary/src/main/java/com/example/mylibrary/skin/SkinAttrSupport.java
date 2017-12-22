@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by renzhenming on 2017/8/30.
+ * Created by rzm on 2017/8/30.
  * 属性解析支持
  */
 

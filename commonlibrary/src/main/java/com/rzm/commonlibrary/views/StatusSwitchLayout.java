@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.rzm.commonlibrary.R;
 
 /**
- * Created by renzhenming on 2017/6/1.
+ * Created by rzm on 2017/6/1.
  * 无数据，加载异常，正在加载 状态显示
  * 使用方法：
  * mLoadState = (StatusSwitchLayout) getView.findViewById(R.id.status_layout);

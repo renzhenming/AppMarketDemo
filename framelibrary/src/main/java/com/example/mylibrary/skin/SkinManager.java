@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by renzhenming on 2017/8/30.
+ * Created by rzm on 2017/8/30.
  */
 
 public class SkinManager {

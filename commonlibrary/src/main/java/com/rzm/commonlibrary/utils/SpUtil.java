@@ -1,7 +1,7 @@
 package com.rzm.commonlibrary.utils;
 
 /**
- * Created by renzhenming on 2017/7/22.
+ * Created by rzm on 2017/7/22.
  */
 
 import android.content.Context;

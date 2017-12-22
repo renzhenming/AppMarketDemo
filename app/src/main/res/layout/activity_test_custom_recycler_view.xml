@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/container"
-    tools:context="com.example.renzhenming.appmarket.TestCustomRecyclerViewActivity">
+    tools:context="com.example.renzhenming.appmarket.com.app.renzhenming.appmarket.TestCustomRecyclerViewActivity">
 
     <com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView
         android:id="@+id/recyclerview"

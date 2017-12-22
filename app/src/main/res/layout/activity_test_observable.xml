@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.renzhenming.appmarket.TestObservableActivity">
+    tools:context="com.example.renzhenming.appmarket.com.app.renzhenming.appmarket.TestObservableActivity">
     <Button
         android:layout_width="match_parent"
         android:text="改变数据"

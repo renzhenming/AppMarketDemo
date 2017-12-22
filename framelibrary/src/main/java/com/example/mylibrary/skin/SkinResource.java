@@ -12,7 +12,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 
 /**
- * Created by renzhenming on 2017/8/30.
+ * Created by rzm on 2017/8/30.
  * 皮肤资源管理
  */
 

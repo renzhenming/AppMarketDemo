@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Created by renzhenming on 2016/10/29.
+ * Created by rzm on 2016/10/29.
  *
  * 系统源码如何处理安装中的签名校验
  * PackageParser找不到这个类，被隐藏了。用反射

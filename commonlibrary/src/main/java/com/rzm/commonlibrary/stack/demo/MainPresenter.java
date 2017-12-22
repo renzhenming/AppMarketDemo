@@ -5,7 +5,7 @@ import android.content.Context;
 import com.rzm.commonlibrary.stack.mvp.presenter.BasePresenter;
 
 /**
- * Created by renzhenming on 2017/8/5.
+ * Created by rzm on 2017/8/5.
  */
 
 public class MainPresenter extends BasePresenter<MainView> {

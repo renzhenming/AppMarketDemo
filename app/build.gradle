@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.0'
     defaultConfig {
-        applicationId "com.example.renzhenming.appmarket"
+        applicationId "com.example.rzm.appmarket"
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 15
         targetSdkVersion 26
@@ -44,7 +44,7 @@ android {
     task ndkBuild(type: Exec) {//设置新的so的生成目录
 
         //Mac
-        commandLine "/Users/renzhenming/Downloads/sdk/ndk-bundle/ndk-build",
+        commandLine "/Users/rzm/Downloads/sdk/ndk-bundle/ndk-build",
                 'NDK_PROJECT_PATH=build/intermediates/ndk',
                 'NDK_LIBS_OUT=libs',
                 'APP_BUILD_SCRIPT=jni/Android.mk',

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by renzhenming on 2017/8/10.
+ * Created by rzm on 2017/8/10.
  */
 
 public class BaseApplication extends Application {

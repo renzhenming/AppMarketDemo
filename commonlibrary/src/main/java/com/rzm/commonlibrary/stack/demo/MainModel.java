@@ -3,7 +3,7 @@ package com.rzm.commonlibrary.stack.demo;
 import android.os.SystemClock;
 
 /**
- * Created by renzhenming on 2017/8/5.
+ * Created by rzm on 2017/8/5.
  */
 
 public class MainModel {

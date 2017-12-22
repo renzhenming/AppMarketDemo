@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.mylibrary.R;
 
 /**
- * Created by renzhenming on 2017/11/9.
+ * Created by rzm on 2017/11/9.
  */
 
 public class DefaultLoadCreator extends LoadViewCreator {

@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 /**
- * Created by renzhenming on 2017/9/2.
+ * Created by rzm on 2017/9/2.
  */
 
 public class SkinPreUtils {

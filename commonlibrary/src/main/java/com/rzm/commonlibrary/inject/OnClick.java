@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by renzhenming on 2017/8/6.
+ * Created by rzm on 2017/8/6.
  * view 点击事件注解的annotation
  *
  * @Target(ElementType.FIELD):代表annotation的位置

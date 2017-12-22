@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 /**
- * Created by renzhenming on 2017/4/25.
+ * Created by rzm on 2017/4/25.
  * dialog 消失时自动隐藏软键盘
  */
 

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 /**
- * Created by renzhenming on 2017/8/22.
+ * Created by rzm on 2017/8/22.
  */
 
 public interface IDaoSupport<T> {

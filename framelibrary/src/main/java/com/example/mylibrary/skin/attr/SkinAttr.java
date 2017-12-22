@@ -3,7 +3,7 @@ package com.example.mylibrary.skin.attr;
 import android.view.View;
 
 /**
- * Created by renzhenming on 2017/8/30.
+ * Created by rzm on 2017/8/30.
  */
 
 public class SkinAttr {
