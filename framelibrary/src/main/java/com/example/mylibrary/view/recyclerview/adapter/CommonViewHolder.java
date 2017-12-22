@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.recyclerview.adapter;
+package com.example.mylibrary.view.recyclerview.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

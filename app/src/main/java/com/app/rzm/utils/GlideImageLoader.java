@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
+import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
 
 /**

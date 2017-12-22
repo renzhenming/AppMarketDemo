@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.mylibrary.view.indicator.squre.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.mylibrary.view.squre.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.example.mylibrary.view.indicator.squre.SquareImageView
+    <com.example.mylibrary.view.squre.SquareImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -49,4 +49,4 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-</com.example.mylibrary.view.indicator.squre.SquareFrameLayout>
+</com.example.mylibrary.view.squre.SquareFrameLayout>

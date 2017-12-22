@@ -7,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.ViewGroup;
 
-import com.example.mylibrary.view.indicator.indicator.ColorTrackTextView;
-import com.example.mylibrary.view.indicator.indicator.IndicatorAdapter;
-import com.example.mylibrary.view.indicator.indicator.TrackIndicatorView;
+import com.example.mylibrary.view.indicator.ColorTrackTextView;
+import com.example.mylibrary.view.indicator.IndicatorAdapter;
+import com.example.mylibrary.view.indicator.TrackIndicatorView;
 import com.app.rzm.R;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.stack.mvc.BaseFragment;

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.banner;
+package com.example.mylibrary.view.banner;
 
 import android.content.Context;
 import android.view.animation.Interpolator;

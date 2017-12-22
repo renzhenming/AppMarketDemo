@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.indicator;
+package com.example.mylibrary.view.indicator;
 
 import android.view.View;
 import android.view.ViewGroup;

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.text.Html;
 import android.view.View;
 
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
+import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
+import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
 import com.app.rzm.bean.DiscoverListResult;
 import com.app.rzm.utils.GlideImageLoader;

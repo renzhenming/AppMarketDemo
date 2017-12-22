@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
+import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
+import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
 
 import java.util.ArrayList;

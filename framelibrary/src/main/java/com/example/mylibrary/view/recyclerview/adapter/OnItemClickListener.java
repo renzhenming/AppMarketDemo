@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.recyclerview.adapter;
+package com.example.mylibrary.view.recyclerview.adapter;
 
 /**
  * Created by Darren on 2016/12/28.

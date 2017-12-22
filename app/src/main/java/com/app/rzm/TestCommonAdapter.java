@@ -2,10 +2,9 @@ package com.app.rzm;
 
 import android.content.Context;
 
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.MultiTypeSupport;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.CommonViewHolder;
-import com.app.rzm.R;
+import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
+import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
+import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 
 import java.util.List;
 

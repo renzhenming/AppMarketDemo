@@ -14,17 +14,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.view.indicator.banner.BannerAdapter;
-import com.example.mylibrary.view.indicator.banner.BannerView;
-import com.example.mylibrary.view.indicator.banner.BannerViewPager;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.MultiTypeSupport;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.OnItemClickListener;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.OnLongClickListener;
-import com.example.mylibrary.view.indicator.recyclerview.view.DefaultLoadCreator;
-import com.example.mylibrary.view.indicator.recyclerview.view.DefaultRefreshCreator;
-import com.example.mylibrary.view.indicator.recyclerview.view.LoadRefreshRecyclerView;
-import com.example.mylibrary.view.indicator.recyclerview.view.RefreshRecyclerView;
-import com.app.rzm.R;
+import com.example.mylibrary.view.banner.BannerAdapter;
+import com.example.mylibrary.view.banner.BannerView;
+import com.example.mylibrary.view.banner.BannerViewPager;
+import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
+import com.example.mylibrary.view.recyclerview.adapter.OnItemClickListener;
+import com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener;
+import com.example.mylibrary.view.recyclerview.view.DefaultLoadCreator;
+import com.example.mylibrary.view.recyclerview.view.DefaultRefreshCreator;
+import com.example.mylibrary.view.recyclerview.view.LoadRefreshRecyclerView;
+import com.example.mylibrary.view.recyclerview.view.RefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.recyclerview.view;
+package com.example.mylibrary.view.recyclerview.view;
 
 import android.content.Context;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.indicator;
+package com.example.mylibrary.view.indicator;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;

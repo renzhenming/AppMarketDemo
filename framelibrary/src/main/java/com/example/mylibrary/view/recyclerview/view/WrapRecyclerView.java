@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.recyclerview.view;
+package com.example.mylibrary.view.recyclerview.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.mylibrary.view.indicator.recyclerview.adapter.OnItemClickListener;
+import com.example.mylibrary.view.recyclerview.adapter.OnItemClickListener;
 
 /**
  * Created by Darren on 2016/12/29.
@@ -224,7 +224,7 @@ public class WrapRecyclerView extends RecyclerView {
      * 给条目设置点击和长按事件
      *********************/
     public OnItemClickListener mItemClickListener;
-    public com.example.mylibrary.view.indicator.recyclerview.adapter.OnLongClickListener mLongClickListener;
+    public com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener mLongClickListener;
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mItemClickListener = itemClickListener;
@@ -234,7 +234,7 @@ public class WrapRecyclerView extends RecyclerView {
         }
     }
 
-    public void setOnLongClickListener(com.example.mylibrary.view.indicator.recyclerview.adapter.OnLongClickListener longClickListener) {
+    public void setOnLongClickListener(com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener longClickListener) {
         this.mLongClickListener = longClickListener;
 
         if (mWrapRecyclerAdapter != null) {

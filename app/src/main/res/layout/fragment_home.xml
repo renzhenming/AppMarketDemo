@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <com.example.mylibrary.view.indicator.indicator.TrackIndicatorView
+    <com.example.mylibrary.view.indicator.TrackIndicatorView
         android:layout_width="match_parent"
         android:orientation="horizontal"
         app:tabVisibleNums="6"

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator.recyclerview.view;
+package com.example.mylibrary.view.recyclerview.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,8 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mylibrary.view.indicator.recyclerview.adapter.OnItemClickListener;
-import com.example.mylibrary.view.indicator.recyclerview.adapter.OnLongClickListener;
+import com.example.mylibrary.view.recyclerview.adapter.OnItemClickListener;
+import com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener;
 
 /**
  * Created by Darren on 2016/12/29.

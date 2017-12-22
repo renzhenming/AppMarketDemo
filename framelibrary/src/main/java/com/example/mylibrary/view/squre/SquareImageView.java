@@ -1,19 +1,19 @@
-package com.example.mylibrary.view.indicator.squre;
+package com.example.mylibrary.view.squre;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 
-public class SquareFrameLayout extends FrameLayout{
-    public SquareFrameLayout(Context context) {
+public class SquareImageView extends ImageView{
+    public SquareImageView(Context context) {
         super(context);
     }
 
-    public SquareFrameLayout(Context context, AttributeSet attrs) {
+    public SquareImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -24,6 +24,6 @@ public class SquareFrameLayout extends FrameLayout{
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = width;
         // 设置宽高为一样
-        setMeasuredDimension(width,height);
+        setMeasuredDimension(width, height);
     }
 }
