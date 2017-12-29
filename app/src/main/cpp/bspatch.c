@@ -45,7 +45,7 @@ __FBSDID("$FreeBSD: src/usr.bin/bsdiff/bspatch/bspatch.c,v 1.1 2005/08/06 01:59:
 #include <fcntl.h>
 
 
-#include "head/com_app_rzm_utils_PatchUtils.h"
+#include "head/com_app_rzm_utils_BsUpdateUtils.h"
 
 
 static off_t offtin(u_char *buf) {
@@ -222,7 +222,7 @@ int combine(int argc, char *argv[]) {
     return 0;
 }
 
-JNIEXPORT void JNICALL Java_com_app_rzm_utils_PatchUtils_combine
+JNIEXPORT void JNICALL Java_com_app_rzm_utils_BsUpdateUtils_combine
         (JNIEnv *env, jclass jclz, jstring old_apk_path, jstring new_apk_path, jstring patch_path) {
 
     //1 参数封装

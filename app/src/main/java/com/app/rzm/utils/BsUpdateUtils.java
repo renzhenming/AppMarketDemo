@@ -5,7 +5,7 @@ package com.app.rzm.utils;
  * 增量更新
  */
 
-public class PatchUtils {
+public class BsUpdateUtils {
     static{
         System.loadLibrary("bspatch");
     }
@@ -17,4 +17,13 @@ public class PatchUtils {
      * @param patchPath 差分包路径 从服务器上下载的
      */
     public static native void combine(String oldAPKPath,String newAPKPath,String patchPath);
+
+
+    /**
+     * 新版和旧版生成差分包
+     * @param oldAPKPath
+     * @param newAPKPath
+     * @param patchPath
+     */
+    public static native void diff(String oldAPKPath,String newAPKPath,String patchPath);
 }

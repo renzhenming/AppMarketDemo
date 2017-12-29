@@ -7,7 +7,7 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
-import com.app.rzm.utils.PatchUtils;
+import com.app.rzm.utils.BsUpdateUtils;
 import com.example.mylibrary.BaseSkinActivity;
 import com.rzm.commonlibrary.utils.AppSignatureUtils;
 
@@ -16,10 +16,16 @@ import java.io.File;
 public class TestBsPatchActivity extends BaseSkinActivity {
 
     private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"version_1_2.patch";
+            +File.separator+"patch.patch";
+
+    private String resultApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"release.apk";
+
+    private String oldApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"old.apk";
 
     private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"release.apk";
+            +File.separator+"new.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,18 @@ public class TestBsPatchActivity extends BaseSkinActivity {
         setContentView(R.layout.activity_test_bs_patch);
     }
 
+    public void diff(View view) {
+        if (!new File(oldApkPath).exists()) {
+            Toast.makeText(getApplicationContext(),"旧版本包不存在",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!new File(newApkPath).exists()) {
+            Toast.makeText(getApplicationContext(),"新版本包不存在",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        BsUpdateUtils.diff(oldApkPath,newApkPath,patch_path);
+        Toast.makeText(getApplicationContext(),"差分包生成成功",Toast.LENGTH_SHORT).show();
+    }
 
     public void patch(View view) {
         //耗时操作，开线程
@@ -35,7 +53,7 @@ public class TestBsPatchActivity extends BaseSkinActivity {
             Toast.makeText(getApplicationContext(),"差分包不存在",Toast.LENGTH_SHORT).show();
             return;
         }
-        PatchUtils.combine(getPackageResourcePath(),newApkPath,patch_path);
+        BsUpdateUtils.combine(getPackageResourcePath(),resultApkPath,patch_path);
         //校验签名
         try {
             if (AppSignatureUtils.signatureEquals(AppSignatureUtils.getSignature(this),AppSignatureUtils.getSignature(newApkPath))){
