@@ -1,0 +1,77 @@
+package com.app.rzm;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.Toast;
+
+import com.app.rzm.utils.PatchUtils;
+import com.example.mylibrary.BaseSkinActivity;
+import com.rzm.commonlibrary.utils.AppSignatureUtils;
+
+import java.io.File;
+
+public class TestBsPatchActivity extends BaseSkinActivity {
+
+    private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"version_1_2.patch";
+
+    private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
+            +File.separator+"release.apk";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test_bs_patch);
+    }
+
+
+    public void patch(View view) {
+        //耗时操作，开线程
+        //getPackageResourcePath 安装的apk的路径
+        if (!new File(patch_path).exists()) {
+            Toast.makeText(getApplicationContext(),"差分包不存在",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        PatchUtils.combine(getPackageResourcePath(),newApkPath,patch_path);
+        //校验签名
+        try {
+            if (AppSignatureUtils.signatureEquals(AppSignatureUtils.getSignature(this),AppSignatureUtils.getSignature(newApkPath))){
+                Toast.makeText(getApplicationContext(),"签名校验成功",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getApplicationContext(),"签名校验失败",Toast.LENGTH_LONG).show();
+                return;
+            }
+            //安装apk
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
+                    "application/vnd.android.package-archive");
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initTitle() {
+
+    }
+
+    @Override
+    public void setContentView() {
+
+    }
+
+}

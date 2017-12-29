@@ -1,10 +1,15 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-
+#图片压缩
 add_library( compress_image
              SHARED
              src/main/cpp/compress_image.cpp )
+
+#增量更新
+add_library( bspatch
+             SHARED
+             src/main/cpp/bspatch.c )
 
 find_library( log-lib
               log )
@@ -29,6 +34,7 @@ include_directories( src/main/cpp/jpeg )
 
 # 将预构建库与本地库相连
 target_link_libraries( compress_image
+                       bspatch
                        libjpeg
                        ${jnigraphics-lib}
                        ${log-lib} )

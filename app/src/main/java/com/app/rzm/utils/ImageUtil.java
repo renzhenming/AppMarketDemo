@@ -4,10 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * Email 240336124@qq.com
- * Created by Darren on 2017/4/16.
- * Version 1.0
- * Description: 图片处理
+ * 图片压缩
  */
 public class ImageUtil {
     static {

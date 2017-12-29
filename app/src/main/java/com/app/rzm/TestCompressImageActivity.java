@@ -3,7 +3,6 @@ package com.app.rzm;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,54 +11,27 @@ import android.widget.Toast;
 
 import com.app.rzm.ui.selectimage.ChoosePictureActivity;
 import com.app.rzm.utils.ImageUtil;
-import com.app.rzm.utils.PatchUtils;
 import com.example.mylibrary.BaseSkinActivity;
 import com.example.mylibrary.navigation.CommonNavigationBar;
-import com.app.rzm.R;
 import com.app.rzm.ui.selectimage.ImageSelector;
 import com.rzm.commonlibrary.general.permission.PermissionDenied;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionPermanentDenied;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
-import com.rzm.commonlibrary.utils.AppSignatureUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class TestImageActivity extends BaseSkinActivity {
+public class TestCompressImageActivity extends BaseSkinActivity {
     private static final int READ_STORAGE = 123;
     private static final int CALL_PHONE = 124;
     private ArrayList<String> mImageList;
     private final int SELECT_IMAGE_REQUEST = 0x0011;
-    private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"version_1_2.patch";
 
-    private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"release.apk";
 
     @Override
     protected void initData() {
-        //耗时操作，开线程
-        //getPackageResourcePath 安装的apk的路径
-        if (!new File(patch_path).exists())
-            return;
-        PatchUtils.combine(getPackageResourcePath(),newApkPath,patch_path);
-        //校验签名
-        try {
-            if (AppSignatureUtils.signatureEquals(AppSignatureUtils.getSignature(this),AppSignatureUtils.getSignature(newApkPath))){
-                Toast.makeText(getApplicationContext(),"签名校验成功",Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(getApplicationContext(),"签名校验失败",Toast.LENGTH_LONG).show();
-                return;
-            }
-            //安装apk
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
-                    "application/vnd.android.package-archive");
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
     }
 
@@ -96,7 +68,7 @@ public class TestImageActivity extends BaseSkinActivity {
 
     @Override
     public void setContentView() {
-        setContentView(R.layout.activity_test_image);
+        setContentView(R.layout.activity_test_compress_image);
     }
 
     // 选择图片
