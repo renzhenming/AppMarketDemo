@@ -1,7 +1,5 @@
 package com.app.rzm;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -10,13 +8,14 @@ import android.widget.Toast;
 import com.app.rzm.utils.PatchUtils;
 import com.example.mylibrary.BaseSkinActivity;
 import com.rzm.commonlibrary.utils.AppSignatureUtils;
+import com.rzm.commonlibrary.utils.AppUtils;
 
 import java.io.File;
 
 public class TestBsPatchActivity extends BaseSkinActivity {
 
     private String patch_path = Environment.getExternalStorageDirectory().getAbsolutePath()
-            +File.separator+"version_1_2.patch";
+            +File.separator+"patch.patch";
 
     private String newApkPath = Environment.getExternalStorageDirectory().getAbsolutePath()
             +File.separator+"release.apk";
@@ -44,11 +43,11 @@ public class TestBsPatchActivity extends BaseSkinActivity {
                 Toast.makeText(getApplicationContext(),"签名校验失败",Toast.LENGTH_LONG).show();
                 return;
             }
-            //安装apk
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(newApkPath)),
-                    "application/vnd.android.package-archive");
-            startActivity(intent);
+            //安装apk,7.0以下版本
+            //AppUtils.installApp(this,new File(newApkPath));
+
+            //兼容7.0，还是有问题，这个方式还有待进一步完善
+            //AppUtils.installApkOver7(this,new File(newApkPath));
         } catch (Exception e) {
             e.printStackTrace();
         }

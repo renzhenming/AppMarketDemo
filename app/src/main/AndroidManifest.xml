@@ -16,6 +16,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- authorities:自定义名字 为避免重复建议设为：包名.fileprovider-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.app.rzm.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".TestActivity"
