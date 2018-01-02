@@ -11,6 +11,11 @@ add_library( bspatch
              SHARED
              src/main/cpp/bspatch.c )
 
+#增量更新
+add_library( bsdiff
+             SHARED
+             src/main/cpp/bsdiff.c )
+
 find_library( log-lib
               log )
 find_library( jnigraphics-lib
