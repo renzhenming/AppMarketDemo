@@ -12,7 +12,7 @@
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
-        android:text="旧版本1.0"
+        android:text="新版本2.0"
         android:layout_height="wrap_content" />
 
     <Button

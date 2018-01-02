@@ -62,10 +62,10 @@ public class TestBsPatchActivity extends BaseSkinActivity {
                 return;
             }
             //安装apk,7.0以下版本
-            //AppUtils.installApp(this,new File(newApkPath));
+            // AppUtils.installApp(this,new File(resultApkPath));
 
-            //兼容7.0，还是有问题，这个方式还有待进一步完善
-            //AppUtils.installApkOver7(this,new File(newApkPath));
+            //兼容7.0
+            AppUtils.installCompat7(this,new File(resultApkPath));
         } catch (Exception e) {
             e.printStackTrace();
         }

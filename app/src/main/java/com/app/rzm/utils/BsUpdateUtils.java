@@ -8,6 +8,7 @@ package com.app.rzm.utils;
 public class BsUpdateUtils {
     static{
         System.loadLibrary("bspatch");
+        System.loadLibrary("bsdiff");
     }
 
     /**

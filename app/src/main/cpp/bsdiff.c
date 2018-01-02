@@ -30,6 +30,14 @@ __FBSDID("$FreeBSD: src/usr.bin/bsdiff/bsdiff/bsdiff.c,v 1.1 2005/08/06 01:59:05
 
 #include <sys/types.h>
 
+#include "bspatch/bzlib.c"
+#include "bspatch/crctable.c"
+#include "bspatch/compress.c"
+#include "bspatch/decompress.c"
+#include "bspatch/randtable.c"
+#include "bspatch/blocksort.c"
+#include "bspatch/huffman.c"
+
 #include "bspatch/bzlib.h"
 #include <err.h>
 #include <fcntl.h>
@@ -416,8 +424,8 @@ JNIEXPORT void JNICALL Java_com_app_rzm_utils_BsUpdateUtils_diff
 	char* patch_path_cstr = (char*)(*env)->GetStringUTFChars(env,patch_path, NULL);
 	// 封装参数
 	argv[0] = "diff";
-	argv[1] = new_apk_cstr;
-	argv[2] = old_apk_cstr;
+	argv[1] = old_apk_cstr;
+	argv[2] = new_apk_cstr;
 	argv[3] = patch_path_cstr;
 
 
