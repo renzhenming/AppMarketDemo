@@ -19,12 +19,12 @@ public class TestObservableActivity extends AppCompatActivity implements Observe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_observable);
         mtextView = (TextView) findViewById(R.id.value);
-        TextObserverClass.getObserver().addObserver(this);
+        TextObserverClass.getInstance().addObserver(this);
     }
 
     public void change(View view){
         String value = "更新数据";
-        TextObserverClass.getObserver().changeInfo(value);
+        TextObserverClass.getInstance().changeInfo(value);
     }
 
     @Override
