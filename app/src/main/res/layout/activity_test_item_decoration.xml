@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/container"
-    >
+    tools:context="com.app.rzm.TestItemDecorationActivity">
 
     <com.example.mylibrary.view.recyclerview.view.LoadRefreshRecyclerView
         android:id="@+id/recyclerview"
@@ -12,5 +11,5 @@
         android:layout_width="match_parent"
         android:layout_marginTop="-1dp"
         android:layout_height="match_parent"></com.example.mylibrary.view.recyclerview.view.LoadRefreshRecyclerView>
-    <include layout="@layout/layout_loading_state"/>
-</RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

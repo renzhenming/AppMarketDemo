@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- authorities:自定义名字 为避免重复建议设为：包名.fileprovider-->
+        <!-- authorities:自定义名字 为避免重复建议设为：包名.fileprovider -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.app.rzm.fileprovider"
@@ -58,12 +58,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestCoordinatorCollapsingToolbarActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".TestCoordinatorCollapsingToolbarActivity">
         </activity>
         <activity android:name=".TestHookActivity_Registered" />
         <activity
@@ -72,7 +67,7 @@
         <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.clip.VideoEditActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -83,8 +78,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".TestObservableActivity" />
-        <activity android:name=".TestBsPatchActivity">
+        <activity android:name=".TestBsPatchActivity"></activity>
+        <activity android:name=".TestItemDecorationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
