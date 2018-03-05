@@ -23,4 +23,11 @@
     <string name="text_year_ago">年前</string>
     <string name="update_loading">加载中...</string>
     <string name="loading_failure">加载失败</string>
+    <string name="chat_press_talk">按住 说话</string>
+    <string name="chat_image">图片</string>
+    <string name="chat_file">文件</string>
+    <string name="chat_photo">拍摄</string>
+    <string name="chat_video">小视频</string>
+    <string name="chat_release_send">松开 结束</string>
+    <string name="chat_video_too_short">录制过短，请重试</string>
 </resources>
