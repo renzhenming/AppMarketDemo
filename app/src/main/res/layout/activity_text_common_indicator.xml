@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.app.rzm.TextCommonIndicatorActivity">
+
+    <com.example.mylibrary.view.indicator2.CommonIndicatorView
+        android:id="@+id/indicator"
+        app:tabVisibleNum="7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"></com.example.mylibrary.view.indicator2.CommonIndicatorView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+</LinearLayout>

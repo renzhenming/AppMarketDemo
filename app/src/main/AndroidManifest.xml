@@ -58,11 +58,12 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestCoordinatorCollapsingToolbarActivity"></activity>
+        <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
         <activity android:name=".TestHookActivity_Registered" />
         <activity
             android:name=".TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -78,10 +79,9 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".TestObservableActivity" />
         <activity android:name=".TestBsPatchActivity" />
-        <activity android:name=".TestItemDecorationActivity">
-
-        </activity>
-        <activity android:name=".TestChatViewActivity">
+        <activity android:name=".TestItemDecorationActivity"></activity>
+        <activity android:name=".TestChatViewActivity"></activity>
+        <activity android:name=".TextCommonIndicatorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

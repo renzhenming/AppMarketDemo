@@ -31,4 +31,8 @@
         <attr name="withProportion" format="float"/>
         <attr name="heightProportion" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="CommonIndicatorView">
+        <attr name="tabVisibleNum" format="integer"/>
+    </declare-styleable>
 </resources>
