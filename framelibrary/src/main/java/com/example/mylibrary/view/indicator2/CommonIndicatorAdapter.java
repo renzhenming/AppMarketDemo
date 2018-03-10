@@ -30,4 +30,8 @@ public abstract class CommonIndicatorAdapter<R extends View> {
     public void restoreIndicator(R indicatorView){
 
     }
+
+    public View getBottomTrackView() {
+        return null;
+    }
 }

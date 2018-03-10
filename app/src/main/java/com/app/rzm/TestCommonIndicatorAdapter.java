@@ -1,4 +1,4 @@
-package com.app.rzm.utils;
+package com.app.rzm;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -51,5 +51,17 @@ public class TestCommonIndicatorAdapter extends CommonIndicatorAdapter {
     public void restoreIndicator(View indicatorView) {
         super.restoreIndicator(indicatorView);
         ((TextView)indicatorView.findViewById(R.id.item)).setTextColor(Color.BLACK);
+    }
+
+    /**
+     * 如果不需要底部的指示器，是需要不重写这个方法即可
+     * @return
+     */
+    @Override
+    public View getBottomTrackView() {
+        View view = new View(context);
+        view.setBackgroundColor(Color.RED);
+        view.setLayoutParams(new ViewGroup.LayoutParams(88,8));
+        return view;
     }
 }

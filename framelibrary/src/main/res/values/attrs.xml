@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ColorTrackTextView">
-        <attr name="originColor" format="color"/>
-        <attr name="changeColor" format="color"/>
-    </declare-styleable>
-
-    <declare-styleable name="TrackIndicatorView">
-        <attr name="tabVisibleNums" format="integer"/>
-    </declare-styleable>
-
-    <!-- 轮播条 -->
+    <!-- 自定义轮播条 -->
     <declare-styleable name="BannerView">
         <!-- 点的选中的颜色值 -->
         <attr name="dotIndicatorFocus"  format="color|reference"/>
@@ -32,6 +23,7 @@
         <attr name="heightProportion" format="float"/>
     </declare-styleable>
 
+    <!--自定义Indicator指示器，仿TabLayout效果-->
     <declare-styleable name="CommonIndicatorView">
         <attr name="tabVisibleNum" format="integer"/>
     </declare-styleable>

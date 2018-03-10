@@ -3,9 +3,7 @@ package com.app.rzm;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-import com.app.rzm.utils.TestCommonIndicatorAdapter;
 import com.example.mylibrary.view.indicator2.CommonIndicatorView;
 
 import java.util.ArrayList;
