@@ -7,6 +7,9 @@ import com.example.mylibrary.view.passportview.PassportKeyboard;
 import com.example.mylibrary.view.passportview.PasswordEditText;
 import com.rzm.commonlibrary.utils.ToastUtil;
 
+/**
+ * 模仿支付宝支付密码键盘而写
+ */
 public class TestPasswordKeyboardActivity extends AppCompatActivity implements PasswordEditText.OnInputFinishListener {
 
     private PassportKeyboard mCustomerKeyboard;

@@ -83,7 +83,9 @@
         <activity android:name=".TextCommonIndicatorActivity">
 
         </activity>
-        <activity android:name=".TestPasswordKeyboardActivity">
+        <activity android:name=".TestPasswordKeyboardActivity"
+            android:windowSoftInputMode="stateHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
