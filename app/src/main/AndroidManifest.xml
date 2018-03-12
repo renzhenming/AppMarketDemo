@@ -62,8 +62,7 @@
         <activity android:name=".TestHookActivity_Registered" />
         <activity
             android:name=".TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -79,9 +78,12 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".TestObservableActivity" />
         <activity android:name=".TestBsPatchActivity" />
-        <activity android:name=".TestItemDecorationActivity"></activity>
-        <activity android:name=".TestChatViewActivity"></activity>
+        <activity android:name=".TestItemDecorationActivity" />
+        <activity android:name=".TestChatViewActivity" />
         <activity android:name=".TextCommonIndicatorActivity">
+
+        </activity>
+        <activity android:name=".TestPasswordKeyboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

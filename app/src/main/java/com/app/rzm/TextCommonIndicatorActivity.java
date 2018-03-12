@@ -4,7 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.mylibrary.view.indicator2.CommonIndicatorView;
+import com.example.mylibrary.view.indicator.CommonIndicatorView;
 
 import java.util.ArrayList;
 

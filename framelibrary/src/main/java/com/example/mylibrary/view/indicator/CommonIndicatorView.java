@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator2;
+package com.example.mylibrary.view.indicator;
 
 import android.content.Context;
 import android.content.res.TypedArray;
