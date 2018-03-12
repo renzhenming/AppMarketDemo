@@ -53,6 +53,6 @@ public class ToastUtil {
     }
 
     public static void showToast(Context context, String code) {
-        showCustomToast(context, getMessage(context, code));
+        showCustomToast(context, code);
     }
 }

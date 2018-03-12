@@ -141,9 +141,14 @@ public class PasswordEditText extends EditText {
     /** * 添加密码 */
     public void addPassword(String number) {
         number = getText().toString().trim() + number;
+        if (number.length() == mPasswordNumber){
+            if (listener != null)
+                listener.onInputFinish(number);
+        }
         if (number.length() > mPasswordNumber) {
             return;
         }
+
         setText(number);
     }
     /** * 删除最后一位密码 */
@@ -154,6 +159,16 @@ public class PasswordEditText extends EditText {
         }
         currentText = currentText.substring(0, currentText.length() - 1);
         setText(currentText);
+    }
+
+    private OnInputFinishListener listener;
+
+    public void setOnInputFinishListener(OnInputFinishListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnInputFinishListener{
+        void onInputFinish(String number);
     }
 
 }
