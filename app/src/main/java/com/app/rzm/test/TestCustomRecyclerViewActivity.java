@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.graphics.Color;
 import android.os.Handler;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.app.rzm.R;
 import com.bumptech.glide.Glide;
 import com.example.mylibrary.view.banner.BannerAdapter;
 import com.example.mylibrary.view.banner.BannerView;

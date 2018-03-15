@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

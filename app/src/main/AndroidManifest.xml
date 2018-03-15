@@ -30,11 +30,11 @@
 
         <activity android:name=".ui.HomeActivity" />
         <activity
-            android:name=".TestActivity"
+            android:name=".test.TestActivity"
             android:label="TestActivity" />
-        <activity android:name=".TestSkinActivity" />
-        <activity android:name=".TestProxyActivity" />
-        <activity android:name=".TestCompressImageActivity" />
+        <activity android:name=".test.TestSkinActivity" />
+        <activity android:name=".test.TestProxyActivity" />
+        <activity android:name=".test.TestCompressImageActivity" />
 
         <service android:name=".test.MessageService">
             <intent-filter>
@@ -58,11 +58,11 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".ui.selectimage.ChoosePictureActivity" />
-        <activity android:name=".TestCoordinatorCollapsingToolbarActivity" />
-        <activity android:name=".TestHookActivity_Registered" />
+        <activity android:name=".test.TestCoordinatorCollapsingToolbarActivity" />
+        <activity android:name=".test.TestHookActivity_Registered" />
         <activity
-            android:name=".TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name=".test.TestCustomRecyclerViewActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -76,16 +76,17 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".TestObservableActivity" />
-        <activity android:name=".TestBsPatchActivity" />
-        <activity android:name=".TestItemDecorationActivity" />
-        <activity android:name=".TestChatViewActivity" />
-        <activity android:name=".TextCommonIndicatorActivity">
+        <activity android:name=".test.TestObservableActivity" />
+        <activity android:name=".test.TestBsPatchActivity" />
+        <activity android:name=".test.TestItemDecorationActivity" />
+        <activity android:name=".test.TestChatViewActivity" />
+        <activity android:name=".test.TextCommonIndicatorActivity" />
+        <activity
+            android:name=".test.TestPasswordKeyboardActivity"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
-        <activity android:name=".TestPasswordKeyboardActivity"
-            android:windowSoftInputMode="stateHidden"
-            >
+        <activity android:name=".test.test_2.TestMyRecylerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.app.rzm.R;
 import com.app.rzm.ui.selectimage.ChoosePictureActivity;
 import com.app.rzm.utils.ImageUtil;
 import com.example.mylibrary.BaseSkinActivity;

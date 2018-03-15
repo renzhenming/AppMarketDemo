@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:gravity="center"
     android:background="#0f0"
     android:layout_height="wrap_content">
     <TextView
         android:layout_width="100dp"
         android:gravity="center"
-        android:id="@+id/text"
+        android:id="@+id/text_adapter"
         android:textColor="#fff"
         android:textSize="18sp"
         android:background="#f99"
+        android:text="head"
+        android:layout_height="50dp" />
+    <ImageView
+        android:layout_width="100dp"
+        android:gravity="center"
+        android:id="@+id/image_adapter"
+        android:src="@drawable/back_white"
+        android:background="@color/black"
         android:text="head"
         android:layout_height="50dp" />
 </LinearLayout>

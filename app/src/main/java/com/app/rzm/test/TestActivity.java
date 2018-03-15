@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import com.example.mylibrary.http.retrofit.RetrofitEngine;
 import com.example.mylibrary.navigation.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.bean.Person;
-import com.app.rzm.test.MessageService;
 import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.http.HttpUtils;

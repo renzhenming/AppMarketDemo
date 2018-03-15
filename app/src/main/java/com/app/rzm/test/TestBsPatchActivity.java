@@ -1,10 +1,11 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
 
+import com.app.rzm.R;
 import com.app.rzm.utils.BsUpdateUtils;
 import com.example.mylibrary.BaseSkinActivity;
 import com.rzm.commonlibrary.utils.AppSignatureUtils;

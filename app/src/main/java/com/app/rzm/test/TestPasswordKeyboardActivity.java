@@ -1,8 +1,9 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.app.rzm.R;
 import com.example.mylibrary.view.passportview.PassportKeyboard;
 import com.example.mylibrary.view.passportview.PasswordEditText;
 import com.rzm.commonlibrary.utils.ToastUtil;

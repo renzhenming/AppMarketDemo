@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

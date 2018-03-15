@@ -1,9 +1,10 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.app.rzm.R;
 import com.example.mylibrary.view.indicator.CommonIndicatorView;
 
 import java.util.ArrayList;

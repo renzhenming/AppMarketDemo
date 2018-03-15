@@ -1,8 +1,9 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.app.rzm.R;
 import com.rzm.commonlibrary.views.chatview.ChatInput;
 import com.rzm.commonlibrary.views.chatview.ChatView;
 

@@ -1,7 +1,8 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.content.Context;
 
+import com.app.rzm.R;
 import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
 import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
 import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;

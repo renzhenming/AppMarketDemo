@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.app.rzm.TextCommonIndicatorActivity">
+    tools:context="com.app.rzm.test.TextCommonIndicatorActivity">
 
     <com.example.mylibrary.view.indicator.CommonIndicatorView
         android:id="@+id/indicator"

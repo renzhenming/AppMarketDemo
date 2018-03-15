@@ -1,4 +1,4 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.app.rzm.R;
 import com.example.mylibrary.view.indicator.CommonIndicatorAdapter;
 
 import java.util.ArrayList;

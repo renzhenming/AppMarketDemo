@@ -1,15 +1,15 @@
-package com.app.rzm;
+package com.app.rzm.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.app.rzm.R;
 import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
 import com.example.mylibrary.view.recyclerview.itemdecoration.AlphabetItemDecoration;
 import com.example.mylibrary.view.recyclerview.view.LoadRefreshRecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TestItemDecorationActivity extends AppCompatActivity {
