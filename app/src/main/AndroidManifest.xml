@@ -62,7 +62,9 @@
         <activity android:name=".test.TestHookActivity_Registered" />
         <activity
             android:name=".test.TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -86,7 +88,7 @@
             android:windowSoftInputMode="stateHidden">
 
         </activity>
-        <activity android:name=".test.test_2.TestMyRecylerViewActivity">
+        <activity android:name=".test.test_2.TestMyRecyclerViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

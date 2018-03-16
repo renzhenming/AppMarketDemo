@@ -5,20 +5,20 @@
     android:background="#0f0"
     android:layout_height="wrap_content">
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:id="@+id/text_adapter"
         android:textColor="#fff"
         android:textSize="18sp"
-        android:background="#f99"
-        android:text="head"
+        android:background="#00f"
+        android:text="我是普通item"
         android:layout_height="50dp" />
     <ImageView
-        android:layout_width="100dp"
+        android:layout_width="50dp"
         android:gravity="center"
         android:id="@+id/image_adapter"
         android:src="@drawable/back_white"
-        android:background="@color/black"
-        android:text="head"
+        android:background="@color/pink_day"
         android:layout_height="50dp" />
 </LinearLayout>

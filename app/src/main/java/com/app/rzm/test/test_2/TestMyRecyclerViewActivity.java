@@ -1,31 +1,35 @@
 package com.app.rzm.test.test_2;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.app.rzm.R;
 import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
 import com.example.mylibrary.view.recyclerview2.adpter.CommonRecyclerAdpater;
-import com.example.mylibrary.view.recyclerview2.holder.CommonViewHolder;
-import com.rzm.commonlibrary.utils.ToastUtil;
+import com.example.mylibrary.view.recyclerview2.creator.DefaultRefreshCreator;
+import com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView;
+import com.example.mylibrary.view.recyclerview2.view.RefreshViewCreator;
+import com.example.mylibrary.view.recyclerview2.view.WrapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestMyRecylerViewActivity extends AppCompatActivity {
+public class TestMyRecyclerViewActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerview;
+    private RefreshRecyclerView mRecyclerview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_my_recyler_view);
-        mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+
+        mRecyclerview = (RefreshRecyclerView) findViewById(R.id.recyclerview);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<String> mList = new ArrayList<>();
@@ -36,13 +40,10 @@ public class TestMyRecylerViewActivity extends AppCompatActivity {
         MyAdapter myAdapter = new MyAdapter(getApplicationContext(),mList, new MultiTypeSupport<String>() {
             @Override
             public int getLayoutId(String item, int position) {
-                if (position == 0){
-                    return R.layout.item_head;
-                }else if (position == 1){
+                if (position %2 == 1){
                     return R.layout.item_center;
                 }
-
-                return R.layout.item_test_adapter;
+                return R.layout.item_normal;
             }
         });
         myAdapter.setOnItemClickListener(new CommonRecyclerAdpater.OnItemClickListener<String>() {
@@ -71,7 +72,24 @@ public class TestMyRecylerViewActivity extends AppCompatActivity {
             }
         });
         mRecyclerview.setAdapter(myAdapter);
+        mRecyclerview.addRefreshViewCreator(new DefaultRefreshCreator());
+        mRecyclerview.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerview.onStopRefresh();
+                    }
+                },1500);
+            }
+        });
 
+        View header = LayoutInflater.from(this).inflate(R.layout.item_head,mRecyclerview,false);
+        mRecyclerview.addHeaderView(header);
+
+        View footer = LayoutInflater.from(this).inflate(R.layout.item_footer,mRecyclerview,false);
+        mRecyclerview.addFooterView(footer);
     }
 
     class MyAdapter extends CommonRecyclerAdpater<String>{

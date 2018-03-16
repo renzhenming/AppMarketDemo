@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.rzm.test.test_2.TestMyRecylerViewActivity">
+    tools:context="com.app.rzm.test.test_2.TestMyRecyclerViewActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recyclerview"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"></com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView>
 </LinearLayout>
