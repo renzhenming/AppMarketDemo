@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.mylibrary.view.recyclerview2.adpter.WrapRecyclerAdapter;
+
 /**
  * Created by renzhenming on 2018/3/16.
  *

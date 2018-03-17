@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.app.rzm.test.test_2.TestMyRecyclerViewActivity">
 
-    <com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView
+    <com.example.mylibrary.view.recyclerview2.view.CommonRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recyclerview"
-        android:layout_height="match_parent"></com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView>
+        android:layout_height="match_parent"></com.example.mylibrary.view.recyclerview2.view.CommonRecyclerView>
 </LinearLayout>

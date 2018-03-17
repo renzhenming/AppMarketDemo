@@ -8,6 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
+import com.example.mylibrary.view.recyclerview2.creator.RefreshViewCreator;
+
 /**
  * Created by renzhenming on 2018/3/16.
  * 1.添加头部和尾部
@@ -28,7 +30,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     private float mStartDonwY;
 
     //拖拽阻力系数，为了达到更强的拖拽视觉效果而设置,越小拖动越困难
-    private float mDragResistance = 0.3f;
+    public float mDragResistance = 0.3f;
 
     // 默认状态
     public int REFRESH_STATUS_NORMAL = 0x0011;
@@ -305,7 +307,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     /**
      * 停止刷新,刷新完成后调用此方法
      */
-    public void onStopRefresh() {
+    public void stopRefresh() {
          mCurrentRefreshStatus = REFRESH_STATUS_NORMAL;
          restoreRefreshView();
          if (mRefreshViewCreator != null) {

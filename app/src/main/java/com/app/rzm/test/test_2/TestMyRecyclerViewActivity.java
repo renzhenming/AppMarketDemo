@@ -12,25 +12,25 @@ import android.widget.Toast;
 import com.app.rzm.R;
 import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
 import com.example.mylibrary.view.recyclerview2.adpter.CommonRecyclerAdpater;
+import com.example.mylibrary.view.recyclerview2.creator.DefaultLoadCreator;
 import com.example.mylibrary.view.recyclerview2.creator.DefaultRefreshCreator;
+import com.example.mylibrary.view.recyclerview2.view.CommonRecyclerView;
 import com.example.mylibrary.view.recyclerview2.view.RefreshRecyclerView;
-import com.example.mylibrary.view.recyclerview2.view.RefreshViewCreator;
-import com.example.mylibrary.view.recyclerview2.view.WrapRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestMyRecyclerViewActivity extends AppCompatActivity {
 
-    private RefreshRecyclerView mRecyclerview;
+    private CommonRecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_my_recyler_view);
 
-        mRecyclerview = (RefreshRecyclerView) findViewById(R.id.recyclerview);
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView = (CommonRecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<String> mList = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
@@ -71,25 +71,39 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"image,position="+position,Toast.LENGTH_SHORT).show();
             }
         });
-        mRecyclerview.setAdapter(myAdapter);
-        mRecyclerview.addRefreshViewCreator(new DefaultRefreshCreator());
-        mRecyclerview.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
+        mRecyclerView.setAdapter(myAdapter);
+        mRecyclerView.addRefreshViewCreator(new DefaultRefreshCreator());
+        mRecyclerView.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mRecyclerview.onStopRefresh();
+                        mRecyclerView.stopRefresh();
                     }
                 },1500);
             }
         });
 
-        View header = LayoutInflater.from(this).inflate(R.layout.item_head,mRecyclerview,false);
-        mRecyclerview.addHeaderView(header);
+        mRecyclerView.setOnLoadMoreListener(new CommonRecyclerView.OnLoadMoreListener() {
+            @Override
+            public void onLoad() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRecyclerView.stopLoad();
+                    }
+                },1500);
+            }
+        });
 
-        View footer = LayoutInflater.from(this).inflate(R.layout.item_footer,mRecyclerview,false);
-        mRecyclerview.addFooterView(footer);
+        View header = LayoutInflater.from(this).inflate(R.layout.item_head, mRecyclerView,false);
+        mRecyclerView.addHeaderView(header);
+
+        View footer = LayoutInflater.from(this).inflate(R.layout.item_footer, mRecyclerView,false);
+        mRecyclerView.addFooterView(footer);
+
+        mRecyclerView.addLoadViewCreator(new DefaultLoadCreator());
     }
 
     class MyAdapter extends CommonRecyclerAdpater<String>{

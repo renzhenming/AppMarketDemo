@@ -8,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
 import com.example.mylibrary.R;
-import com.example.mylibrary.view.recyclerview2.view.RefreshViewCreator;
 
 /**
  * Created by renzhenming on 2018/3/16.
