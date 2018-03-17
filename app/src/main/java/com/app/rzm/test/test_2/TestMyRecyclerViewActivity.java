@@ -32,12 +32,9 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
         mRecyclerView = (CommonRecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<String> mList = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            mList.add("测试数据"+i);
-        }
+        final ArrayList<String> mList = new ArrayList<>();
 
-        MyAdapter myAdapter = new MyAdapter(getApplicationContext(),mList, new MultiTypeSupport<String>() {
+        final MyAdapter myAdapter = new MyAdapter(getApplicationContext(),mList, new MultiTypeSupport<String>() {
             @Override
             public int getLayoutId(String item, int position) {
                 if (position %2 == 1){
@@ -72,7 +69,54 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(myAdapter);
+
+        /**
+         * RefreshViewCreator必须在所有的头部局之前设置才能有效，没有做位置的设定，默认按添加顺序显示
+         */
         mRecyclerView.addRefreshViewCreator(new DefaultRefreshCreator());
+
+
+        /**
+         * footer view 和header view都按添加顺序显示
+         */
+        View header = LayoutInflater.from(this).inflate(R.layout.item_head, mRecyclerView,false);
+        mRecyclerView.addHeaderView(header);
+
+        View footer = LayoutInflater.from(this).inflate(R.layout.item_footer, mRecyclerView,false);
+        mRecyclerView.addFooterView(footer);
+
+        /**
+         * LoadViewCreator必须在所有的脚布局之后设置才能有效，没有做位置的设定，默认按添加顺序显示
+         */
+        mRecyclerView.addLoadViewCreator(new DefaultLoadCreator());
+
+        /**
+         * 三种加载状态都要在布局中引入
+         */
+        View view = findViewById(R.id.view_empty);
+        View loadingView = findViewById(R.id.view_loading);
+        final View loadingFailedView = findViewById(R.id.view_load_failed);
+
+        /**
+         * 空页面的设置可以在任何位置，因为它的显示和隐藏是根据数据来的
+         */
+        mRecyclerView.addEmptyView(view);
+
+        /**
+         * 加载中的页面需要在开始加载页面之前进行add,否则会被覆盖
+         */
+        mRecyclerView.addLoadingView(loadingView);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 40; i++) {
+                    mList.add("测试数据"+i);
+                }
+                myAdapter.notifyDataSetChanged();
+            }
+        },2000);
+
         mRecyclerView.setOnRefreshListener(new RefreshRecyclerView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -80,6 +124,11 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         mRecyclerView.stopRefresh();
+
+                        /**
+                         * 加载失败页面在网络异常或者请求服务器异常的时候add,否则会被覆盖
+                         */
+                        mRecyclerView.addFailureView(loadingFailedView);
                     }
                 },1500);
             }
@@ -96,14 +145,6 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
                 },1500);
             }
         });
-
-        View header = LayoutInflater.from(this).inflate(R.layout.item_head, mRecyclerView,false);
-        mRecyclerView.addHeaderView(header);
-
-        View footer = LayoutInflater.from(this).inflate(R.layout.item_footer, mRecyclerView,false);
-        mRecyclerView.addFooterView(footer);
-
-        mRecyclerView.addLoadViewCreator(new DefaultLoadCreator());
     }
 
     class MyAdapter extends CommonRecyclerAdpater<String>{

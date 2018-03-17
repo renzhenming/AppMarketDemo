@@ -23,6 +23,15 @@ public class WrapRecyclerView extends RecyclerView {
     //包装类adapter
     private WrapRecyclerAdapter mWrapRecyclerAdapter;
 
+    //空页面
+    private View mEmptyView;
+
+    //加载中页面
+    private View mLoadingView;
+
+    //加载失败页面
+    private View mFailureView;
+
     public WrapRecyclerView(Context context) {
         super(context);
     }
@@ -114,6 +123,88 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
+     * 添加加载中页面
+     * @param loadingView
+     */
+    public void addLoadingView(View loadingView){
+        if (loadingView == null) return;
+        mLoadingView = loadingView;
+        mLoadingView.setVisibility(VISIBLE);
+    }
+
+    /**
+     * 添加空页面
+     * @param emptyView
+     */
+    public void addEmptyView(View emptyView){
+        if (emptyView == null) return;
+        this.mEmptyView = emptyView;
+        mEmptyView.setVisibility(GONE);
+    }
+
+    /**
+     * 添加加载失败页面
+     * @param failureView
+     */
+    public void addFailureView(View failureView){
+        if (failureView == null) return;
+        mFailureView = failureView;
+        mFailureView.setVisibility(VISIBLE);
+    }
+
+    /**
+     * 这里目前使用的是数据列表的adapter，究竟这个空页面显示的逻辑是看数据列表没有数据还是
+     * 看数据列表和包装类WrapRecyclerAdapter都没有数据，根据个人需求定义
+     * 目前添加的头布局或者脚布局都不计算在内
+     */
+    private void dataChanged() {
+        if (mAdapter.getItemCount() == 0) {
+            if (mEmptyView != null) {
+                showView(mEmptyView,false);
+            }
+            if (mLoadingView != null){
+                dismissView(mLoadingView);
+            }
+            if (mFailureView != null){
+                dismissView(mFailureView);
+            }
+        }else{
+            showView(this,true);
+            if (mEmptyView != null) {
+                dismissView(mEmptyView);
+            }
+            if (mLoadingView != null){
+                dismissView(mLoadingView);
+            }
+            if (mFailureView != null){
+                dismissView(mFailureView);
+            }
+        }
+    }
+
+    /**
+     * 动画过渡
+     * @param view
+     */
+    private void showView(View view,boolean isAnimate) {
+        if (view == null)return;
+        view.setVisibility(View.VISIBLE);
+        if (isAnimate) {
+            view.setAlpha(0f);
+            view.animate().alpha(1f).setDuration(300).setListener(null);
+        }
+    }
+
+    /**
+     * 隐藏view
+     * @param view
+     */
+    private void dismissView(View view) {
+        if (view == null) return;
+        view.setVisibility(View.GONE);
+    }
+
+    /**
      * 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemMoved没效果
      */
     private AdapterDataObserver mDataObserver = new AdapterDataObserver() {
@@ -122,6 +213,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyDataSetChanged();
+                dataChanged();
             }
         }
 
@@ -130,6 +222,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart,itemCount);
+                dataChanged();
             }
         }
 
@@ -138,6 +231,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart,itemCount,payload);
+                dataChanged();
             }
         }
 
@@ -146,6 +240,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyItemRangeInserted(positionStart,itemCount);
+                dataChanged();
             }
         }
 
@@ -154,6 +249,7 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyItemRangeRemoved(positionStart,itemCount);
+                dataChanged();
             }
         }
 
@@ -162,7 +258,9 @@ public class WrapRecyclerView extends RecyclerView {
             if (mAdapter == null)return;
             if (mWrapRecyclerAdapter != mAdapter){
                 mWrapRecyclerAdapter.notifyItemMoved(fromPosition,toPosition);
+                dataChanged();
             }
         }
     };
+
 }
