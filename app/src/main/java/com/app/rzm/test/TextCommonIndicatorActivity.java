@@ -82,19 +82,12 @@ public class TextCommonIndicatorActivity extends AppCompatActivity {
             return view;
         }
 
-        @Override
-        public void highLightIndicator(View indicatorView, float positionOffset) {
-            super.highLightIndicator(indicatorView, positionOffset);
-            RippleTextView right = indicatorView.findViewById(R.id.item);
-            right.setDirection(RippleTextView.Direction.DIRECTION_LEFT);
-            right.setCurrentProgress(positionOffset);
-        }
 
-      /*  @Override
+        @Override
         public void highLightIndicator(View indicatorView) {
             super.highLightIndicator(indicatorView);
             ((TextView)indicatorView.findViewById(R.id.item)).setTextColor(Color.RED);
-        }*/
+        }
 
         @Override
         public void restoreIndicator(View indicatorView) {
