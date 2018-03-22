@@ -71,6 +71,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     /**
      * 传入的RefreshViewCreator中包含有设置的刷新布局，通过添加不同的creator，
      * 实现对刷新布局的插拔式替换
+     * RefreshViewCreator必须在所有的头部局之前设置才能有效，没有做位置的设定，默认按添加顺序显示
      * @param creator
      */
     public void addRefreshViewCreator(RefreshViewCreator creator){

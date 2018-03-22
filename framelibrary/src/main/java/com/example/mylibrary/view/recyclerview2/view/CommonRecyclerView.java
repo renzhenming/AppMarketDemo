@@ -62,6 +62,7 @@ public class CommonRecyclerView extends RefreshRecyclerView{
     /**
      * 先处理上拉加载更多，同时考虑加载列表的不同风格样式，确保这个项目还是下一个项目都能用
      * 所以我们不能直接添加View，需要利用辅助类
+     * LoadViewCreator必须在所有的脚布局之后设置才能有效，没有做位置的设定，默认按添加顺序显示
      * @param creator
      */
     public void addLoadViewCreator(LoadViewCreator creator){

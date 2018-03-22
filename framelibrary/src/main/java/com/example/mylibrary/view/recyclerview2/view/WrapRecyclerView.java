@@ -76,6 +76,7 @@ public class WrapRecyclerView extends RecyclerView {
      * 添加头部
      *
      * 仿照listView源码编写，listView也是内部通过adapter设置的
+     * footer view 和header view都按添加顺序显示
      * @param view
      */
     public void addHeaderView(View view){
@@ -123,6 +124,8 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
+     * 三种加载状态都要在布局中引入
+     * 加载中的页面需要在开始加载页面之前进行add,否则会被覆盖
      * 添加加载中页面
      * @param loadingView
      */
@@ -133,6 +136,8 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
+     * 三种加载状态都要在布局中引入
+     * 空页面的设置可以在任何位置，因为它的显示和隐藏是根据数据来的
      * 添加空页面
      * @param emptyView
      */
@@ -143,6 +148,8 @@ public class WrapRecyclerView extends RecyclerView {
     }
 
     /**
+     * 三种加载状态都要在布局中引入
+     * 加载失败页面在网络异常或者请求服务器异常的时候add,否则会被覆盖
      * 添加加载失败页面
      * @param failureView
      */

@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -145,6 +147,32 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
                 },1500);
             }
         });
+
+
+        CommonItemTouchHelper touchHelper = new CommonItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                // 获取触摸响应的方向 包含两个 1.拖动dragFlags 2.侧滑删除swipeFlags
+                // 代表只能是向左侧滑删除，当前可以是这样ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT
+                int swipeFlags = ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT;
+                // 拖动暂不处理默认是0
+                return makeMovementFlags(0, swipeFlags);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                mList.remove(position);
+                myAdapter.notifyDataSetChanged();
+            }
+        });
+
+        //touchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     class MyAdapter extends CommonRecyclerAdpater<String>{
@@ -162,5 +190,22 @@ public class TestMyRecyclerViewActivity extends AppCompatActivity {
             holder.setText(R.id.text,text);
 
         }
+    }
+
+    class CommonItemTouchHelper extends ItemTouchHelper{
+
+        /**
+         * Creates an ItemTouchHelper that will work with the given Callback.
+         * <p>
+         * You can attach ItemTouchHelper to a RecyclerView via
+         * {@link #attachToRecyclerView(RecyclerView)}. Upon attaching, it will add an item decoration,
+         * an onItemTouchListener and a Child attach / detach listener to the RecyclerView.
+         *
+         * @param callback The Callback which controls the behavior of this touch helper.
+         */
+        public CommonItemTouchHelper(Callback callback) {
+            super(callback);
+        }
+
     }
 }

@@ -82,18 +82,20 @@
         <activity android:name=".test.TestBsPatchActivity" />
         <activity android:name=".test.TestItemDecorationActivity" />
         <activity android:name=".test.TestChatViewActivity" />
-        <activity android:name=".test.TextCommonIndicatorActivity" />
+        <activity android:name=".test.TextCommonIndicatorActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".test.TestPasswordKeyboardActivity"
             android:windowSoftInputMode="stateHidden">
 
         </activity>
         <activity android:name=".test.test_2.TestMyRecyclerViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
