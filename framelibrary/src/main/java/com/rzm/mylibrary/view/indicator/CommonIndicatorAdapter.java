@@ -14,7 +14,9 @@ public abstract class CommonIndicatorAdapter<R extends View> {
     // 获取总的条数
     public abstract int getCount();
 
-    // 根据当前的位置获取View
+    /**
+     * 根据当前的位置获取View，这个view指的是tab文字，或者文字加menu的形式
+     */
     public abstract View getView(int position, ViewGroup parent);
 
     /**
@@ -31,6 +33,10 @@ public abstract class CommonIndicatorAdapter<R extends View> {
 
     }
 
+    /**
+     * 这个view是指文字下方的指示器，一般是一条横线
+     * @return
+     */
     public View getBottomTrackView() {
         return null;
     }
