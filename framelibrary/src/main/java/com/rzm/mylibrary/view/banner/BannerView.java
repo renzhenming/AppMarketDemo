@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 
 /**
  * description:

@@ -12,7 +12,7 @@ import android.util.TypedValue;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 
 /**
  * Created by renzhenming on 2018/3/12.

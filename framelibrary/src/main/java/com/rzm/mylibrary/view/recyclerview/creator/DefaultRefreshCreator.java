@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 
 /**
  * Created by renzhenming on 2018/3/16.

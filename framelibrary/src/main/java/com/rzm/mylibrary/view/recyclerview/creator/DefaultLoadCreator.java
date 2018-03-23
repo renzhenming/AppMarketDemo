@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 
 
 /**

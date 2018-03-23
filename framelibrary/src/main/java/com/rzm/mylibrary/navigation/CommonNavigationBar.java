@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 import com.rzm.commonlibrary.general.navigationbar.AbsNavigationBar;
 
 

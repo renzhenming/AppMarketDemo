@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 /**

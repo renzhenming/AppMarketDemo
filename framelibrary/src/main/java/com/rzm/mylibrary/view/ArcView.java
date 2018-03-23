@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.mylibrary.R;
+import com.rzm.mylibrary.R;
 
 /**
  * Created by renzhenming on 2018/3/22.
