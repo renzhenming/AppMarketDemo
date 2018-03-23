@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.rzm.test.test_2.TestMyRecyclerViewActivity">
+    tools:context="com.app.rzm.test.TestMyRecyclerViewActivity">
 
     <com.example.mylibrary.view.recyclerview.view.CommonRecyclerView
         android:layout_width="match_parent"

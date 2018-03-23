@@ -1,4 +1,4 @@
-package com.app.rzm.test.test_2;
+package com.app.rzm.test;
 
 import android.content.Context;
 import android.os.Handler;

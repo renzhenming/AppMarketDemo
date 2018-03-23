@@ -83,7 +83,7 @@
         <activity
             android:name=".test.TestPasswordKeyboardActivity"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".test.test_2.TestMyRecyclerViewActivity"></activity>
+        <activity android:name=".test.TestMyRecyclerViewActivity"></activity>
         <activity android:name=".test.TextCustomeViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
