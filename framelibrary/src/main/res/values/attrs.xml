@@ -48,4 +48,13 @@
         <attr name="bgCorner" format="dimension"/>
     </declare-styleable>
 
+    <!--半圆弧进度条-->
+    <declare-styleable name="ArcView">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="foregroundColor" format="color"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="centerTextSize" format="dimension"/>
+        <attr name="centerTextColor" format="color"/>
+    </declare-styleable>
+
 </resources>
