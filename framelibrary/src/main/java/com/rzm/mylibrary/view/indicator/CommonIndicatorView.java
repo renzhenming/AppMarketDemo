@@ -28,8 +28,6 @@ public class CommonIndicatorView extends HorizontalScrollView implements ViewPag
     // 获取一屏显示多少个Item,默认是0
     private int mTabVisibleNums = 0;
     private int mItemWidth;
-    private int mHeight;
-    private int mWidth;
     private int mCurrentPosition = 0;
     private boolean mExecuteScroll = false;
 
@@ -267,8 +265,6 @@ public class CommonIndicatorView extends HorizontalScrollView implements ViewPag
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mWidth = getWidth();
-        mHeight = getHeight();
     }
 
 }

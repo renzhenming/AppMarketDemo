@@ -78,7 +78,6 @@ dependencies {
     })
     compile project(':commonlibrary')
     compile project(':framelibrary')
-    compile project(':DroidPlugin')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //针对libs下的.jar库
 

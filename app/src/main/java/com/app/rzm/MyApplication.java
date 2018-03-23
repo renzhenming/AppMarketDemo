@@ -3,7 +3,6 @@ package com.app.rzm;
 
 import android.content.Context;
 
-import com.morgoo.droidplugin.PluginHelper;
 import com.rzm.commonlibrary.general.BaseApplication;
 
 /**
@@ -29,7 +28,6 @@ public class MyApplication extends BaseApplication {
 
     @Override
     protected void attachBaseContext(Context base) {
-        PluginHelper.getInstance().applicationAttachBaseContext(base);
         super.attachBaseContext(base);
     }
 

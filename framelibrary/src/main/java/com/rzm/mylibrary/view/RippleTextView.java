@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * Created by renzhenming on 2018/3/22.
- * 颜色渐变效果的TextView
+ * 颜色渐变效果的TextView，可用于音乐播放的字幕
  */
 
 public class RippleTextView extends TextView{
@@ -153,7 +153,8 @@ public class RippleTextView extends TextView{
         //保存画笔状态
         canvas.save();
 
-        //截取绘制的内容，
+        //截取绘制的内容，该方法用于裁剪画布，也就是设置画布的显示区域
+        //主要用于部分显示以及对画布中的部分对象进行操作的场合。
         canvas.clipRect(start,0,end,getHeight());
 
         //获取文字的范围
@@ -169,7 +170,9 @@ public class RippleTextView extends TextView{
         // 计算基线到中心点的位置，fontHeight/2是文字中心点， fontMetrics.bottom是基线到文字最低点的高度，
         int offY = fontHeight/2 - fontMetrics.bottom;
 
-        // 计算基线位置
+        // 计算基线位置,为什么基线的位置这样计算，如果想不通，可以这样，假设，文字在控件正中间，控件高度的一半
+        //也就是控件顶部到文字中心点的垂直距离，文字高度的一半也就是文字中心点到文字最顶部或者最底部的距离，二者相加
+        //可以看作是从控件顶部到文字最底部的距离，这个距离是等于控件顶部到基线的距离加上
         int baseline = (getMeasuredHeight() + fontHeight) / 2 - offY;
 
         //绘制文字
