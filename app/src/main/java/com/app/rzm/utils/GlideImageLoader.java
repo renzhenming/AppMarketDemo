@@ -4,8 +4,8 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
+import com.example.mylibrary.view.recyclerview.holder.CommonViewHolder;
 
 /**
  * Created by Darren on 2016/12/28.
@@ -13,7 +13,7 @@ import com.app.rzm.R;
  * Description:
  */
 
-public class GlideImageLoader extends CommonViewHolder.HolderImageLoader {
+public class GlideImageLoader extends CommonViewHolder.ImageLoader {
 
     public GlideImageLoader(String imagePath) {
         super(imagePath);

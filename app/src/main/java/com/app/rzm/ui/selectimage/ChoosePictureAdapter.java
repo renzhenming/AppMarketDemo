@@ -7,14 +7,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
+import com.example.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
+public class ChoosePictureAdapter extends CommonRecyclerAdpater<String> {
     // 选择图片的集合
     private ArrayList<String> mResultImageList;
     private int mMaxCount;
@@ -24,15 +23,16 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
         this.mMaxCount = maxCount;
     }
 
+
     @Override
-    public void convert(CommonViewHolder holder, final String item,int position) {
+    public void bindHolder(ViewHolder holder, final String item, int position) {
         if(TextUtils.isEmpty(item)){
             // 显示拍照
-            holder.setViewVisibility(R.id.camera_ll, View.VISIBLE);
-            holder.setViewVisibility(R.id.media_selected_indicator, View.INVISIBLE);
-            holder.setViewVisibility(R.id.image, View.INVISIBLE);
+            holder.setVisibility(R.id.camera_ll, View.VISIBLE);
+            holder.setVisibility(R.id.media_selected_indicator, View.INVISIBLE);
+            holder.setVisibility(R.id.image, View.INVISIBLE);
 
-            holder.setOnIntemClickListener(new View.OnClickListener() {
+            holder.setOnItemClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mListener != null){
@@ -42,9 +42,9 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
             });
         }else{
             // 显示图片
-            holder.setViewVisibility(R.id.camera_ll, View.INVISIBLE);
-            holder.setViewVisibility(R.id.media_selected_indicator, View.VISIBLE);
-            holder.setViewVisibility(R.id.image, View.VISIBLE);
+            holder.setVisibility(R.id.camera_ll, View.INVISIBLE);
+            holder.setVisibility(R.id.media_selected_indicator, View.VISIBLE);
+            holder.setVisibility(R.id.image, View.VISIBLE);
 
             // 显示图片利用Glide
             ImageView imageView = holder.getView(R.id.image);
@@ -61,7 +61,7 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
             }
 
             // 给条目增加点击事件
-            holder.setOnIntemClickListener(new View.OnClickListener() {
+            holder.setOnItemClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -99,4 +99,5 @@ public class ChoosePictureAdapter extends CommonRecyclerAdapter<String> {
     public void setOnSelectImageListener(ChoosePictureListener listener){
         this.mListener = listener;
     }
+
 }

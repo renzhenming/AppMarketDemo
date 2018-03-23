@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview.view;
+package com.example.mylibrary.view.recyclerview.creator;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,8 @@ import android.view.animation.RotateAnimation;
 import com.example.mylibrary.R;
 
 /**
- * Created by Darren on 2017/1/3.
- * Email: 240336124@qq.com
- * Description: 默认样式的头部刷新
- *              如淘宝、京东、不同的样式可以自己去实现
+ * Created by renzhenming on 2018/3/16.
  */
-
 public class DefaultRefreshCreator extends RefreshViewCreator {
     // 加载数据的ImageView
     private View mRefreshIv;

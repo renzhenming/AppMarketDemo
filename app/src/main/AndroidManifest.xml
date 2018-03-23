@@ -61,11 +61,6 @@
         <activity android:name=".test.TestCoordinatorCollapsingToolbarActivity" />
         <activity android:name=".test.TestHookActivity_Registered" />
         <activity
-            android:name=".test.TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
-        <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />

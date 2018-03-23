@@ -6,23 +6,31 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.mylibrary.view.recyclerview.adapter.OnItemClickListener;
+import com.example.mylibrary.view.recyclerview.adpter.WrapRecyclerAdapter;
 
 /**
- * Created by Darren on 2016/12/29.
- * Email: 240336124@qq.com
- * Description: 可以添加头部和底部的RecyclerView
+ * Created by renzhenming on 2018/3/16.
+ *
+ * 1.添加头部和尾部
+ * 2.设置多种item
  */
+
 public class WrapRecyclerView extends RecyclerView {
-    // 包裹了一层的头部底部Adapter
-    private WrapRecyclerAdapter mWrapRecyclerAdapter;
-    // 这个是列表数据的Adapter
+
+    //列表数据adapter
     private Adapter mAdapter;
 
-    // 增加一些通用功能
-    // 空列表数据应该显示的空View
-    // 正在加载数据页面，也就是正在获取后台接口页面
-    private View mEmptyView, mLoadingView,mFailureView;
+    //包装类adapter
+    private WrapRecyclerAdapter mWrapRecyclerAdapter;
+
+    //空页面
+    private View mEmptyView;
+
+    //加载中页面
+    private View mLoadingView;
+
+    //加载失败页面
+    private View mFailureView;
 
     public WrapRecyclerView(Context context) {
         super(context);
@@ -38,174 +46,146 @@ public class WrapRecyclerView extends RecyclerView {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        // 为了防止多次设置Adapter
-        if (mAdapter != null) {
+
+        if (mAdapter != null){
+            //防止重复设置adapter
             mAdapter.unregisterAdapterDataObserver(mDataObserver);
             mAdapter = null;
         }
 
         this.mAdapter = adapter;
 
-        if (adapter instanceof WrapRecyclerAdapter) {
-            mWrapRecyclerAdapter = (WrapRecyclerAdapter) adapter;
-        } else {
-            mWrapRecyclerAdapter = new WrapRecyclerAdapter(adapter);
+        if (mAdapter instanceof WrapRecyclerAdapter){
+            mWrapRecyclerAdapter = (WrapRecyclerAdapter)mAdapter;
+        }else {
+            mWrapRecyclerAdapter = new WrapRecyclerAdapter(mAdapter);
         }
-
+        //将使用WrapRecyclerAdapter包裹一层之后的adapter设置
         super.setAdapter(mWrapRecyclerAdapter);
 
-        // 注册一个观察者
+        //注册观察者(注意这里是列表数据的adapter设置的观察者，如果用包装类adapter设置是无效的，当列表数据adapter刷新的时候，
+        // mWrapRecyclerAdapter也跟着一块刷新)
         mAdapter.registerAdapterDataObserver(mDataObserver);
 
-        // 解决GridLayout添加头部和底部也要占据一行
+        //解决LayoutManger为GridLayoutManager时添加头部宽度无法沾满一行的问题
         mWrapRecyclerAdapter.adjustSpanSize(this);
 
-        if (mItemClickListener != null) {
-            mWrapRecyclerAdapter.setOnItemClickListener(mItemClickListener);
-        }
-
-        if (mLongClickListener != null) {
-            mWrapRecyclerAdapter.setOnLongClickListener(mLongClickListener);
-        }
     }
-
-    // 添加头部
-    public void addHeaderView(View view) {
-        // 如果没有Adapter那么就不添加，也可以选择抛异常提示
-        // 让他必须先设置Adapter然后才能添加，这里是仿照ListView的处理方式
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.addHeaderView(view);
-        }
-    }
-
-    // 添加底部
-    public void addFooterView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.addFooterView(view);
-        }
-    }
-
-    // 移除头部
-    public void removeHeaderView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.removeHeaderView(view);
-        }
-    }
-
-    // 移除底部
-    public void removeFooterView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.removeFooterView(view);
-        }
-    }
-
-    private AdapterDataObserver mDataObserver = new AdapterDataObserver() {
-        @Override
-        public void onChanged() {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyDataSetChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyDataSetChanged();
-
-            dataChanged();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyDataSetChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemRemoved(positionStart);
-            dataChanged();
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemMoved没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemMoved(fromPosition, toPosition);
-            dataChanged();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemChanged(positionStart);
-            dataChanged();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemChanged(positionStart, payload);
-            dataChanged();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            if (mAdapter == null) return;
-            // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemInserted没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemInserted(positionStart);
-            dataChanged();
-        }
-    };
 
     /**
-     * 添加一个空列表数据页面
+     * 添加头部
+     *
+     * 仿照listView源码编写，listView也是内部通过adapter设置的
+     * footer view 和header view都按添加顺序显示
+     * @param view
      */
-    public void addEmptyView(View emptyView) {
+    public void addHeaderView(View view){
+        if (mWrapRecyclerAdapter == null){
+            throw new NullPointerException("adapter cannot be null");
+        }
+
+        mWrapRecyclerAdapter.addHeaderView(view);
+    }
+
+    /**
+     * 添加尾部
+     * @param view
+     */
+    public void addFooterView(View view){
+        if (mWrapRecyclerAdapter == null){
+            throw new NullPointerException("adapter cannot be null");
+        }
+
+        mWrapRecyclerAdapter.addFooterView(view);
+    }
+
+    /**
+     * 移除头部
+     * @param view
+     */
+    public void removeHeaderView(View view){
+        if (mWrapRecyclerAdapter == null){
+            throw new NullPointerException("adapter cannot be null");
+        }
+
+        mWrapRecyclerAdapter.removeHeaderView(view);
+    }
+
+    /**
+     * 移除尾部
+     * @param view
+     */
+    public void removeFooterView(View view){
+        if (mWrapRecyclerAdapter == null){
+            throw new NullPointerException("adapter cannot be null");
+        }
+
+        mWrapRecyclerAdapter.removeFooterView(view);
+    }
+
+    /**
+     * 三种加载状态都要在布局中引入
+     * 加载中的页面需要在开始加载页面之前进行add,否则会被覆盖
+     * 添加加载中页面
+     * @param loadingView
+     */
+    public void addLoadingView(View loadingView){
+        if (loadingView == null) return;
+        mLoadingView = loadingView;
+        mLoadingView.setVisibility(VISIBLE);
+    }
+
+    /**
+     * 三种加载状态都要在布局中引入
+     * 空页面的设置可以在任何位置，因为它的显示和隐藏是根据数据来的
+     * 添加空页面
+     * @param emptyView
+     */
+    public void addEmptyView(View emptyView){
+        if (emptyView == null) return;
         this.mEmptyView = emptyView;
+        mEmptyView.setVisibility(GONE);
     }
 
     /**
-     * 添加一个正在加载数据的页面
+     * 三种加载状态都要在布局中引入
+     * 加载失败页面在网络异常或者请求服务器异常的时候add,否则会被覆盖
+     * 添加加载失败页面
+     * @param failureView
      */
-    public void addLoadingView(View loadingView) {
-        this.mLoadingView = loadingView;
-        mLoadingView.setVisibility(View.VISIBLE);
+    public void addFailureView(View failureView){
+        if (failureView == null) return;
+        mFailureView = failureView;
+        mFailureView.setVisibility(VISIBLE);
     }
 
     /**
-     * 显示数据加载失败的页面
-     */
-    public void showFailureView(View failureView) {
-        if (failureView == null)
-            return;
-        this.mFailureView = failureView;
-        mFailureView.setVisibility(View.VISIBLE);
-        if (mLoadingView != null)
-            mLoadingView.setVisibility(GONE);
-        if (mEmptyView != null)
-            mEmptyView.setVisibility(GONE);
-    }
-
-    /**
-     * Adapter数据改变的方法
+     * 这里目前使用的是数据列表的adapter，究竟这个空页面显示的逻辑是看数据列表没有数据还是
+     * 看数据列表和包装类WrapRecyclerAdapter都没有数据，根据个人需求定义
+     * 目前添加的头布局或者脚布局都不计算在内
      */
     private void dataChanged() {
         if (mAdapter.getItemCount() == 0) {
-            // 没有数据
             if (mEmptyView != null) {
-                showView(mEmptyView);
+                showView(mEmptyView,false);
+            }
+            if (mLoadingView != null){
+                dismissView(mLoadingView);
+            }
+            if (mFailureView != null){
+                dismissView(mFailureView);
             }
         }else{
+            showView(this,true);
             if (mEmptyView != null) {
-                mEmptyView.setVisibility(GONE);
-                showView(this);
+                dismissView(mEmptyView);
             }
-        }
-        if (mLoadingView != null){
-            mLoadingView.setVisibility(View.GONE);
-        }
-
-        if (mFailureView != null){
-            mLoadingView.setVisibility(View.GONE);
+            if (mLoadingView != null){
+                dismissView(mLoadingView);
+            }
+            if (mFailureView != null){
+                dismissView(mFailureView);
+            }
         }
     }
 
@@ -213,32 +193,81 @@ public class WrapRecyclerView extends RecyclerView {
      * 动画过渡
      * @param view
      */
-    private void showView(View view) {
-        //view.setAlpha(0f);
+    private void showView(View view,boolean isAnimate) {
+        if (view == null)return;
         view.setVisibility(View.VISIBLE);
-        //view.animate().alpha(1f).setDuration(300).setListener(null);
-
-    }
-
-    /***************
-     * 给条目设置点击和长按事件
-     *********************/
-    public OnItemClickListener mItemClickListener;
-    public com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener mLongClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-        this.mItemClickListener = itemClickListener;
-
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.setOnItemClickListener(mItemClickListener);
+        if (isAnimate) {
+            view.setAlpha(0f);
+            view.animate().alpha(1f).setDuration(300).setListener(null);
         }
     }
 
-    public void setOnLongClickListener(com.example.mylibrary.view.recyclerview.adapter.OnLongClickListener longClickListener) {
-        this.mLongClickListener = longClickListener;
-
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.setOnLongClickListener(mLongClickListener);
-        }
+    /**
+     * 隐藏view
+     * @param view
+     */
+    private void dismissView(View view) {
+        if (view == null) return;
+        view.setVisibility(View.GONE);
     }
+
+    /**
+     * 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemMoved没效果
+     */
+    private AdapterDataObserver mDataObserver = new AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyDataSetChanged();
+                dataChanged();
+            }
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount) {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart,itemCount);
+                dataChanged();
+            }
+        }
+
+        @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart,itemCount,payload);
+                dataChanged();
+            }
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyItemRangeInserted(positionStart,itemCount);
+                dataChanged();
+            }
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyItemRangeRemoved(positionStart,itemCount);
+                dataChanged();
+            }
+        }
+
+        @Override
+        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+            if (mAdapter == null)return;
+            if (mWrapRecyclerAdapter != mAdapter){
+                mWrapRecyclerAdapter.notifyItemMoved(fromPosition,toPosition);
+                dataChanged();
+            }
+        }
+    };
+
 }

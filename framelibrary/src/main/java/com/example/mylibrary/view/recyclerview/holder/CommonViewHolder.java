@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview2.holder;
+package com.example.mylibrary.view.recyclerview.holder;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,6 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.mylibrary.view.passportview.PasswordEditText;
-import com.example.mylibrary.view.recyclerview2.adpter.CommonRecyclerAdpater;
 
 /**
  * Created by renzhenming on 2018/3/15.

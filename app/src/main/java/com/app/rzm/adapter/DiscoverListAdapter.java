@@ -4,11 +4,11 @@ import android.content.Context;
 import android.text.Html;
 import android.view.View;
 
-import com.example.mylibrary.view.recyclerview.adapter.CommonRecyclerAdapter;
-import com.example.mylibrary.view.recyclerview.adapter.CommonViewHolder;
 import com.app.rzm.R;
 import com.app.rzm.bean.DiscoverListResult;
 import com.app.rzm.utils.GlideImageLoader;
+import com.example.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
+
 import java.util.List;
 
 /**
@@ -18,13 +18,13 @@ import java.util.List;
  * Description:
  */
 public class DiscoverListAdapter extends
-        CommonRecyclerAdapter<DiscoverListResult.DataBean.CategoriesBean.CategoryListBean> {
+        CommonRecyclerAdpater<DiscoverListResult.DataBean.CategoriesBean.CategoryListBean> {
     public DiscoverListAdapter(Context context, List<DiscoverListResult.DataBean.CategoriesBean.CategoryListBean> data) {
         super(context, data, R.layout.channel_list_item);
     }
 
     @Override
-    public void convert(CommonViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item,int position) {
+    public void bindHolder(ViewHolder holder, DiscoverListResult.DataBean.CategoriesBean.CategoryListBean item, int position) {
         // 显示数据
         String str = item.getSubscribe_count() + " 订阅 | " +
                 "总帖数 <font color='#FF678D'>" + item.getTotal_updates() + "</font>";
@@ -34,11 +34,11 @@ public class DiscoverListAdapter extends
 
         // 是否是最新
         if (item.isIs_recommend()) {
-            holder.setViewVisibility(R.id.recommend_label, View.VISIBLE);
+            holder.setVisibility(R.id.recommend_label, View.VISIBLE);
         } else {
-            holder.setViewVisibility(R.id.recommend_label, View.GONE);
+            holder.setVisibility(R.id.recommend_label, View.GONE);
         }
         // 加载图片
-        holder.setImageByUrl(R.id.channel_icon, new GlideImageLoader(item.getIcon_url()));
+        holder.setImageUrl(R.id.channel_icon, new GlideImageLoader(item.getIcon_url()));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview2.adpter;
+package com.example.mylibrary.view.recyclerview.adpter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

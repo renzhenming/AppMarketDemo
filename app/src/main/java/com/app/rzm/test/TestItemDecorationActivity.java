@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
-import com.example.mylibrary.view.recyclerview.itemdecoration.AlphabetItemDecoration;
-import com.example.mylibrary.view.recyclerview.view.LoadRefreshRecyclerView;
+import com.example.mylibrary.view.recyclerview.decoration.AlphabetItemDecoration;
+import com.example.mylibrary.view.recyclerview.multi.MultiTypeSupport;
+import com.example.mylibrary.view.recyclerview.view.CommonRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestItemDecorationActivity extends AppCompatActivity {
 
-    private LoadRefreshRecyclerView mRecyclerView;
+    private CommonRecyclerView mRecyclerView;
     private TestCommonAdapter mAdapter;
     private List<String> mList;
     private List<Character> characterList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class TestItemDecorationActivity extends AppCompatActivity {
         mList.add("probable");
         mList.add("particular");
         mList.add("today");
-        mRecyclerView = (LoadRefreshRecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView = (CommonRecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.addItemDecoration(new AlphabetItemDecoration(this, new AlphabetItemDecoration.DecorationCallback() {
             @Override

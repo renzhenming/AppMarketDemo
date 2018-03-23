@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview2.view;
+package com.example.mylibrary.view.recyclerview.view;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import com.example.mylibrary.view.recyclerview2.creator.LoadViewCreator;
+import com.example.mylibrary.view.recyclerview.creator.LoadViewCreator;
 
 /**
  * Created by renzhenming on 2018/3/17.

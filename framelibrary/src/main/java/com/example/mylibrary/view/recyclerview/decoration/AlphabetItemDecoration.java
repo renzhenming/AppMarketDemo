@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview.itemdecoration;
+package com.example.mylibrary.view.recyclerview.decoration;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -96,25 +96,3 @@ public class AlphabetItemDecoration extends RecyclerView.ItemDecoration {
         String getGroupFirstLine(int position);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

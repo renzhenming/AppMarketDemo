@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview2.creator;
+package com.example.mylibrary.view.recyclerview.creator;
 
 import android.content.Context;
 import android.view.LayoutInflater;

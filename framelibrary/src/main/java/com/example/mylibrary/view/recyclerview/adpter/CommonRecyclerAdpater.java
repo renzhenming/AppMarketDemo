@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview2.adpter;
+package com.example.mylibrary.view.recyclerview.adpter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mylibrary.view.recyclerview.adapter.MultiTypeSupport;
-import com.example.mylibrary.view.recyclerview2.holder.CommonViewHolder;
+import com.example.mylibrary.view.recyclerview.holder.CommonViewHolder;
+import com.example.mylibrary.view.recyclerview.multi.MultiTypeSupport;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class CommonRecyclerAdpater<R> extends RecyclerView.Adapter<CommonRecyclerAdpater.ViewHolder> {
 
-    private final Context mContext;
+    protected final Context mContext;
     private final LayoutInflater mInflater;
     private final List<R> mList;
     private int mResourceId=-1;

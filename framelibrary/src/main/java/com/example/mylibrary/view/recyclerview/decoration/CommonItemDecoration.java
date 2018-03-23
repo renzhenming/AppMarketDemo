@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.recyclerview.itemdecoration;
+package com.example.mylibrary.view.recyclerview.decoration;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class CommonDividerDecoration extends RecyclerView.ItemDecoration {
+public class CommonItemDecoration extends RecyclerView.ItemDecoration {
 
     private int dividerHeight;
     private Paint dividerPaint;
@@ -15,7 +15,7 @@ public class CommonDividerDecoration extends RecyclerView.ItemDecoration {
      * @param dividerHeight  高度
      * @param colorId        颜色（ContextCompat.getColor(context,colorId）
      */
-    public CommonDividerDecoration(int dividerHeight, int colorId) {
+    public CommonItemDecoration(int dividerHeight, int colorId) {
         dividerPaint = new Paint();
         dividerPaint.setColor(colorId);
         this.dividerHeight = dividerHeight;
@@ -56,7 +56,7 @@ public class CommonDividerDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    /*public CommonDividerDecoration(Context context,int leftColorId,int rightColorId) {
+    /*public CommonItemDecoration(Context context,int leftColorId,int rightColorId) {
         leftPaint = new Paint();
         leftPaint.setColor(leftColorId);
         rightPaint = new Paint();
@@ -72,7 +72,6 @@ public class CommonDividerDecoration extends RecyclerView.ItemDecoration {
     /*@Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
-
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
@@ -90,26 +89,10 @@ public class CommonDividerDecoration extends RecyclerView.ItemDecoration {
                 float top = child.getTop();
                 float bottom = child.getBottom();
                 c.drawRect(left, top, right, bottom, rightPaint);
-
             }
         }
     }*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
