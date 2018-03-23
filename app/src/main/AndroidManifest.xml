@@ -61,11 +61,6 @@
         <activity android:name=".test.TestCoordinatorCollapsingToolbarActivity" />
         <activity android:name=".test.TestHookActivity_Registered" />
         <activity
-            android:name=".test.TestCustomRecyclerViewActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
-        <activity
             android:name=".ui.clip.ChooseVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
@@ -95,14 +90,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".test.TestPasswordKeyboardActivity"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
-        <activity android:name=".test.test_2.TestMyRecyclerViewActivity">
-
         </activity>
     </application>
 
