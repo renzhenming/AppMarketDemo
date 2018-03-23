@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.app.rzm.R;
 import com.app.rzm.utils.BsUpdateUtils;
-import com.example.mylibrary.BaseSkinActivity;
+import com.rzm.mylibrary.BaseSkinActivity;
 import com.rzm.commonlibrary.utils.AppSignatureUtils;
 import com.rzm.commonlibrary.utils.AppUtils;
 

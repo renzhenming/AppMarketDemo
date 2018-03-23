@@ -2,8 +2,8 @@ package com.app.rzm.ui;
 
 import com.app.rzm.ui.fragment.FindFragment;
 import com.app.rzm.ui.fragment.MessageFragment;
-import com.example.mylibrary.BaseSkinActivity;
-import com.example.mylibrary.navigation.CommonNavigationBar;
+import com.rzm.mylibrary.BaseSkinActivity;
+import com.rzm.mylibrary.navigation.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.ui.fragment.FragmentManagerHelper;
 import com.app.rzm.ui.fragment.HomeFragment;

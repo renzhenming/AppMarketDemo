@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
+import com.rzm.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
 
 import java.util.ArrayList;
 import java.util.List;

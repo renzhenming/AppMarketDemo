@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.holder.CommonViewHolder;
+import com.rzm.mylibrary.view.recyclerview.holder.CommonViewHolder;
 
 /**
  * Created by Darren on 2016/12/28.

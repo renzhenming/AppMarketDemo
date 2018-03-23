@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.mylibrary.view.recyclerview.view.WrapRecyclerView;
+import com.rzm.mylibrary.view.recyclerview.view.WrapRecyclerView;
 import com.app.rzm.R;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.permission.PermissionDenied;

@@ -1,11 +1,10 @@
 package com.app.rzm.test;
 
 import android.animation.ValueAnimator;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.app.rzm.R;
-import com.example.mylibrary.view.ArcView;
+import com.rzm.mylibrary.view.ArcView;
 
 public class TextCustomeViewActivity extends AppCompatActivity {
 

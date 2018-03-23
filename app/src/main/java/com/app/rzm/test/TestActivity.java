@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mylibrary.BaseSkinActivity;
-import com.example.mylibrary.db.DaoSupportFactory;
-import com.example.mylibrary.db.IDaoSupport;
-import com.example.mylibrary.http.HttpCallBack;
-import com.example.mylibrary.http.retrofit.RetrofitEngine;
-import com.example.mylibrary.navigation.CommonNavigationBar;
+import com.rzm.mylibrary.BaseSkinActivity;
+import com.rzm.mylibrary.db.DaoSupportFactory;
+import com.rzm.mylibrary.db.IDaoSupport;
+import com.rzm.mylibrary.http.HttpCallBack;
+import com.rzm.mylibrary.http.retrofit.RetrofitEngine;
+import com.rzm.mylibrary.navigation.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.bean.Person;
 import com.rzm.commonlibrary.general.FixDexManager;

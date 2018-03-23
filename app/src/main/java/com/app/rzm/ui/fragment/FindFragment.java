@@ -8,12 +8,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mylibrary.http.HttpCallBack;
-import com.example.mylibrary.http.okhttp.OkHttpEngine;
-import com.example.mylibrary.view.banner.BannerAdapter;
-import com.example.mylibrary.view.banner.BannerView;
-import com.example.mylibrary.view.banner.BannerViewPager;
-import com.example.mylibrary.view.recyclerview.view.WrapRecyclerView;
+import com.rzm.mylibrary.http.HttpCallBack;
+import com.rzm.mylibrary.http.okhttp.OkHttpEngine;
+import com.rzm.mylibrary.view.banner.BannerAdapter;
+import com.rzm.mylibrary.view.banner.BannerView;
+import com.rzm.mylibrary.view.banner.BannerViewPager;
+import com.rzm.mylibrary.view.recyclerview.view.WrapRecyclerView;
 import com.app.rzm.R;
 import com.app.rzm.adapter.DiscoverListAdapter;
 import com.app.rzm.bean.DiscoverListResult;

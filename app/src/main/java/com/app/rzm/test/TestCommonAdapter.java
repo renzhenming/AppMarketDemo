@@ -3,9 +3,9 @@ package com.app.rzm.test;
 import android.content.Context;
 
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
-import com.example.mylibrary.view.recyclerview.holder.CommonViewHolder;
-import com.example.mylibrary.view.recyclerview.multi.MultiTypeSupport;
+import com.rzm.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
+import com.rzm.mylibrary.view.recyclerview.holder.CommonViewHolder;
+import com.rzm.mylibrary.view.recyclerview.multi.MultiTypeSupport;
 
 import java.util.List;
 

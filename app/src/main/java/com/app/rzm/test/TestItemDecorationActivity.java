@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.decoration.AlphabetItemDecoration;
-import com.example.mylibrary.view.recyclerview.multi.MultiTypeSupport;
-import com.example.mylibrary.view.recyclerview.view.CommonRecyclerView;
+import com.rzm.mylibrary.view.recyclerview.decoration.AlphabetItemDecoration;
+import com.rzm.mylibrary.view.recyclerview.multi.MultiTypeSupport;
+import com.rzm.mylibrary.view.recyclerview.view.CommonRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

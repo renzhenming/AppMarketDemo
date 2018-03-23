@@ -16,9 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.mylibrary.BaseSkinActivity;
-import com.example.mylibrary.navigation.CommonNavigationBar;
-import com.example.mylibrary.util.StatusBarUtil;
+import com.rzm.mylibrary.BaseSkinActivity;
+import com.rzm.mylibrary.navigation.CommonNavigationBar;
+import com.rzm.mylibrary.util.StatusBarUtil;
 import com.app.rzm.R;
 
 import java.io.BufferedOutputStream;

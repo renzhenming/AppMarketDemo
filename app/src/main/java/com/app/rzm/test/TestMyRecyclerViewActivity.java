@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.app.rzm.R;
-import com.example.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
-import com.example.mylibrary.view.recyclerview.creator.DefaultLoadCreator;
-import com.example.mylibrary.view.recyclerview.creator.DefaultRefreshCreator;
-import com.example.mylibrary.view.recyclerview.multi.MultiTypeSupport;
-import com.example.mylibrary.view.recyclerview.view.CommonRecyclerView;
-import com.example.mylibrary.view.recyclerview.view.RefreshRecyclerView;
+import com.rzm.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
+import com.rzm.mylibrary.view.recyclerview.creator.DefaultLoadCreator;
+import com.rzm.mylibrary.view.recyclerview.creator.DefaultRefreshCreator;
+import com.rzm.mylibrary.view.recyclerview.multi.MultiTypeSupport;
+import com.rzm.mylibrary.view.recyclerview.view.CommonRecyclerView;
+import com.rzm.mylibrary.view.recyclerview.view.RefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
