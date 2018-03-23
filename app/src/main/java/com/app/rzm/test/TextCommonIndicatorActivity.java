@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.app.rzm.R;
 import com.example.mylibrary.view.indicator.CommonIndicatorAdapter;
 import com.example.mylibrary.view.indicator.CommonIndicatorView;
-import com.example.mylibrary.view.indicator.RippleTextView;
+import com.example.mylibrary.view.RippleTextView;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.mylibrary.view.indicator;
+package com.example.mylibrary.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
