@@ -50,11 +50,22 @@
 
     <!--半圆弧进度条-->
     <declare-styleable name="ArcView">
+        <!-- 进度条未开始时显示的颜色 -->
         <attr name="backgroundColor" format="color"/>
+        <!-- 进度条进行中的颜色 -->
         <attr name="foregroundColor" format="color"/>
+        <!-- 进度条宽度 -->
         <attr name="borderWidth" format="dimension"/>
+        <!-- 中间文字大小和颜色 -->
         <attr name="centerTextSize" format="dimension"/>
         <attr name="centerTextColor" format="color"/>
     </declare-styleable>
 
+    <!--字母列表-->
+    <declare-styleable name="AlphabetView">
+        <attr name="textColor" format="color"/>
+        <!--触摸时的字体颜色-->
+        <attr name="touchTextColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
 </resources>

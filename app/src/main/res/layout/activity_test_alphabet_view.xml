@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.app.rzm.test.TestAlphabetViewActivity">
+    <com.rzm.mylibrary.view.AlphabetView
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="#0f0"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        app:textSize="18sp"
+        app:textColor="#f00"
+        app:touchTextColor="#00f"
+        android:paddingRight="10dp"
+        android:id="@+id/alphabet"
+        android:layout_height="match_parent" />
+</RelativeLayout>
