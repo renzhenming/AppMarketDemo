@@ -8,16 +8,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.rzm.mylibrary.http.HttpCallBack;
-import com.rzm.mylibrary.http.okhttp.OkHttpEngine;
-import com.rzm.mylibrary.view.banner.BannerAdapter;
-import com.rzm.mylibrary.view.banner.BannerView;
-import com.rzm.mylibrary.view.banner.BannerViewPager;
-import com.rzm.mylibrary.view.recyclerview.view.WrapRecyclerView;
+import com.rzm.commonlibrary.general.http.impl.callback.CallBackImpl;
+import com.rzm.commonlibrary.general.http.impl.engine.okhttp.OkHttpEngine;
+import com.rzm.commonlibrary.views.banner.BannerAdapter;
+import com.rzm.commonlibrary.views.banner.BannerView;
+import com.rzm.commonlibrary.views.banner.BannerViewPager;
+import com.rzm.commonlibrary.views.recyclerview.view.WrapRecyclerView;
 import com.app.rzm.R;
 import com.app.rzm.adapter.DiscoverListAdapter;
 import com.app.rzm.bean.DiscoverListResult;
-import com.rzm.commonlibrary.general.http.HttpUtils;
+import com.rzm.commonlibrary.general.http.base.HttpUtils;
 import com.rzm.commonlibrary.inject.BindViewId;
 import com.rzm.commonlibrary.stack.mvc.BaseFragment;
 import java.util.List;
@@ -42,7 +42,7 @@ public class FindFragment extends BaseFragment implements BannerViewPager.Banner
 
         HttpUtils.with(context).exchangeEngine(new OkHttpEngine()).url("http://is.snssdk.com/2/essay/discovery/v3/?").addParams("iid",6152551759L).addParams("aid",7)
                 .cache(true)
-                .execute(new HttpCallBack<DiscoverListResult>() {
+                .execute(new CallBackImpl<DiscoverListResult>() {
                     @Override
                     protected void onSuccess(DiscoverListResult result) {
                         // 先显示列表

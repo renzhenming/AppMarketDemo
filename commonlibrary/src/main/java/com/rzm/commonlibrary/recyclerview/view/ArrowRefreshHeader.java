@@ -72,7 +72,7 @@ public class ArrowRefreshHeader extends LinearLayout implements IRefreshHeader {
         mArrowImageView = (ImageView)findViewById(R.id.listview_header_arrow);
         mStatusTextView = (TextView)findViewById(R.id.refresh_status_textview);
 
-        //init the progress view
+        //initHttpEngine the progress view
         mProgressBar = (SimpleViewSwitcher)findViewById(R.id.listview_header_progressbar);
         mProgressBar.setView(initIndicatorView(ProgressStyle.BallSpinFadeLoader));
 

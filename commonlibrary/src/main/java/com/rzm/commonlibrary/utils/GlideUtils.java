@@ -3,7 +3,6 @@ package com.rzm.commonlibrary.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
@@ -12,13 +11,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.signature.StringSignature;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 
 
@@ -140,7 +133,7 @@ public class GlideUtils {
                             blurAndSaveBitmap(resource, context);
                             //缓存一次虚化头像后，保存当前的headModifyTime，当下一次走到这里，判断上次保存的时间戳和本次时间戳是否相同
                             //如果相同说明头像没有更新，所以不需要再次缓存虚化背景，如果时间戳发生变化，说明头像已经更新，需要重新缓存
-                            SpUtil.saveString(context, LAST_MODIFY_TIME, currentModifyTime);
+                            SharePreferenceUtil.setString(context, LAST_MODIFY_TIME, currentModifyTime);
                         }
                     }
                 }

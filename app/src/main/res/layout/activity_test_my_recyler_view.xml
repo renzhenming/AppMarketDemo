@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.app.rzm.test.TestMyRecyclerViewActivity">
 
-    <com.rzm.mylibrary.view.recyclerview.view.CommonRecyclerView
+    <com.rzm.commonlibrary.views.recyclerview.view.CommonRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/recyclerview"
-        android:layout_height="match_parent"></com.rzm.mylibrary.view.recyclerview.view.CommonRecyclerView>
+        android:layout_height="match_parent"></com.rzm.commonlibrary.views.recyclerview.view.CommonRecyclerView>
 
     <include layout="@layout/layout_loading_state"/>
 

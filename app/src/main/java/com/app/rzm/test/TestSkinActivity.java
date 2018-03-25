@@ -6,8 +6,8 @@ import android.os.Environment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.rzm.mylibrary.BaseSkinActivity;
-import com.rzm.mylibrary.skin.SkinManager;
+import com.rzm.commonlibrary.BaseSkinActivity;
+import com.rzm.commonlibrary.general.skin.SkinManager;
 import com.app.rzm.R;
 import com.app.rzm.service.GuardService1;
 import com.app.rzm.service.GuardService2;

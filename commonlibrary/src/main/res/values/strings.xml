@@ -30,4 +30,10 @@
     <string name="chat_video">小视频</string>
     <string name="chat_release_send">松开 结束</string>
     <string name="chat_video_too_short">录制过短，请重试</string>
+
+    <string name="media_choose_ok">确定</string>
+    <string name="media_choose_only_single">不支持多选</string>
+    <string name="media_choose_preview">预览</string>
+
+    <string name="media_chooser_hint">支持选取最短4s最长10min</string>
 </resources>

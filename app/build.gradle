@@ -77,7 +77,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':commonlibrary')
-    compile project(':framelibrary')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //针对libs下的.jar库
 

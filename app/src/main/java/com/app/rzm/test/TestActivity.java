@@ -11,17 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rzm.mylibrary.BaseSkinActivity;
-import com.rzm.mylibrary.db.DaoSupportFactory;
-import com.rzm.mylibrary.db.IDaoSupport;
-import com.rzm.mylibrary.http.HttpCallBack;
-import com.rzm.mylibrary.http.retrofit.RetrofitEngine;
-import com.rzm.mylibrary.navigation.CommonNavigationBar;
+import com.rzm.commonlibrary.BaseSkinActivity;
+import com.rzm.commonlibrary.general.db.DaoSupportFactory;
+import com.rzm.commonlibrary.general.db.IDaoSupport;
+import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.bean.Person;
 import com.rzm.commonlibrary.general.FixDexManager;
 import com.rzm.commonlibrary.general.dialog.CommonDialog;
-import com.rzm.commonlibrary.general.http.HttpUtils;
 import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;
 import com.rzm.commonlibrary.general.permission.PermissionSucceed;
@@ -101,7 +98,7 @@ public class TestActivity extends BaseSkinActivity {
                 .exchangeEngine(new OkHttpEngine())
                 .download()
                 .url("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg")
-                .execute(new HttpCallBack<String>() {
+                .execute(new CallBackImpl<String>() {
 
                     @Override
                     public void onError(final Exception e) {
@@ -178,31 +175,7 @@ public class TestActivity extends BaseSkinActivity {
 
     @Override
     protected void initTitle() {
-        HttpUtils httpUtils2 = HttpUtils.with(this)
-                .exchangeEngine(new RetrofitEngine())
-                .cache(true)
-                .get()
-                .url("http://is.snssdk.com/2/essay/discovery/v3/")
-                .addParams("iid","6152551759")
-                .addParams("aid","7")
-                .execute(new HttpCallBack<String>() {
 
-                    @Override
-                    public void onPreExecute() {
-                        super.onPreExecute();
-                        Toast.makeText(getApplicationContext(),"加载中。。。。。。。。。。",Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(final Exception e) {
-                        Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
-                    }
-                    @Override
-                    public void onSuccess(final String result) {
-                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_LONG).show();
-                    }
-
-                });
 
     }
 

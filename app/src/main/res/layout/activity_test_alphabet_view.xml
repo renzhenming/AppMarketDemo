@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.app.rzm.test.TestAlphabetViewActivity">
-    <com.rzm.mylibrary.view.AlphabetView
+    <com.rzm.commonlibrary.views.AlphabetView
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:background="#0f0"

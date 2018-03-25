@@ -31,7 +31,9 @@
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".test.TestActivity"
-            android:label="TestActivity" />
+            android:label="TestActivity">
+
+        </activity>
         <activity android:name=".test.TestSkinActivity" />
         <activity android:name=".test.TestProxyActivity" />
         <activity android:name=".test.TestCompressImageActivity" />
@@ -77,15 +79,14 @@
         <activity android:name=".test.TestBsPatchActivity" />
         <activity android:name=".test.TestItemDecorationActivity" />
         <activity android:name=".test.TestChatViewActivity" />
-        <activity android:name=".test.TextCommonIndicatorActivity">
-
-        </activity>
+        <activity android:name=".test.TextCommonIndicatorActivity"></activity>
         <activity
             android:name=".test.TestPasswordKeyboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".test.TestMyRecyclerViewActivity" />
-        <activity android:name=".test.TextCustomeViewActivity"></activity>
-        <activity android:name=".test.TestAlphabetViewActivity">
+        <activity android:name=".test.TextCustomeViewActivity" />
+        <activity android:name=".test.TestAlphabetViewActivity"></activity>
+        <activity android:name=".test.TestHttpUtilsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,7 +7,7 @@ import android.view.View;
 import com.app.rzm.R;
 import com.app.rzm.bean.DiscoverListResult;
 import com.app.rzm.utils.GlideImageLoader;
-import com.rzm.mylibrary.view.recyclerview.adpter.CommonRecyclerAdpater;
+import com.rzm.commonlibrary.views.recyclerview.adpter.CommonRecyclerAdpater;
 
 import java.util.List;
 

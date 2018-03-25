@@ -11,7 +11,7 @@ import android.util.Log;
 /**
  * 用于判断当前app是否在前台运行
  *
- * 使用方法，在application初始化的时候同时初始化Foreground，Foreground.init()
+ * 使用方法，在application初始化的时候同时初始化Foreground，Foreground.initHttpEngine()
  * 然后在需要判断的地方使用如下代码
  *
  * Foreground.get()..isForeground()

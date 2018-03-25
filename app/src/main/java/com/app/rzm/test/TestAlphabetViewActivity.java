@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.app.rzm.R;
-import com.rzm.mylibrary.view.AlphabetView;
+import com.rzm.commonlibrary.views.AlphabetView;
 
 public class TestAlphabetViewActivity extends AppCompatActivity {
 

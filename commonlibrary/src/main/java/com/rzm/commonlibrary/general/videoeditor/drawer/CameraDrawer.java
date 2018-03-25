@@ -119,7 +119,7 @@ public class CameraDrawer implements GLSurfaceView.Renderer {
         mBeFilter.create();
         mAfFilter.create();
         mBeautyFilter.init();
-        //mSlideFilterGroup.init();
+        //mSlideFilterGroup.initHttpEngine();
 
 
         if (recordingEnabled){

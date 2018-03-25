@@ -4,7 +4,7 @@ import android.animation.ValueAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.app.rzm.R;
-import com.rzm.mylibrary.view.ArcView;
+import com.rzm.commonlibrary.views.ArcView;
 
 public class TextCustomeViewActivity extends AppCompatActivity {
 
