@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.app.rzm.test.TextCustomeViewActivity">
-    <com.rzm.mylibrary.view.ArcView
+    <com.rzm.commonlibrary.views.ArcView
         android:id="@+id/arcView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

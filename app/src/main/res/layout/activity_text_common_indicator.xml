@@ -7,11 +7,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.app.rzm.test.TextCommonIndicatorActivity">
 
-    <com.rzm.mylibrary.view.indicator.CommonIndicatorView
+    <com.rzm.commonlibrary.views.indicator.CommonIndicatorView
         android:id="@+id/indicator"
         app:tabVisibleNum="7"
         android:layout_width="match_parent"
-        android:layout_height="50dp"></com.rzm.mylibrary.view.indicator.CommonIndicatorView>
+        android:layout_height="50dp"></com.rzm.commonlibrary.views.indicator.CommonIndicatorView>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

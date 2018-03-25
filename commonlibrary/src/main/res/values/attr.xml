@@ -10,10 +10,72 @@
         <attr name="indicatorColor" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="SwipeMenuLayout">
-        <attr name="leftViewId" format="reference" />
-        <attr name="rightViewId" format="reference" />
-        <attr name="contentViewId" format="reference" />
+    <!-- 自定义轮播条 -->
+    <declare-styleable name="BannerView">
+        <!-- 点的选中的颜色值 -->
+        <attr name="dotIndicatorFocus"  format="color|reference"/>
+        <!-- 点的默认的颜色值 -->
+        <attr name="dotIndicatorNormal"  format="color|reference"/>
+        <!-- 点的大小 -->
+        <attr name="dotSize" format="dimension"/>
+        <!-- 点的间距 -->
+        <attr name="dotDistance" format="dimension"/>
+        <!-- 点的位置 -->
+        <attr name="dotGravity" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="left" value="-1"/>
+        </attr>
+        <!-- 底部的颜色 -->
+        <attr name="bottomColor" format="color"/>
+        <!-- 定义宽高比 -->
+        <attr name="withProportion" format="float"/>
+        <attr name="heightProportion" format="float"/>
     </declare-styleable>
 
+    <!--自定义Indicator指示器，仿TabLayout效果-->
+    <declare-styleable name="CommonIndicatorView">
+        <attr name="tabVisibleNum" format="integer"/>
+    </declare-styleable>
+
+    <!--自定义密码输入框和键盘-->
+    <declare-styleable name="PasswordEditText">
+        <!-- 密码的个数 -->
+        <attr name="passwordNumber" format="integer"/>
+        <!-- 密码圆点的半径 -->
+        <attr name="passwordRadius" format="dimension" />
+        <!-- 密码圆点的颜色 -->
+        <attr name="passwordColor" format="color" />
+        <!-- 分割线的颜色 -->
+        <attr name="divisionLineColor" format="color" />
+        <!-- 分割线的大小 -->
+        <attr name="divisionLineSize" format="color" />
+        <!-- 背景边框的颜色 -->
+        <attr name="bgColor" format="color" />
+        <!-- 背景边框的大小 -->
+        <attr name="bgSize" format="dimension" />
+        <!-- 背景边框的圆角大小 -->
+        <attr name="bgCorner" format="dimension"/>
+    </declare-styleable>
+
+    <!--半圆弧进度条-->
+    <declare-styleable name="ArcView">
+        <!-- 进度条未开始时显示的颜色 -->
+        <attr name="backgroundColor" format="color"/>
+        <!-- 进度条进行中的颜色 -->
+        <attr name="foregroundColor" format="color"/>
+        <!-- 进度条宽度 -->
+        <attr name="borderWidth" format="dimension"/>
+        <!-- 中间文字大小和颜色 -->
+        <attr name="centerTextSize" format="dimension"/>
+        <attr name="centerTextColor" format="color"/>
+    </declare-styleable>
+
+    <!--字母列表-->
+    <declare-styleable name="AlphabetView">
+        <attr name="textColor" format="color"/>
+        <!--触摸时的字体颜色-->
+        <attr name="touchTextColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
 </resources>

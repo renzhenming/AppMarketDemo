@@ -4,6 +4,9 @@ package com.app.rzm;
 import android.content.Context;
 
 import com.rzm.commonlibrary.general.BaseApplication;
+import com.rzm.commonlibrary.general.http.base.HttpUtils;
+import com.rzm.commonlibrary.general.http.impl.cache.SPCacheEngine;
+import com.rzm.commonlibrary.general.http.impl.engine.okhttp.OkHttpEngine;
 
 /**
  * Created by rzm on 2017/7/22.
@@ -17,6 +20,15 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
+
+
+        //设置网络引擎
+        HttpUtils.initHttpEngine(new OkHttpEngine());
+        HttpUtils.initCacheEngine(new SPCacheEngine(this));
+
+/*.initCacheEngine(new SPCacheEngine(this)*/
+        //HttpCacheUtils.initHttpEngine(new SPCacheEngine(this));
+
         /*PluginHelper.getInstance().applicationOnCreate(getBaseContext()); //must behind super.onCreate()
         try {
             PluginManager.getInstance().installPackage("", 0);

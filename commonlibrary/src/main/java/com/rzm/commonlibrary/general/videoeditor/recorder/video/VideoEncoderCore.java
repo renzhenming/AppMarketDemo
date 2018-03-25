@@ -83,7 +83,7 @@ public class VideoEncoderCore {
      */
     public VideoEncoderCore(int width, int height, int bitRate, String path)
             throws IOException {
-        //audio init
+        //audio initHttpEngine
         MediaFormat aFormat = MediaFormat.createAudioFormat(audioMime, sampleRate, channelCount);//创建音频的格式,参数 MIME,采样率,通道数
         aFormat.setInteger(MediaFormat.KEY_AAC_PROFILE, MediaCodecInfo.CodecProfileLevel.AACObjectLC);//编码方式
         aFormat.setInteger(MediaFormat.KEY_BIT_RATE, audioRate);//比特率
@@ -95,7 +95,7 @@ public class VideoEncoderCore {
         mAudioEnc.start();
         mRecorder.startRecording();
 
-        //video init
+        //video initHttpEngine
         mBufferInfo = new MediaCodec.BufferInfo();
         MediaFormat format = MediaFormat.createVideoFormat(MIME_TYPE, width, height);
 

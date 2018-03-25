@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.app.rzm.R;
-import com.rzm.mylibrary.view.passportview.PassportKeyboard;
-import com.rzm.mylibrary.view.passportview.PasswordEditText;
+import com.rzm.commonlibrary.views.passportview.PassportKeyboard;
+import com.rzm.commonlibrary.views.passportview.PasswordEditText;
 import com.rzm.commonlibrary.utils.ToastUtil;
 
 /**
