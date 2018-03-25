@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class HttpUtils{
 
-
     private String mUrl;
     private String mPath;
 

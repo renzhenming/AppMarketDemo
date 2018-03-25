@@ -27,8 +27,7 @@ import java.util.Map;
 public abstract class CallBackImpl<T>  implements ICallBack {
     @Override
     public void onPreExecute(Context context, Map<String, Object> params) {
-        // 大大方方的添加公用参数  与项目业务逻辑有关
-        // 项目名称  context
+        // 可以在这里添加公共的一些参数
         params.put("app_name","joke_essay");
         params.put("version_name","5.7.0");
         params.put("ac","wifi");
