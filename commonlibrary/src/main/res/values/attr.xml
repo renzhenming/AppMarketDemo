@@ -78,4 +78,12 @@
         <attr name="touchTextColor" format="color"/>
         <attr name="textSize" format="dimension"/>
     </declare-styleable>
+
+    <!--SlidingView-->
+    <declare-styleable name="SlidingView">
+        <!--侧边栏完全出现时距离右边的宽度-->
+        <attr name="menuPaddingRight" format="dimension"/>
+        <!--是否视差效果，默认为false-->
+        <attr name="menuParallax" format="boolean"/>
+    </declare-styleable>
 </resources>
