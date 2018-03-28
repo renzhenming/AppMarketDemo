@@ -14,13 +14,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.rzm.commonlibrary.R;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 /**
  * Created by renzhenming on 2018/3/28.
+ *
+ * SlidingView继承自HorizontalScrollView，所以在布局中使用的时候，需要设置一个唯一的子View，然后
+ * 往这个子 view中添加侧边栏和主栏
  */
 
 public class SlidingView extends HorizontalScrollView{
@@ -31,9 +33,6 @@ public class SlidingView extends HorizontalScrollView{
     private final int mMenuWidth;
 
     private final Context mContext;
-
-    //根布局，用作HorizontalScrollView的唯一子view
-    //private final LinearLayout mRootView;
 
     //默认的侧边栏滑出最大位置距离右边屏幕的距离
     private float mMenuPaddingRight = 100;
@@ -86,13 +85,6 @@ public class SlidingView extends HorizontalScrollView{
         //侧边栏的宽度
         mMenuWidth = (int) (getScreenWidth() - mMenuPaddingRight);
         typedArray.recycle();
-
-//        mRootView = new LinearLayout(context);
-//        ViewGroup.LayoutParams rootLayoutParams = new ViewGroup.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-//        mRootView.setLayoutParams(rootLayoutParams);
-//        mRootView.setOrientation(LinearLayout.HORIZONTAL);
-
-//        addView(mRootView);
 
         mGestureDetector = new GestureDetector(context, new GestureListener());
     }
