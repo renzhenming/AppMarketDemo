@@ -150,11 +150,13 @@ public class RippleTextView extends TextView{
      * bottom指的是最下字符到baseline的值，即descent的最大值，字能达到的最小值
      */
     private void drawText(Canvas canvas, Paint paint, int start, int end) {
-        //保存画笔状态
+        //保存画笔状态,绘制两种颜色，每次都要保存canvas最初的状态
         canvas.save();
 
         //截取绘制的内容，该方法用于裁剪画布，也就是设置画布的显示区域
         //主要用于部分显示以及对画布中的部分对象进行操作的场合。
+        //这里就是说，设置一个Rect区域用于绘制默认颜色，一个区域用于设置高亮颜色，只在这个限定的区域中
+        //绘制
         canvas.clipRect(start,0,end,getHeight());
 
         //获取文字的范围
