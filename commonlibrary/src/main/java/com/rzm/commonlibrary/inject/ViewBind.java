@@ -90,7 +90,8 @@ public class ViewBind {
                 mMethod.invoke(mObject,view);
             } catch (Exception e) {
                 e.printStackTrace();
-                //如果执行有参方法失败，则执行无参方法
+                //如果执行有参方法失败，则执行无参方法，执行失败的原因是没有在方法中设置view参数，这时执行无参数方法即可
+                //防止错误
                 try {
                     mMethod.invoke(mObject);
                 } catch (IllegalAccessException e1) {

@@ -35,8 +35,6 @@ import java.util.List;
 public class TestActivity extends BaseSkinActivity {
 
     private static final String TAG = "TestActivity";
-    @BindViewId(R.id.click)
-    TextView mText;
     private ImageView mImage;
 
     @Override
@@ -160,9 +158,6 @@ public class TestActivity extends BaseSkinActivity {
                 LogUtils.e(TAG,"delete ->>haha:"+haha);
             }
         }).start();
-
-        ViewBind.inject(this);
-        mText.setText("注入的值");
 
 
         /**

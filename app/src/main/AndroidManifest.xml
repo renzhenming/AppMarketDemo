@@ -31,7 +31,7 @@
         <activity android:name=".ui.HomeActivity" />
         <activity
             android:name=".test.TestActivity"
-            android:label="TestActivity"></activity>
+            android:label="TestActivity" />
         <activity android:name=".test.TestSkinActivity" />
         <activity android:name=".test.TestProxyActivity" />
         <activity android:name=".test.TestCompressImageActivity" />
@@ -84,9 +84,10 @@
         <activity android:name=".test.TestMyRecyclerViewActivity" />
         <activity android:name=".test.TextCustomeViewActivity" />
         <activity android:name=".test.TestAlphabetViewActivity" />
-        <activity android:name=".test.TestHttpUtilsActivity">
-        </activity>
+        <activity android:name=".test.TestHttpUtilsActivity"></activity>
         <activity android:name=".test.TestSlidingViewActivity">
+        </activity>
+        <activity android:name=".test.TestIOCViewBindActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
