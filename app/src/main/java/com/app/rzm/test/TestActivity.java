@@ -91,37 +91,6 @@ public class TestActivity extends BaseSkinActivity {
     @PermissionSucceed(requestCode = 111)
     public void onPermissionGranted(){
 
-
-        /*HttpUtils httpUtils = HttpUtils.with(this)
-                .exchangeEngine(new OkHttpEngine())
-                .download()
-                .url("http://pic21.photophoto.cn/20111106/0020032891433708_b.jpg")
-                .execute(new CallBackImpl<String>() {
-
-                    @Override
-                    public void onError(final Exception e) {
-                        LogUtils.d(TAG,"onError");
-                    }
-                    @Override
-                    public void onSuccess(final String result) {
-                        LogUtils.d(TAG,"onSuccess");
-                    }
-
-                    @Override
-                    public void downloadProgress(int progress) {
-                        super.downloadProgress(progress);
-                        System.out.println("onDownloadProgress:"+progress);
-                    }
-
-                    @Override
-                    public void uploadProgress(int progress) {
-                        super.uploadProgress(progress);
-                    }
-
-                });
-*/
-
-
         //路径url参数都需要放到jni中，防止反编译被盗取到url
         //（https无法被抓包，http可以）
 
@@ -209,18 +178,6 @@ public class TestActivity extends BaseSkinActivity {
         }
     }
 
-    private void fixDex() {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),"fix.dex");
-        if (file.exists()){
-            FixDexManager manager = new FixDexManager(this);
-            try {
-                manager.fixDex(file.getAbsolutePath());
-                Toast.makeText(getApplicationContext(),"修复bug成功",Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"修复bug失败",Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        }
-    }
+
 
 }

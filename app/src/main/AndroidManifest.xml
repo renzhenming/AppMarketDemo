@@ -84,10 +84,12 @@
         <activity android:name=".test.TestMyRecyclerViewActivity" />
         <activity android:name=".test.TextCustomeViewActivity" />
         <activity android:name=".test.TestAlphabetViewActivity" />
-        <activity android:name=".test.TestHttpUtilsActivity"></activity>
-        <activity android:name=".test.TestSlidingViewActivity">
-        </activity>
+        <activity android:name=".test.TestHttpUtilsActivity" />
+        <activity android:name=".test.TestSlidingViewActivity"></activity>
         <activity android:name=".test.TestIOCViewBindActivity">
+
+        </activity>
+        <activity android:name=".test.TestFixDexActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

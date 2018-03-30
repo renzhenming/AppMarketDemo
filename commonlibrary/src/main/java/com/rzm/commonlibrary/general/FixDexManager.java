@@ -100,14 +100,16 @@ public class FixDexManager {
      * @return
      */
     private Object getDexElementByClassLoader(ClassLoader classLoader) throws Exception{
-        //先获取pathList
+        //先获取pathList(DexPathList)
         Field pathListField = BaseDexClassLoader.class.getDeclaredField("pathList");
         pathListField.setAccessible(true);
+        //DexPathList对象
         Object pathList = pathListField.get(classLoader);
 
-        //获取pathList中的dexElements
+        //获取pathList中的dexElements(Element)
         Field dexElementsField = pathList.getClass().getDeclaredField("dexElements");
         dexElementsField.setAccessible(true);
+        //Element数组对象
         Object dexElements = dexElementsField.get(pathList);
 
         return dexElements;
@@ -131,6 +133,7 @@ public class FixDexManager {
     private void fixDexFiles(List<File> fixDexFiles) throws Exception{
         //1.先获取已经运行的dexElement
         ClassLoader applicationClassLoader = mContext.getClassLoader();
+        //Element数组对象
         Object applicationDexElements = getDexElementByClassLoader(applicationClassLoader);
 
         File optimizedDirectory = new File(mDexDir,"odex");
