@@ -42,7 +42,7 @@ public class CommonDialog extends CustomDialog {
 
     private CommonController mAlert;
 
-    public CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
+    protected CommonDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
 
         mAlert = new CommonController(this,getWindow());
@@ -57,8 +57,8 @@ public class CommonDialog extends CustomDialog {
             mContext = context.getApplicationContext();
         }
 
-        public Builder(Context context, int thmemId) {
-            P = new CommonController.CommonParams(context,thmemId);
+        public Builder(Context context, int themeId) {
+            P = new CommonController.CommonParams(context,themeId);
         }
 
         public Builder setContentView(View view){
@@ -138,7 +138,7 @@ public class CommonDialog extends CustomDialog {
         }
 
         /**
-         * 设置北京透明度
+         * 设置背景透明度
          * @return
          */
         public Builder setAlpha(float alpha){
