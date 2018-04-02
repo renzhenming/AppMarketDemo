@@ -38,9 +38,10 @@ public class CommonNavigationBar<D extends
         setTextColor(R.id.right_text,getParams().mRightTextColor);
         setTextSize(R.id.right_text,getParams().mRightTextSize);
 
-        setRightIcon(R.id.right_text,getParams().mRightIcon);
+        setIcon(R.id.right_text,getParams().mRightIcon);
         setBackgroundColor(R.id.navigation_bar_parent,getParams().mBackgoundColor);
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
+
         // 左边 要写一个默认的  finishActivity
         setOnClickListener(R.id.back,getParams().mLeftClickListener);
 

@@ -36,8 +36,9 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
      */
     protected void setText(int viewId, String text) {
         TextView tv = findViewById(viewId);
-        if(!TextUtils.isEmpty(text)){
-            tv.setVisibility(View.VISIBLE);
+        if(!TextUtils.isEmpty(text) && tv != null){
+            if (tv.getVisibility() != View.VISIBLE)
+                tv.setVisibility(View.VISIBLE);
             tv.setText(text);
         }
     }
@@ -50,7 +51,8 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     protected void setTextColor(int viewId, int textColor) {
         TextView tv = findViewById(viewId);
         if(tv != null){
-            tv.setVisibility(View.VISIBLE);
+            if (tv.getVisibility() != View.VISIBLE)
+                tv.setVisibility(View.VISIBLE);
             tv.setTextColor(textColor);
         }
     }
@@ -63,13 +65,16 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     protected void setTextSize(int viewId, float textSize) {
         TextView tv = findViewById(viewId);
         if(tv != null){
-            tv.setVisibility(View.VISIBLE);
+            if (tv.getVisibility() != View.VISIBLE)
+                tv.setVisibility(View.VISIBLE);
             tv.setTextSize(textSize);
         }
     }
 
     protected void setVisibility(int viewId, int visibility) {
-        findViewById(viewId).setVisibility(visibility);
+        View view = findViewById(viewId);
+        if (view != null)
+            view.setVisibility(visibility);
     }
 
     /**
@@ -89,11 +94,12 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
      * @param viewId
      * @param icon
      */
-    protected void setRightIcon(int viewId, int icon) {
-        TextView textView = findViewById(viewId);
-        if(textView != null){
-            textView.setVisibility(View.VISIBLE);
-            textView.setBackgroundResource(icon);
+    protected void setIcon(int viewId, int icon) {
+        View view = findViewById(viewId);
+        if(view != null){
+            if (view.getVisibility() != View.VISIBLE)
+                view.setVisibility(View.VISIBLE);
+            view.setBackgroundResource(icon);
         }
     }
 
@@ -103,7 +109,9 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
      * @param listener
      */
     protected void setOnClickListener(int viewId,View.OnClickListener listener){
-        findViewById(viewId).setOnClickListener(listener);
+        View view = findViewById(viewId);
+        if(view != null)
+            view.setOnClickListener(listener);
     }
 
 
@@ -140,7 +148,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
         applyView();
     }
 
-    // Builder  仿照系统写的， 套路，活  AbsNavigationBar  Builder  参数Params
+    // Builder  仿照系统写的， 套路 AbsNavigationBar  Builder  参数Params
     public abstract static class Builder {
 
         public Builder(Context context, ViewGroup parent) {

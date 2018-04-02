@@ -55,36 +55,7 @@ public class TestActivity extends BaseSkinActivity {
                 .setTintType(StatusBarManager.TintType.PURECOLOR)
                 .setStatusBarColor(R.color.colorPrimary)
                 .build();
-        CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
-                .setTitle("个人中心")
-                .setRightIcon(R.drawable.search)
-                .setRightClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(),"编辑",Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .build();
 
-        findViewById(R.id.click).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
-                        .setContentView(R.layout.dialog)
-                        .setText(R.id.toast,"我是新的dialog")
-                        .fullWidth()
-                        .alignBottom(true)
-                        .show();
-                //我要获取到输入框的值，可以这样做 getView  (ListView RecyclerView CheckBox)
-                /*final EditText mEditText = dialog.getView(输入框的id);
-                dialog.setOnClickListener(R.id.toast, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(),mEditText.getText().toString(),Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-            }
-        });
 
     }
 
