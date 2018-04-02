@@ -54,4 +54,26 @@ CommonDialog dialog = new CommonDialog.Builder(TestActivity.this)
             }
         });
 
+3.CommonNavigationBar:
 
+CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
+       .setTitle("压缩图片")
+       .setRightText("确定")
+       .setRightTextColor(R.color.green)
+       .setRightTextSize(14)
+       .setBackgroundColor(R.color.gray)
+       .setRightClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+               Toast.makeText(getApplicationContext(),"确定",Toast.LENGTH_SHORT).show();
+           }
+       })
+       .setLeftClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View v) {
+               Toast.makeText(getApplicationContext(),"退出",Toast.LENGTH_SHORT).show();
+           }
+       })
+       .setTitleTextColor(R.color.red)
+       .setTitleTextSize(18)
+       .build();

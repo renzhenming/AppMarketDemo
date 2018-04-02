@@ -1,17 +1,14 @@
 package com.rzm.commonlibrary.general.navigationbar;
 
 /**
- * Email 240336124@qq.com
- * Created by Darren on 2017/2/26.
- * Version 1.0
- * Description: 导航条的规范
+ * Created by rzm on 2017/8/20.
  */
 public interface INavigationBar {
 
     // 头部的规范
-    public int bindLayoutId();
+    int bindLayoutId();
 
 
     // 绑定头部的参数
-    public void applyView();
+    void applyView();
 }

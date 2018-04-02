@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Email 240336124@qq.com
- * Created by Darren on 2017/2/26.
- * Version 1.0
- * Description: 头部的Builder基类
+ * Created by rzm on 2017/8/20.
  */
 public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNavigationParams> implements INavigationBar {
 
