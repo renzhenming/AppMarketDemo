@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rzm.commonlibrary.utils.LogUtils;
+
 /**
  * Created by rzm on 2017/8/20.
  */
 public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNavigationParams> implements INavigationBar {
+
+    private static final String TAG = "AbsNavigationBar";
 
     private P mParams;
 
@@ -130,7 +134,7 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
             ViewGroup activityRoot = (ViewGroup) ((Activity)(mParams.mContext))
                     .getWindow().getDecorView();
             mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);
-            Log.e("TAG",mParams.mParent+"");
+            LogUtils.e(TAG,mParams.mParent+"");
         }
 
         // 处理Activity的源码，后面再去看
@@ -149,13 +153,13 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
     }
 
     // Builder  仿照系统写的， 套路 AbsNavigationBar  Builder  参数Params
-    public abstract static class Builder {
+    public abstract static class Builder<D extends AbsNavigationBar> {
 
         public Builder(Context context, ViewGroup parent) {
 
         }
 
-        public abstract AbsNavigationBar build();
+        public abstract D build();
 
 
         public static class AbsNavigationParams {

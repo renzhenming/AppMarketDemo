@@ -56,7 +56,6 @@ public class CommonNavigationBar<D extends
         private Context mContext;
         DefaultNavigationParams P;
 
-
         public Builder(Context context, ViewGroup parent) {
             super(context, parent);
             this.mContext = context.getApplicationContext();
