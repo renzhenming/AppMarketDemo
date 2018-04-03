@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/dialog_des"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_vertical|left"
+        android:layout_width="match_parent"
+        android:minHeight="57dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/lightgray"
+        android:layout_height="2px"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:textSize="15sp"
+            android:background="@null"
+            android:gravity="center"
+            android:textColor="#000000" />
+        <View
+            android:layout_width="2px"
+            android:background="@color/lightgray"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:textSize="15sp"
+            android:background="@null"
+            android:gravity="center"
+            android:textColor="#000000" />
+    </LinearLayout>
+</LinearLayout>

@@ -24,7 +24,7 @@ public class MyApplication extends BaseApplication {
 
         //设置网络引擎
         HttpUtils.initHttpEngine(new OkHttpEngine());
-        HttpUtils.initCacheEngine(new SPCacheEngine(this));
+        HttpUtils.initCacheEngine(new SPCacheEngine());
 
 /*.initCacheEngine(new SPCacheEngine(this)*/
         //HttpCacheUtils.initHttpEngine(new SPCacheEngine(this));

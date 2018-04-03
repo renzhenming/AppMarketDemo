@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.navigationbar;
+package com.rzm.commonlibrary.general.navigationbar.api;
 
 /**
  * Created by rzm on 2017/8/20.

@@ -55,13 +55,13 @@ public class OkHttpEngine implements IHttpEngine {
 
 
     @Override
-    public void post(final boolean cache, Context context, String url, Map<String, Object> params, final ICallBack callBack) {
+    public void post(final boolean cache, final Context context, String url, Map<String, Object> params, final ICallBack callBack) {
 
         final String paramsUrl = HttpUtils.jointParams(url, params);  //打印
         LogUtils.e(TAG, "post url:"+paramsUrl);
 
         if (cache) {
-            final String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+            final String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e(TAG, "post cache：" + cacheJson);
                 //获取到缓存，直接执行成功方法
@@ -102,7 +102,7 @@ public class OkHttpEngine implements IHttpEngine {
                         LogUtils.e(TAG,"post result:"+result);
 
                         if (cache) {
-                            String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+                            String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
                             //2.每次获取到的结果，和上次的缓存进行比对
                             if (!TextUtils.isEmpty(cacheJson)) {
                                 if (result.equals(cacheJson)) {
@@ -120,7 +120,7 @@ public class OkHttpEngine implements IHttpEngine {
                         });
 
                         if (cache) {
-                            boolean success = HttpCacheUtils.getInstance().setCache(paramsUrl,result);
+                            boolean success = HttpCacheUtils.getInstance().setCache(context,paramsUrl,result);
                             LogUtils.e(TAG, "post set cache -->> " + success+","+result);
                         }
                     }
@@ -137,13 +137,13 @@ public class OkHttpEngine implements IHttpEngine {
 
 
     @Override
-    public void get(final boolean cache, Context context, String url, Map<String, Object> params, final ICallBack callBack) {
+    public void get(final boolean cache, final Context context, String url, Map<String, Object> params, final ICallBack callBack) {
 
         final String paramsUrl = HttpUtils.jointParams(url, params);
         LogUtils.e(TAG,"get url:"+paramsUrl);
 
         if (cache) {
-            final String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+            final String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
 
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e(TAG, "get cache：" + cacheJson);
@@ -185,7 +185,7 @@ public class OkHttpEngine implements IHttpEngine {
                 final String result = response.body().string();
 
                 if (cache) {
-                    String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+                    String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
                     //将获取到的结果和缓存对比，如果数据没有更新，就不再刷新
                     if (!TextUtils.isEmpty(cacheJson)) {
                         if (result.equals(cacheJson)) {
@@ -204,7 +204,7 @@ public class OkHttpEngine implements IHttpEngine {
                 LogUtils.e(TAG,"get result:"+ result);
 
                 if (cache) {
-                    boolean success = HttpCacheUtils.getInstance().setCache(paramsUrl,result);
+                    boolean success = HttpCacheUtils.getInstance().setCache(context,paramsUrl,result);
                     LogUtils.e(TAG, "get set cache " + success+","+result);
 
                 }

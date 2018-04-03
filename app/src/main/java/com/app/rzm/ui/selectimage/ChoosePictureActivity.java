@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.rzm.commonlibrary.BaseSkinActivity;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.impl.CommonNavigationBar;
 import com.rzm.commonlibrary.utils.StatusBarUtil;
 import com.app.rzm.R;
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.app.rzm.test.TestDaoSupportActivity">
+    <Button
+        android:layout_width="match_parent"
+        android:text="insert"
+        android:onClick="insert"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="query"
+        android:onClick="query"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="update"
+        android:onClick="update"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="delete"
+        android:onClick="delete"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="deleteAll"
+        android:onClick="deleteAll"
+        android:layout_height="wrap_content" />
+</LinearLayout>

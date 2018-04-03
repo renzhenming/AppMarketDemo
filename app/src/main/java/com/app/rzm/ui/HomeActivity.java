@@ -3,7 +3,7 @@ package com.app.rzm.ui;
 import com.app.rzm.ui.fragment.FindFragment;
 import com.app.rzm.ui.fragment.MessageFragment;
 import com.rzm.commonlibrary.BaseSkinActivity;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.impl.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.ui.fragment.FragmentManagerHelper;
 import com.app.rzm.ui.fragment.HomeFragment;

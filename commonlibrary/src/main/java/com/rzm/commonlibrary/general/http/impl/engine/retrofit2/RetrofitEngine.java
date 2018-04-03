@@ -33,12 +33,12 @@ public class RetrofitEngine implements IHttpEngine {
     }
 
     @Override
-    public void get(final boolean cache, Context context, String url, Map<String, Object> params, final ICallBack callBack) {
+    public void get(final boolean cache, final Context context, String url, Map<String, Object> params, final ICallBack callBack) {
         final String paramsUrl = HttpUtils.jointParams(url, params);
         LogUtils.e(TAG,"get url:"+paramsUrl);
 
         if (cache) {
-            final String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+            final String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e(TAG, "get get cache ：" + cacheJson);
                 //获取到缓存，直接执行成功方法
@@ -53,7 +53,7 @@ public class RetrofitEngine implements IHttpEngine {
                 LogUtils.e(TAG,"get result:"+result);
 
                 if (cache) {
-                    String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+                    String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
                     //2.每次获取到的结果，和上次的缓存进行比对
                     if (!TextUtils.isEmpty(cacheJson)) {
                         if (result.equals(cacheJson)) {
@@ -66,7 +66,7 @@ public class RetrofitEngine implements IHttpEngine {
                 callBack.onSuccess(response.body().toString());
 
                 if (cache) {
-                    boolean success = HttpCacheUtils.getInstance().setCache(paramsUrl,result);
+                    boolean success = HttpCacheUtils.getInstance().setCache(context,paramsUrl,result);
                     LogUtils.e(TAG, "get set cache -->> " + success+","+result);
                 }
             }
@@ -79,13 +79,13 @@ public class RetrofitEngine implements IHttpEngine {
     }
 
     @Override
-    public void post(final boolean cache, Context context, String url, Map<String, Object> params, final ICallBack callBack) {
+    public void post(final boolean cache, final Context context, String url, Map<String, Object> params, final ICallBack callBack) {
 
         final String paramsUrl = HttpUtils.jointParams(url, params);
         LogUtils.e(TAG,"post url:"+paramsUrl);
 
         if (cache) {
-            final String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+            final String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
             if (!TextUtils.isEmpty(cacheJson)) {
                 LogUtils.e(TAG, "post get cache：" + cacheJson);
                 callBack.onSuccess(cacheJson);
@@ -99,7 +99,7 @@ public class RetrofitEngine implements IHttpEngine {
                 LogUtils.e(TAG,"post result:"+result);
 
                 if (cache) {
-                    String cacheJson = HttpCacheUtils.getInstance().getCache(paramsUrl);
+                    String cacheJson = HttpCacheUtils.getInstance().getCache(context,paramsUrl);
                     //2.每次获取到的结果，和上次的缓存进行比对
                     if (!TextUtils.isEmpty(cacheJson)) {
                         if (result.equals(cacheJson)) {
@@ -112,7 +112,7 @@ public class RetrofitEngine implements IHttpEngine {
                 callBack.onSuccess(response.body().toString());
 
                 if (cache) {
-                    boolean success = HttpCacheUtils.getInstance().setCache(paramsUrl,result);
+                    boolean success = HttpCacheUtils.getInstance().setCache(context,paramsUrl,result);
                     LogUtils.e(TAG, "post set cache -->> " + success+","+result);
                 }
             }

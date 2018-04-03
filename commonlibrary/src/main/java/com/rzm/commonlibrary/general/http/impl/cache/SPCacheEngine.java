@@ -14,34 +14,28 @@ import com.rzm.commonlibrary.utils.SharePreferenceUtil;
 
 public class SPCacheEngine implements IHttpCache {
 
-    private final Context mContext;
-
-    public SPCacheEngine(Context context) {
-        this.mContext = context;
+    @Override
+    public String getCache(Context context,String key) {
+        return SharePreferenceUtil.getString(context, key);
     }
 
     @Override
-    public String getCache(String key) {
-        return SharePreferenceUtil.getString(mContext, key);
+    public boolean setCache(Context context,String key, String value) {
+        return SharePreferenceUtil.setString(context,key,value);
     }
 
     @Override
-    public boolean setCache(String key, String value) {
-        return SharePreferenceUtil.setString(mContext,key,value);
+    public boolean deleteCache(Context context,String key) {
+        return SharePreferenceUtil.clear(context,key);
     }
 
     @Override
-    public boolean deleteCache(String key) {
-        return SharePreferenceUtil.clear(mContext,key);
+    public boolean deleteAllCache(Context context) {
+        return SharePreferenceUtil.clearAll(context);
     }
 
     @Override
-    public boolean deleteAllCache() {
-        return SharePreferenceUtil.clearAll(mContext);
-    }
-
-    @Override
-    public boolean updateCache(String newValue, String key, String value) {
-        return SharePreferenceUtil.setString(mContext,key,value);
+    public boolean updateCache(Context context,String newValue, String key, String value) {
+        return SharePreferenceUtil.setString(context,key,value);
     }
 }

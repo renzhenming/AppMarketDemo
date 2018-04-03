@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import com.app.rzm.R;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
-import com.rzm.commonlibrary.general.navigationbar.ToolbarStyleNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.impl.CommonNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.impl.ToolbarStyleNavigationBar;
 
 public class TestCommonNavigationBarActivity extends AppCompatActivity {
 

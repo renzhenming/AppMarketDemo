@@ -13,7 +13,7 @@ import com.app.rzm.R;
 import com.app.rzm.ui.selectimage.ChoosePictureActivity;
 import com.app.rzm.utils.ImageUtil;
 import com.rzm.commonlibrary.BaseSkinActivity;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
+import com.rzm.commonlibrary.general.navigationbar.impl.CommonNavigationBar;
 import com.app.rzm.ui.selectimage.ImageSelector;
 import com.rzm.commonlibrary.general.permission.PermissionDenied;
 import com.rzm.commonlibrary.general.permission.PermissionHelper;

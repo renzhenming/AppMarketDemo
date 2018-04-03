@@ -1,29 +1,18 @@
 package com.app.rzm.test;
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rzm.commonlibrary.BaseSkinActivity;
 import com.rzm.commonlibrary.general.db.DaoSupportFactory;
 import com.rzm.commonlibrary.general.db.IDaoSupport;
-import com.rzm.commonlibrary.general.navigationbar.CommonNavigationBar;
 import com.app.rzm.R;
 import com.app.rzm.bean.Person;
-import com.rzm.commonlibrary.general.FixDexManager;
-import com.rzm.commonlibrary.general.dialog.CommonDialog;
 import com.rzm.commonlibrary.general.navigationbar.StatusBarManager;
-import com.rzm.commonlibrary.general.permission.PermissionHelper;
-import com.rzm.commonlibrary.general.permission.PermissionSucceed;
-import com.rzm.commonlibrary.inject.BindViewId;
-import com.rzm.commonlibrary.inject.ViewBind;
 import com.rzm.commonlibrary.utils.LogUtils;
 
 import java.io.File;
@@ -45,7 +34,6 @@ public class TestActivity extends BaseSkinActivity {
     @Override
     protected void initView() {
 
-        startService(new Intent(getApplicationContext(),MessageService.class));
         mImage = (ImageView) findViewById(R.id.image);
         new StatusBarManager.builder(this)
                 .setTintType(StatusBarManager.TintType.PURECOLOR)
@@ -55,7 +43,6 @@ public class TestActivity extends BaseSkinActivity {
 
     }
 
-    @PermissionSucceed(requestCode = 111)
     public void onPermissionGranted(){
 
         //路径url参数都需要放到jni中，防止反编译被盗取到url
@@ -63,37 +50,7 @@ public class TestActivity extends BaseSkinActivity {
 
 
 
-        //数据库
-        final IDaoSupport<Person> dao = DaoSupportFactory.getFactory().getDao(Person.class);
-        //面向对象的六大思想，最少的知识原则
-        //dao.insert(new Person("rzm",26));
 
-        //批量插入测试
-        final List<Person> persons = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
-            persons.add(new Person("rzm",26+i));
-        }
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                long start = System.currentTimeMillis();
-                dao.insert(persons);
-                long end = System.currentTimeMillis();
-                LogUtils.d(TAG,"time ->"+(end - start));
-                //List<Person> query = dao.query();
-                List<Person> list = dao.querySupport().selection("age = ?").selectionArgs("33").query();
-                for (int i = 0; i < list.size(); i++) {
-                    LogUtils.e(TAG,"list ->"+list.get(i).getName()+","+list.get(i).getAge());
-                }
-
-                int delete = dao.delete("age=?", new String[]{"28"});
-                LogUtils.e(TAG,"delete ->>"+delete);
-                int haha = dao.update(new Person("haha", 28), "age=?", new String[]{"27"});
-                LogUtils.e(TAG,"delete ->>haha:"+haha);
-            }
-        }).start();
 
 
         /**

@@ -110,3 +110,82 @@ CommonNavigationBar navigationBar = new CommonNavigationBar.Builder(this)
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionHelper.requestPermissionsResult(this,requestCode,permissions,grantResults);
     }
+
+5.DaoSupport:
+
+    注意：目前DaoSupport的插入不支持去重复功能
+
+    //数据库初始化
+    dao = DaoSupportFactory.getFactory(this).getDao(Person.class);
+    //面向对象的六大思想，最少的知识原则
+    //dao.insert(new Person("rzm",26));
+
+    persons = new ArrayList<>();
+    for (int i = 0; i < 10000; i++) {
+        persons.add(new Person("rzm",26+i));
+    }
+
+    public void insert(View view) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final long start = System.currentTimeMillis();
+                dao.insert(persons);
+                final long end = System.currentTimeMillis();
+                LogUtils.d(TAG,"time ->"+(end - start));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"插入耗时："+(end - start),Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void query(View view) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<Person> list = dao.querySupport().selection("age = ?").selectionArgs("33").query();
+                for (int i = 0; i < list.size(); i++) {
+                    LogUtils.e(TAG,"list ->"+list.get(i).getName()+","+list.get(i).getAge());
+                }
+                final List<Person> allList = dao.querySupport().queryAll();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),"查询到"+allList.size()+"条数据"+33+"岁的人有"+list.size()+"个",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    public void update(View view) {
+        int update = dao.update(new Person("zmr", 33), "age=?", new String[]{"33"});
+        LogUtils.e(TAG,"delete ->>haha:"+update);
+
+        if (update > 0)
+            Toast.makeText(getApplicationContext(),"更新"+update+"条数据",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(),"更新失败",Toast.LENGTH_SHORT).show();
+    }
+
+    public void delete(View view) {
+        int delete = dao.delete("age=?", new String[]{"33"});
+        LogUtils.e(TAG,"delete ->>"+delete);
+        if (delete > 0)
+            Toast.makeText(getApplicationContext(),"删除"+delete+"条数据",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(),"删除失败",Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteAll(View view) {
+        int delete = dao.deleteAll();
+        LogUtils.e(TAG,"delete ->>"+delete);
+        if (delete > 0)
+            Toast.makeText(getApplicationContext(),"删除"+delete+"条数据",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getApplicationContext(),"删除失败",Toast.LENGTH_SHORT).show();
+    }

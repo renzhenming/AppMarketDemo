@@ -37,11 +37,6 @@
         <activity android:name=".test.TestProxyActivity" />
         <activity android:name=".test.TestCompressImageActivity" />
 
-        <service android:name=".test.MessageService">
-            <intent-filter>
-                <action android:name="com.renzhenming.getmessage" />
-            </intent-filter>
-        </service>
         <service
             android:name=".service.GuardService1"
             android:enabled="true"
@@ -88,10 +83,13 @@
         <activity android:name=".test.TestHttpUtilsActivity" />
         <activity android:name=".test.TestSlidingViewActivity" />
         <activity android:name=".test.TestIOCViewBindActivity" />
-        <activity android:name=".test.TestFixDexActivity"></activity>
-        <activity android:name=".test.TestCommonNavigationBarActivity">
+        <activity android:name=".test.TestFixDexActivity" />
+        <activity android:name=".test.TestCommonNavigationBarActivity" />
+        <activity android:name=".test.TestPermissionHelperActivity"></activity>
+        <activity android:name=".test.TestCommonDialogActivity">
+
         </activity>
-        <activity android:name=".test.TestPermissionHelperActivity">
+        <activity android:name=".test.TestDaoSupportActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

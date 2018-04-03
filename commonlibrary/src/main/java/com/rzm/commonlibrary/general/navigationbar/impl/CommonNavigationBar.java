@@ -1,4 +1,4 @@
-package com.rzm.commonlibrary.general.navigationbar;
+package com.rzm.commonlibrary.general.navigationbar.impl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rzm.commonlibrary.R;
+import com.rzm.commonlibrary.general.navigationbar.api.AbsNavigationBar;
 
 
 /**

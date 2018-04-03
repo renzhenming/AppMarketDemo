@@ -1,5 +1,6 @@
 package com.rzm.commonlibrary.general.db;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 
@@ -20,14 +21,16 @@ public class DaoSupportFactory {
 
     private static final String DB_DIR = "nhdz";
     private static final String DB_NAME = "nhdz.db";
-    private static DaoSupportFactory mFactory;
+    private static volatile DaoSupportFactory mFactory;
     private static SQLiteDatabase mSqliteDabase;
 
     //持有外部数据库的引用
-    private DaoSupportFactory(){
+    private DaoSupportFactory(Context context){
         //TODO 注意补充判断内存卡是否存在， 6.0 动态申请内存
         //把数据库放在内存卡
-        File dbRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+DB_DIR+File.separator+"database");
+        //File dbRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+DB_DIR+File.separator+"database");
+        File dbRoot = new File(context.getFilesDir()+File.separator+DB_DIR+File.separator+"database");
+
         if (!dbRoot.exists()){
             dbRoot.mkdirs();
         }
@@ -37,11 +40,11 @@ public class DaoSupportFactory {
         mSqliteDabase = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
     }
 
-    public static DaoSupportFactory getFactory(){
+    public static DaoSupportFactory getFactory(Context context){
         if (mFactory == null){
             synchronized (DaoSupportFactory.class){
                 if (mFactory == null){
-                    mFactory = new DaoSupportFactory();
+                    mFactory = new DaoSupportFactory(context);
                 }
             }
         }
