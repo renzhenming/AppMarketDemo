@@ -45,10 +45,6 @@ public class TestActivity extends BaseSkinActivity {
     @Override
     protected void initView() {
 
-        PermissionHelper.with(this).requestCode(111).requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE
-                ,Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }).request();
-
         startService(new Intent(getApplicationContext(),MessageService.class));
         mImage = (ImageView) findViewById(R.id.image);
         new StatusBarManager.builder(this)

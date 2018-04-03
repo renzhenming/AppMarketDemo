@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     // JobService权限
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -86,10 +87,11 @@
         <activity android:name=".test.TestAlphabetViewActivity" />
         <activity android:name=".test.TestHttpUtilsActivity" />
         <activity android:name=".test.TestSlidingViewActivity" />
-        <activity android:name=".test.TestIOCViewBindActivity"></activity>
-        <activity android:name=".test.TestFixDexActivity">
-        </activity>
+        <activity android:name=".test.TestIOCViewBindActivity" />
+        <activity android:name=".test.TestFixDexActivity"></activity>
         <activity android:name=".test.TestCommonNavigationBarActivity">
+        </activity>
+        <activity android:name=".test.TestPermissionHelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

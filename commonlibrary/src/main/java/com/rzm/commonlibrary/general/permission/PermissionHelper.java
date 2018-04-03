@@ -121,9 +121,10 @@ public class PermissionHelper {
     /**
      * 用户拒绝了权限但是没有永久拒绝（未勾选不再提醒）
      * @param object
+     * @param permission
      * @param requestCode
      */
-    private static void executeDeniedMethod(Object object, long requestCode) {
+    private static void executeDeniedMethod(Object object, String permission, long requestCode) {
         Method[] methods = object.getClass().getDeclaredMethods();
         for (Method method : methods) {
             PermissionDenied permissionFailed = method.getAnnotation(PermissionDenied.class);
@@ -133,7 +134,7 @@ public class PermissionHelper {
                     try {
                         // 反射执行方法  第一个是传该方法是属于哪个类   第二个参数是反射方法的参数
                         method.setAccessible(true);
-                        method.invoke(object, new Object[]{});
+                        method.invoke(object, new Object[]{permission});
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -146,9 +147,10 @@ public class PermissionHelper {
     /**
      * 用户拒绝了权限并且永久拒绝（勾选不再提醒）
      * @param object
+     * @param permission
      * @param requestCode
      */
-    private static void executePermanentDeniedMethod(Object object, long requestCode) {
+    private static void executePermanentDeniedMethod(Object object, String permission, long requestCode) {
         Method[] methods = object.getClass().getDeclaredMethods();
         for (Method method : methods) {
             PermissionPermanentDenied permissionPermanentDenied = method.getAnnotation(PermissionPermanentDenied.class);
@@ -158,7 +160,7 @@ public class PermissionHelper {
                     try {
                         // 反射执行方法  第一个是传该方法是属于哪个类   第二个参数是反射方法的参数
                         method.setAccessible(true);
-                        method.invoke(object, new Object[]{});
+                        method.invoke(object, new Object[]{permission});
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -201,10 +203,10 @@ public class PermissionHelper {
                     boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(getContext(object), permissions[i]);
                     if (showRequestPermission) {
                         //拒绝权限而没有选择不再提示
-                        executeDeniedMethod(object,requestCode);
+                        executeDeniedMethod(object,permissions[i],requestCode);
                     } else {
                         //拒绝权限并且选择了不再提示
-                        executePermanentDeniedMethod(object,requestCode);
+                        executePermanentDeniedMethod(object,permissions[i],requestCode);
                     }
                 }
             }
