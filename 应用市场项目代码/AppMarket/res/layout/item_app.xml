@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/selector_list_home"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/home_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_default" />
+
+            <TextView
+                android:id="@+id/home_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/home_image"
+                android:text="@string/home_app_name"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <RatingBar
+                android:id="@+id/home_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:isIndicator="true"
+                android:layout_below="@+id/home_name"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/home_image"
+                android:progressDrawable="@drawable/custom_rating_bar"
+                android:rating="2.5" />
+
+            <TextView
+                android:id="@+id/home_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_rating_bar"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/home_image"
+                android:text="19M"
+                android:textColor="#969696"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/home_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_download" />
+
+                <TextView
+                    android:id="@+id/home_download_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/home_download" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#cccccc" />
+
+        <TextView
+            android:id="@+id/home_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/home_app_des"
+            android:textColor="#969696" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- tab背景的按下颜色值 -->
+    <color name="bg_tab_pressed">#6633b5e5</color>
+    <!-- tab选中文字颜色 -->
+    <color name="tab_text_color_selected">#ff0084ff</color> 
+    <!-- 未选中文字颜色 -->
+    <color name="tab_text_color_normal">#ff737373</color> 
+</resources>

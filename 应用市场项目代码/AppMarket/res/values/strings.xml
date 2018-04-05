@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AppMarket</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <!-- tab条目内容 -->
+    <string-array name="main_tab_name">
+        <item>首页</item>
+        <item>应用</item>
+        <item>游戏</item>
+        <item>专题</item>
+        <item>推荐</item>
+        <item>分类</item>
+        <item>排行</item>
+    </string-array>
+
+    <string name="title_activity_demo">DemoActivity</string>
+    <!-- 下载按钮下的下载二字 -->
+    <string name="home_download">下载</string>
+    <!-- 应用的名字 -->
+    <string name="home_app_name">应用名</string>
+    <!-- 默认应用的描述信息 -->
+    <string name="home_app_des">有一天我故作深沉的来了一句：这人呐，上了年纪以后，精力越来越不行了……</string>
+    <string name="demo">标题</string>
+    <string name="title_activity_app_detail">AppDetailActivity</string>
+<string name="open">open</string>
+    <string name="close">close</string>
+
+</resources>

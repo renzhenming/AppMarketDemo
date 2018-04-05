@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ren="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/selector_list_home"
+        android:orientation="vertical" >
+
+        <com.example.appmarket.ui.view.RatioLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            ren:ratio="2.43"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp" >
+
+            <ImageView
+                android:id="@+id/subject_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/subject_default"
+                android:scaleType="centerCrop" />
+        </com.example.appmarket.ui.view.RatioLayout>
+
+        <TextView
+            android:id="@+id/subject_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/demo"
+            android:textColor="#969696"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>
