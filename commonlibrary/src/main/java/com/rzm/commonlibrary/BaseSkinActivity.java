@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
+import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.List;
  * tip : 永远在activity和BaseActivity中预留一层，用于未来迭代可能存在的扩展
  */
 
-public abstract class BaseSkinActivity extends BaseActivity implements ISkinChangeListener {
+public abstract class BaseSkinActivity extends BaseActivity implements ISkinChangeListener,LayoutInflater.Factory2 {
 
     private static final java.lang.String TAG = "BaseSkinActivity";
     private SkinAppCompatViewInflater mAppCompatViewInflater;
@@ -39,14 +40,14 @@ public abstract class BaseSkinActivity extends BaseActivity implements ISkinChan
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        //安卓源码，因为Factory只能设置一次，所以要判断一下
+        //安卓源码，仿照AppCompatActivity中onCreate方法的delegate.installViewFactory()方法设置Factory
+        // 这样就可以拦截到view的创建因为Factory只能设置一次，所以要判断一下
         if (layoutInflater.getFactory() == null) {
             LayoutInflaterCompat.setFactory2(layoutInflater, this);
         }
         super.onCreate(savedInstanceState);
 
     }
-
     /**
      * From {@link LayoutInflater.Factory2}.
      */
@@ -62,7 +63,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements ISkinChan
         if (view != null){
             LogUtils.e(TAG,view+"");
             //这行代码是为了添加上下文context，没有必要放在这里，只需要设置一次就好，可以放在application中
-            SkinManager.getInstance().init(this);
+            //SkinManager.getInstance().init(this);
             //获取一个view中的皮肤属性集合
             List<SkinAttr> skinAttrList = SkinAttrSupport.getSkinAttrs(context,attrs);
             //把每个view的属性集合封装进一个SkinView中
@@ -72,6 +73,7 @@ public abstract class BaseSkinActivity extends BaseActivity implements ISkinChan
         }
         return view;
     }
+
 
     /**
      * 统一管理SkinView
@@ -84,7 +86,8 @@ public abstract class BaseSkinActivity extends BaseActivity implements ISkinChan
         List<SkinView> skinViews = SkinManager.getInstance().getSkinViews(this);
         if (skinViews == null){
             skinViews = new ArrayList<>();
-            //还没有这个集合，就去注册进去，把这个list加入到Map中（map是一个以activity为key，以Skin View集合为value的总的存放所有activity的集合）
+            //还没有这个集合，就去注册进去，把这个list加入到Map中（map是一个以activity为key，
+            // 以Skin View集合为value的总的存放所有activity的集合）
             SkinManager.getInstance().register(skinViews,this);
         }
         //不断的将SkinView添加进去

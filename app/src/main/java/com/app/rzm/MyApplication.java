@@ -7,6 +7,7 @@ import com.rzm.commonlibrary.general.BaseApplication;
 import com.rzm.commonlibrary.general.http.base.HttpUtils;
 import com.rzm.commonlibrary.general.http.impl.cache.SPCacheEngine;
 import com.rzm.commonlibrary.general.http.impl.engine.okhttp.OkHttpEngine;
+import com.rzm.commonlibrary.general.skin.SkinManager;
 
 /**
  * Created by rzm on 2017/7/22.
@@ -25,7 +26,8 @@ public class MyApplication extends BaseApplication {
         //设置网络引擎
         HttpUtils.initHttpEngine(new OkHttpEngine());
         HttpUtils.initCacheEngine(new SPCacheEngine());
-
+        //初始化皮肤切换
+        SkinManager.getInstance().init(this);
 /*.initCacheEngine(new SPCacheEngine(this)*/
         //HttpCacheUtils.initHttpEngine(new SPCacheEngine(this));
 
