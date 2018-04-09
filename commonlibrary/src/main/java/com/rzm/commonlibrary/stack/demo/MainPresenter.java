@@ -21,14 +21,12 @@ public class MainPresenter extends BasePresenter<MainView> {
         mainModel.login(username, password, new MainView() {
             @Override
             public void onLoginSuccess(String result) {
-                if (getView()!= null)
-                    getView().onLoginSuccess(result);
+                getView().onLoginSuccess(result);
             }
 
             @Override
             public void onLoginFailed(String result) {
-                if (getView()!= null)
-                    getView().onLoginFailed(result);
+                getView().onLoginFailed(result);
             }
         });
     }
