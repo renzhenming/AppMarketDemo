@@ -111,7 +111,7 @@ int generateJPEG(BYTE *data, int w, int h, int quality,
 // java 什么思想  C就是什么思想
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_example_renzhenming_appmarket_utils_ImageUtil_compressBitmap(JNIEnv *env, jclass type,
+Java_com_app_rzm_utils_ImageUtil_compressBitmap(JNIEnv *env, jclass type,
                                                              jobject bitmap, jint quality,
                                                                  jstring fileNameStr) {
     // 1.获取Bitmap信息

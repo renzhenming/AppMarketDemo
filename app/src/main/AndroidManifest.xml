@@ -85,11 +85,12 @@
         <activity android:name=".test.TestIOCViewBindActivity" />
         <activity android:name=".test.TestFixDexActivity" />
         <activity android:name=".test.TestCommonNavigationBarActivity" />
-        <activity android:name=".test.TestPermissionHelperActivity"></activity>
-        <activity android:name=".test.TestCommonDialogActivity">
+        <activity android:name=".test.TestPermissionHelperActivity" />
+        <activity android:name=".test.TestCommonDialogActivity"></activity>
+        <activity android:name=".test.TestDaoSupportActivity">
 
         </activity>
-        <activity android:name=".test.TestDaoSupportActivity">
+        <activity android:name=".test.TestFFmpegActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
